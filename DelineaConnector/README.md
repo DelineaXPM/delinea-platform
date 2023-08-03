@@ -1,4 +1,11 @@
-# What is the Delinea Connector
+## Table of Contents
+
+- [What is the Delinea Connector](#what-is-the-delinea-connector)
+- [Installing the Delinea Connector from the Command Line](#installing-the-delinea-connector-from-the-command-line)
+- [Registering the Delinea Connector from the Command Line](#registering-the-delinea-connector-from-the-command-line)
+- [Automating Install and Registration of the Delinea Connector](#automating-install-and-registration-of-the-delinea-connector)
+
+## What is the Delinea Connector
 
 The Delinea Connector enables secure communication between the Delinea Platform
 and AD directories.
@@ -7,10 +14,10 @@ For additional information about the Connector and instructions on how to
 download it, please refer to the [available
 resources](https://docs.delinea.com/dp/current/connector).
 
-| **Required Permissions**: To install and register the Delinea Connector, you must be a local administrator on the machine where you are installing Delinea Connector, so that you can copy files to Program Files, set up Windows service, and write settings to registry. |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+> **_NOTE:_**  The required permissions to install and register the Delinea Connector, you must be a local administrator on the machine where you are installing Delinea Connector, so that you can copy files to Program Files, set up Windows service, and write settings to the registry.
 
-# Installing the Delinea Connector from the Command Line
+
+## Installing the Delinea Connector from the Command Line
 
 You can install a connector from a Windows PowerShell command line with the
 following command:
@@ -19,13 +26,14 @@ following command:
 PS C:\> .\delinea-connector-installer.exe /quiet
 ```
 
-# Registering the Delinea Connector from the Command Line
+## Registering the Delinea Connector from the Command Line
 
 After you have installed the connector, you can configure the connector from the
 command line, if desired.
 
-| Note: [Learn more](https://docs.delinea.com/dp/current/connector#to_create_a_new_registration_code) on how to create registration codes on Delinea Platform |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+> **_NOTE:_**  [Learn more](https://docs.delinea.com/dp/current/connector#to_create_a_new_registration_code) on how to create registration codes on Delinea Platform
+
 
 1.  Make sure that the connector is installed.
 
@@ -40,16 +48,15 @@ PS C:\> .\DelineaRegisterProxy.exe url=URL regcode=REGCODE
 
  Where:
 
-URL is your tenant URL. For example, https://example.delinea.app
-
-REGCODE is a valid connector registration code.
+ - URL is your tenant URL. For example, https://example.delinea.app
+ - REGCODE is a valid connector registration code.
 
 4.  Restart the Connector  
     ```powershell
     PS C:\> Restart-Service -Name delineaproxy
     ```
 
-# Automating Install and Registration of the Delinea Connector
+## Automating Install and Registration of the Delinea Connector
 
 The [example PowerShell script](https://github.com/DelineaXPM/delinea-platform/blob/ef04082750b21abf84edfaf6d25cae9d5396e42b/DelineaConnector/delinea-connector-install.ps1) is provided as-is without any warranties.
 
