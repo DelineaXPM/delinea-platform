@@ -16,7 +16,7 @@ You can install a connector from a Windows PowerShell command line with the
 following command:
 
 ```powershell
-PS C:\> .\\delinea-connector-installer.exe /quiet
+PS C:\> .\delinea-connector-installer.exe /quiet
 ```
 
 # Registering the Delinea Connector from the Command Line
@@ -35,7 +35,7 @@ command line, if desired.
     Platform
 
 ```powershell
-PS C:\> .\\DelineaRegisterProxy.exe url=URL regcode=REGCODE
+PS C:\> .\DelineaRegisterProxy.exe url=URL regcode=REGCODE
 ```
 
  Where:
