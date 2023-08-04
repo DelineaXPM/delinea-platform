@@ -14,7 +14,7 @@ For additional information about the Connector and instructions on how to
 download it, please refer to the [available
 resources](https://docs.delinea.com/dp/current/connector).
 
-> **_NOTE:_**  The required permissions to install and register the Delinea Connector, you must be a local administrator on the machine where you are installing Delinea Connector, so that you can copy files to Program Files, set up Windows service, and write settings to the registry.
+> **_NOTE:_**  For the required permissions to install and register the Delinea Connector, you must be a local administrator on the machine where you are installing Delinea Connector, so that you can copy files to Program Files, set up Windows service, and write settings to the registry.
 
 
 ## Installing the Delinea Connector from the Command Line
@@ -61,7 +61,7 @@ PS C:\> .\DelineaRegisterProxy.exe url=URL regcode=REGCODE
 The [example PowerShell script](https://github.com/DelineaXPM/delinea-platform/blob/ef04082750b21abf84edfaf6d25cae9d5396e42b/DelineaConnector/delinea-connector-install.ps1) is provided as-is without any warranties.
 
 Save the script as .ps1 file and then run it using PowerShell. The Connector
-will be installed silently and will register with the Delinea Platform
+will be installed silently and will register with the Delinea Platform.
 
 Ensure to replace any variables within the script to suit your environment.
 
