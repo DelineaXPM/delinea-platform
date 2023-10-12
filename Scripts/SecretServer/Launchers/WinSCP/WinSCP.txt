@@ -1,0 +1,10 @@
+WinSCP
+
+ProcessName:		 "C:\Program Files (x86)\WinSCP\WinSCP.exe"
+
+Process Arguments:  	 "scp://$USERNAME:$PASSWORD@$MACHINE
+
+
+PS: WinSCP application must be installed in the above directory. 
+
+Cagdas BARAK - Delinea

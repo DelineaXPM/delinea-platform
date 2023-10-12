@@ -1,0 +1,11 @@
+PSQL Developer
+
+ProcessName:		 "C:\Program Files\pgAdmin 4\v6\runtime\psql.exe"
+
+Process Arguments:  	 "host=$SERVER port=$PORT dbname=$DATABASE user=$USERNAME password=$PASSWORD" 	
+
+
+PS: PSQL Developer application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea

@@ -1,0 +1,10 @@
+FileZilla
+
+ProcessName:		 "C:\Program Files\FileZilla FTP Client\filezilla.exe"
+
+Process Arguments:  	 "sftp://$Username:$Password@$Machine"
+
+
+PS: Filezilla application must be installed in the above directory. 
+
+Cagdas BARAK - Delinea

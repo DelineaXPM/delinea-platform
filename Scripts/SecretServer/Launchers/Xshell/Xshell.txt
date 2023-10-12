@@ -1,0 +1,11 @@
+Xshell
+
+ProcessName:		 "C:\Program Files (x86)\NetSarang\Xshell 7"
+
+Process Arguments:  	 -url ssh://$USERNAME:$PASSWORD@$MACHINE
+
+
+PS: Xshell application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea 

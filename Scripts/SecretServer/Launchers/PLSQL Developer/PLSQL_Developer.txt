@@ -1,0 +1,11 @@
+PLSQL Developer
+
+ProcessName:		 "C:\Program Files\PLSQL Developer 15\PLSQLDev.exe"
+
+Process Arguments:  	  userid=$Username/$Password@$Server:$Port/$Database
+
+
+PS: PLSQL Developer application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea

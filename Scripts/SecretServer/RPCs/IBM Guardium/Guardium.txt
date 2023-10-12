@@ -1,0 +1,9 @@
+IBM Guardium
+
+Order	Command			Comment			Pause(ms)
+1 	store user password 	Password Command 		10000
+2 	$CURRENTPASSWORD 		Current Password 		2000
+3 	$NEWPASSWORD 		New Password 		2000
+4 	$NEWPASSWORD 		Confirmed Password 	2000
+
+Cagdas BARAK - Delinea

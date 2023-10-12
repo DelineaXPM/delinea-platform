@@ -1,0 +1,11 @@
+DBeaver For PostgreSQL
+
+ProcessName:		 "C:\Program Files\DBeaver\dbeaver.exe"
+
+Process Arguments:  	 -con "driver=PostgreSQL|host=$SERVER|database=$DATABASE|port=$PORT|user=$USERNAME|password=$PASSWORD"
+
+
+PS: DBeaver application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea

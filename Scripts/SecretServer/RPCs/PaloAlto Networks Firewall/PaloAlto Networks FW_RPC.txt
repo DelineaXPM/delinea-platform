@@ -1,0 +1,10 @@
+PaloAlto Networks - Firewall
+
+Order	Command						Comment							Pause(ms)
+1 	configure 						configure 							2000
+2 	set mgt-config users $USERNAME password 	set mgt-config users $USERNAME password 		2000
+3 	$NEWPASSWORD 					New Password 						2000
+4 	$NEWPASSWORD 					Confirmed Password 					2000
+5 	commit 						commit 							5000
+
+Cagdas BARAK - Delinea

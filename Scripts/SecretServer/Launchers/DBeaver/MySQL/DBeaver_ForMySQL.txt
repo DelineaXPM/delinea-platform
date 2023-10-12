@@ -1,0 +1,11 @@
+DBeaver For MySQL
+
+ProcessName:		 "C:\Program Files\DBeaver\dbeaver.exe"
+
+Process Arguments:  	 -con "driver=mysql|host=$SERVER|port=$PORT|user=$USERNAME|password=$PASSWORD"
+
+
+PS: DBeaver application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea
