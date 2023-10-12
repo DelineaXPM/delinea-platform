@@ -1,0 +1,10 @@
+SAP
+
+ProcessName:		  powershell.exe 
+
+Process Arguments:  	  -WindowStyle Hidden Start-Process -wait -FilePath 'C:\Program Files (x86)\SAP\FrontEnd\SAPgui\sapshcut.exe' -ArgumentList '-sid=$SYSTEM ID -clt=$CLIENT NUMBER -u=$USERNAME -pw=$PASSWORD' 
+
+
+PS: SAP application must be installed in the above directory. 
+
+Cagdas BARAK - Delinea

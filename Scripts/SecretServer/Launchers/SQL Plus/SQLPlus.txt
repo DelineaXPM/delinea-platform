@@ -1,0 +1,11 @@
+SQL Plus
+
+ProcessName:		 sqlplus.exe
+
+Process Arguments:  	 $username/$password@$Server:1522/$database
+
+
+PS: SQL Plus application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea

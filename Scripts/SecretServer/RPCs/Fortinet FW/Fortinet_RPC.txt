@@ -1,0 +1,11 @@
+Fortinet - Fortigate Firewall
+
+
+Order	Command				Comment				Pause(ms)	 
+1 	config global 			config global 			2000
+2 	config system admin 		config system admin 		2000
+3 	edit $USERNAME 			edit $USERNAME 			2000
+4 	set password $NEWPASSWORD 	set password $NEWPASSWORD 	2000
+5 	end 					end 					2000
+
+Cagdas BARAK - Delinea

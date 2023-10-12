@@ -1,0 +1,11 @@
+UltraVNC
+
+ProcessName:		 C:\Program Files\uvnc bvba\UltraVNC\vncviewer.exe
+
+Process Arguments:  	 /user $USERNAME /password $PASSWORD -connect $MACHINE 
+
+
+PS: UltraVNC application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea

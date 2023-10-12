@@ -1,0 +1,12 @@
+SecureCRT
+
+ProcessName:		 C:\Program Files\VanDyke Software\SecureCRT\SecureCRT.exe
+
+Process Arguments:  	 /T /SSH2 /AUTH password /L $USERNAME /PASSWORD $PASSWORD $MACHINE
+
+
+PS: SecureCRT application must be installed in the above directory. 
+
+Cagdas BARAK - Delinea
+
+

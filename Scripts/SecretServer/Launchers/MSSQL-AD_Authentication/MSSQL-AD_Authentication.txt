@@ -1,0 +1,12 @@
+MSSQL Management Studio - Active Directory Account
+
+ProcessName:		 C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.exe 
+
+Process Arguments:  	 -S $server -E
+
+
+PS: MS SQL Management Studio application must be installed in the above directory. Connection with Active Directory account required 
+
+Cagdas BARAK - Delinea
+
+

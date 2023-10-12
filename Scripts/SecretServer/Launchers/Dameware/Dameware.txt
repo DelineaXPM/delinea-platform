@@ -1,0 +1,11 @@
+Dameware - DWRCC
+
+ProcessName:		 "C:\Program Files\SolarWinds\Dameware Mini Remote Control x64\DWRCC.exe"
+
+Process Arguments:  	 -c: -h: -a:1 -m:$MACHINE -u:$USERNAME -p:$PASSWORD -d:$DOMAIN
+
+
+PS: Dameware application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea 

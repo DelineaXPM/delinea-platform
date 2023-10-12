@@ -1,0 +1,10 @@
+TOAD
+
+ProcessName:		 "C:\Program Files\Quest Software\Toad for Oracle Subscription\toad.exe"
+
+Process Arguments:  	 -c $Username/$Password@$Server:$Port/$Database
+
+
+PS: TOAD application must be installed in the above directory. 
+
+Cagdas BARAK - Delinea

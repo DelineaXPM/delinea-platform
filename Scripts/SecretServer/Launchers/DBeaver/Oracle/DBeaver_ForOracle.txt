@@ -1,0 +1,11 @@
+DBeaver For Oracle
+
+ProcessName:		 "C:\Program Files\DBeaver\dbeaver.exe"
+
+Process Arguments:  	 -con "driver=Oracle|host=$SERVER|port=$PORT|database=$DATABASE|user=$USERNAME|password=$PASSWORD"
+
+
+PS: DBeaver application must be installed in the above directory. 
+
+
+Cagdas BARAK - Delinea
