@@ -1,6 +1,6 @@
 ### 🛠 Changes being made
 
-Here give examples of the changes you've made in this pull request. Include an itemized list if you can. It'll help the reviewer
+Give an overview of the submission and the use cases that you are addressing. Include and itemized list if you can
 
 
 ### 🏎 Quality check
