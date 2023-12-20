@@ -1,9 +1,0 @@
-Active Directory Users And Computers
-
-ProcessName:		 powershell.exe
-
-Process Arguments:  	 -noprofile -executionpolicy bypass -windowstyle hidden -command cmd.exe -ArgumentList “/c dsa.msc”
-
-
-
-Cagdas BARAK - Delinea
