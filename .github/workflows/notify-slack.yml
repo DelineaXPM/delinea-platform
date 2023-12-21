@@ -14,7 +14,7 @@ jobs:
       - name: Check if "Should this be added to Delinea Marketplace?" is checked
         id: check_checkbox
         run: |
-          checked=$(grep -c '\[x\] Should this be added to Delinea Marketplace?' ${{ github.event.before }}..${{ github.sha }} || true)
+          checked=$(grep -c '\[x\] Should this be added to Delinea Marketplace?' main..${{ github.sha }} || true)
           echo "CHECKED=$checked" >> $GITHUB_ENV
 
       - name: Notify Slack
