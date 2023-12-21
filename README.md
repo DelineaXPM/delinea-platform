@@ -48,10 +48,3 @@ The content (scripts, documentation, examples) included in this repository is no
  :link: https://delinea.com/
  
  :email: GitHub@Delinea.com
-
-
-
-
-
-
-
