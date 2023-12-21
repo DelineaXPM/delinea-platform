@@ -8,6 +8,7 @@ on:
 
 env:
   checkbox: "should this be added to delinea marketplace?"
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
 jobs:
   notify:
