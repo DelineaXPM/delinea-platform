@@ -22,7 +22,7 @@ jobs:
           UNCHECKED="\[ \] $checkbox"
           MARKED="\[x\] $checkbox"
           if echo ${BODY,,} | grep -q "$MARKED"; then
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"New PR: ${{ github.event.pull_request.title }} by ${{ github.actor }}"}' "$SLACK_WEBHOOK_URL"
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"New PR: [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }}) by ${{ github.actor }}"}' "$SLACK_WEBHOOK_URL"
             exit 0
           elif echo ${BODY,,} | grep -q "$UNCHECKED"; then
             echo "Checkbox is not checked"
