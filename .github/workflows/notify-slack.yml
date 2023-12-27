@@ -3,8 +3,7 @@ name: Check pull request description checkbox and send notify to Slack
 on:
   pull_request:
     types:
-      - opened
-      - synchronize
+      - closed
 
 env:
   checkbox: "should this be added to delinea marketplace?"
