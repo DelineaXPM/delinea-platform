@@ -1,4 +1,4 @@
- # AWS Connector Overview
+ # AWS Connector Base Instructions
 
 This connectore provides the following functions  
 
