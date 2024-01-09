@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-16"?>
+<secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>AzureAD/EntraID Privileged Account</name>
+  <active>true</active>
+  <fields>
+    <field isexpirationfield="false">
+      <displayname>tenant-id</displayname>
+      <description>this is the id of the Azure/EntraId organization</description>
+      <name>tenant-id</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>true</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>true</required>
+      <fieldslugname>tenant-id</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Application-Id</displayname>
+      <description>EntraID Application Registration Id</description>
+      <name>Application-Id</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>true</required>
+      <fieldslugname>Application-Id</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Client-Secret</displayname>
+      <description>Client Secret for The ServiceNow API Application</description>
+      <name>Client-Secret</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>true</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>true</required>
+      <fieldslugname>client-secret</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Admin-Roles</displayname>
+      <description>The row IDs listed here will be used to determine accounts that are Admins in the tenant.</description>
+      <name>Admin-Roles</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>true</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>admin-roles</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Service-Account-Group-Ids</displayname>
+      <description>Accounts that are part of these groups will be identified as service accounts</description>
+      <name>Service-Account-Group-Ids</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>true</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>service-account-group-ids</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Local-Account-Group-Ids</displayname>
+      <description />
+      <name>Local-Account-Group-Ids</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>true</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>local-account-group-ids</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+  </fields>
+  <expirationdays>0</expirationdays>
+  <secretnamehistorylength>0</secretnamehistorylength>
+  <imageclass>fa-cogs</imageclass>
+  <onetimepasswordenabled xsi:nil="true" />
+  <onetimepasswordcodelength xsi:nil="true" />
+  <onetimepassworddurationseconds xsi:nil="true" />
+  <onetimepasswordhashmode xsi:nil="true" />
+  <validatepasswordrequirementsoncreate>false</validatepasswordrequirementsoncreate>
+  <validatepasswordrequirementsonedit>false</validatepasswordrequirementsonedit>
+  <permissions />
+</secrettype>
