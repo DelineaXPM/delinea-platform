@@ -1,10 +1,11 @@
  SalesForce Connector Overview
 
-This connectore provides the following functions  
+This connector provides the following functions  
 
 - Discovery of Local Accounts
-- Remote Password Changing ServiceNow uiusers
-- Heartbeats Comming by end of 1st quarter) to verify that user credentials are still valid
+- Remote Password Changing Salesforce users
+- Heartbeats Coming by end of 1st quarter) to verify that user credentials are still valid
+  
   For a tempoirary simulated Heartbeat process Please contact Delinea Account Manager to possible rngae Professional Services
 
 Follow the Steps below to complete the base setup for the Connector
