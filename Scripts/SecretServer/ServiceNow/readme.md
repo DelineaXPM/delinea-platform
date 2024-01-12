@@ -2,7 +2,7 @@
 
   
 
-This package is designed to discover and Manage Servicenow User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of teh specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [Here](./Overview.md)
+This package is designed to discover and Manage Servicenow User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of teh specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [Here](./Instructions.md)
 
   
 

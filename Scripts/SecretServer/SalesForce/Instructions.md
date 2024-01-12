@@ -92,7 +92,7 @@ Perform Requests at Anytime
 
   
 
-For more information on Connected Apps you can click [Here](https://salesforce.stackexchange.com/questions/40346/where-do-i-find-the-client-id-and-client-secret-of-an-existing-connected-app) pr contact your SalesFore Supprt Team
+For more information on Connected Apps you can click [Here](https://salesforce.stackexchange.com/questions/40346/where-do-i-find-the-client-id-and-client-secret-of-an-existing-connected-app) or contact your SalesFore Supprt Team
 
   
   

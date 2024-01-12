@@ -16,9 +16,9 @@ This connector utilizes a Service Account alond with its Access Key and Secret. 
 - Installation of AWS Tools PowerShell module intsall on all Secret Server Distributed Engines.  For more information on AWS Tools click[here](https://www.powershellgallery.com/packages/AWS.Tools.IdentityManagement/4.1.483)
 
 ## Create AWS Service Account
-- Cunsult your AWS Administrator to c reate a user to be used as the Service Account.
+- Cunsult your AWS Administrator to create a user to be used as the Service Account.
 - Document the Accesss Key and Secret Key.  
-- Assign the persions detailed in the [Prereuisites Section](#prerequisites)
+- Assign the persions detailed in the [Prerequisites Section](#prerequisites)
 
 
 
