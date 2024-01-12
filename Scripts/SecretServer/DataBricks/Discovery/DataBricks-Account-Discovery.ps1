@@ -1,4 +1,4 @@
-$args = @("https://adb-7457224008350131.11.azuredatabricks.net","ec19d800-3d24-4727-bbdc-670e23d17710", "dose30200131096defda810006f5e0a45ff6" ,"admins","TargetGroup3,TargetGroup2","thycoticproservices.onmicrosoft.com")
+
 
 #region define variables
 #Define Argument Variables
@@ -17,8 +17,7 @@ $localDomainsArray = $localDomains.Split(",")
 #Define Script Constants
 [string]$scope = "all-apis"
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\DataBricks-Connector.log"
-[string]$LogFile = "c:\temp\DataBricksDiscovery.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Databricks User Discovery"
 #endregion
 

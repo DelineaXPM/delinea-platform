@@ -1,7 +1,7 @@
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # Expected Args = @("Instance URL", "Okta Username","Okta User Password") 
-$args = @("dev-86659676.okta.com","testuser03@thycotic.blue","H#@iZzausdg!")
+
 
 #region define variables
 #Define Argument Variables
@@ -14,7 +14,6 @@ $args = @("dev-86659676.okta.com","testuser03@thycotic.blue","H#@iZzausdg!")
 #Script Constants
 
 [string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Okta-Integration.log"
-[string]$LogFile = "c:\temp\Okta-Integration.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Okta Heartbeat"
 #endregion
