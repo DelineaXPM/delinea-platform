@@ -1,4 +1,4 @@
-# Slack Connector Overview
+# Slack Connector Core Configuration
 
 This connectore provides the following functions  
 
@@ -68,7 +68,7 @@ The following steps are required to create the Secret Template for Slack Discove
     - Secret Name (for example Slack API Account )
     - Workspace Name
     - workspace-url (Slack base workspace url with no trailing slash)
-- The following field values are as created in the [Create an OAuth Application Registry](../Instructions.md/#create-an-oauth-application-registry) Section
+- The following field values are as created in the [Create an OAuth Application Registry](#create-an-oauth-application-registry) Section
     - OAuthToken
     - admin-roles
     - svcacct-roles
