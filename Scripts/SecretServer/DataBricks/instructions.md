@@ -23,7 +23,7 @@ Follow the Steps below to complete the base setup for this integration. These st
 
   
 
-## Creating secret templates for EntraID Accounts
+## Creating secret templates for Databricks Accounts
 
   
 
@@ -63,7 +63,7 @@ The following steps are required to create the secret template for the applicati
 
 - Click on Create / Import Template
 
-- Copy and Paste the XML in the [Databricks Privileged Account.xml File](./Templates/Databricks%20Privileged%20Account.xml)
+- Copy and Paste the XML in the [Databricks Privileged Account.xml File](./templates/Databricks%20Privileged%20Account.xml)
 
 - Click on Save
 
@@ -71,7 +71,7 @@ The following steps are required to create the secret template for the applicati
 
   
 
-## Create secret in Secret Server for the Databrikcs Privileged Account
+## Create secret in Secret Server for the Databricks Privileged Account
 
 - Log in to the Delinea Secret Server
 
@@ -83,7 +83,7 @@ The following steps are required to create the secret template for the applicati
 
 - Fill out the required fields with the information from the application registration
 
-- Secret Name (for example Databrikcs Privileged Account)
+- Secret Name (for example Databricks Privileged Account)
 
 - Tenant-URL (The URL of your Azure Databricks workspace.)
 
@@ -91,7 +91,7 @@ The following steps are required to create the secret template for the applicati
 
 - Client Secret: Your DataBricks Oauth2 secret that was mapped to the Entra ID app.
 
-- Admin-Criteria - hese are the Groups that will be used to identify an admin user in Databricks. These groups need to be comma separated of the Group Name.
+- Admin-Criteria - These are the Groups that will be used to identify an admin user in Databricks. These groups need to be comma separated of the Group Name.
 
 Examples:
 
@@ -101,7 +101,7 @@ Examples:
 
 - SVC-Account-Criteria - These are the Groups that will be used to identify a Services
 
-Account User in Databrikcs. These groups need to be Comma separated group names.
+Account User in Databricks. These groups need to be Comma separated group names.
 
   
 

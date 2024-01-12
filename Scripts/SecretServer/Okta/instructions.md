@@ -187,4 +187,4 @@ CustomAttribute=Service
 
   
 
-Once the tasks above are completed you can now proceed to Create a [Discovery Scanner](./Discovery/readme.md) and/or a [Remote Password Changer](./Remote%20Password%20Changer/readme.md)
+Once the tasks above are completed you can now proceed to Create a [Discovery Scanner](./Discovery/readme.md) and/or a [Remote Password Changer](./Remote%20Password%20Changing//readme.md
