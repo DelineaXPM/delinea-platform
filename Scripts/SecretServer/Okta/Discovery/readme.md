@@ -1,8 +1,6 @@
 # Okta Local Account Discovery
 
-Add Disclaimer
-
-  
+ 
 
 ## Create Discovery Source
 
