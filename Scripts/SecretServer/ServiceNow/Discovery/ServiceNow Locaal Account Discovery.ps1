@@ -24,7 +24,6 @@ Add-Content -Path "c:\temp\snoq.txt" -Value $value
 
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Discovery.log"
-[string]$LogFile = "c:\temp\ServiceNow-Discovery.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "ServiceNow Discovery"
 [string]$scope = "useraccount"

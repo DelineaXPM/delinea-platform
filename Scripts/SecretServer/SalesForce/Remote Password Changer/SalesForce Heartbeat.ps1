@@ -1,6 +1,6 @@
 #Expected Argumnts @("Privileged User Name","Privileged User Password", "Instance URL", "SF Client iD","clientSecret" , "Secret Server Admin User Domain","Secret Server Admin User",Secret Server Admin Password","New Password"  )
 
-$args = @("admin@blue.com","C0lb!3Y0ung47","https://delinea6-dev-ed.develop.my.salesforce.com","3MVG9Xl3BC6VHB.ZLyfZKb0Jasih5obkPHuF8E3MYeRPttN3lO.VSO3PUU8.jF165HSSV.zuDZEFLg_JECAr6","3BFDA3D0B54B80EFAE72A42F480BB8B413E36A95EBC806B6B47EA4881AC81136")
+
 $username = $args[0] #SFDC Integration Account
 $password = $args[1]  #SFDC Integration Account Password
 $baseUrl = $args[2]

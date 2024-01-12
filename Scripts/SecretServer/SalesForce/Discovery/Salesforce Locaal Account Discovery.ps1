@@ -1,6 +1,6 @@
 #Expected Argumnts @("Privileged User Name","Privileged User Password", "Instance URL", "SF Client iD","clientSecret" , "admin Role Profiles","Service account Profiles"  )
 [Net.ServicePointManager]::SecurityProtocol =[Net.SecurityProtocolType]::Tls12
-$args = @("rroca66@delinea.com","@ndz3srsL3327", "https://delinea6-dev-ed.develop.my.salesforce.com", "3MVG9Xl3BC6VHB.ZLyfZKb0Jasih5obkPHuF8E3MYeRPttN3lO.VSO3PUU8.jF165HSSV.zuDZEFLg_JECAr6", "3BFDA3D0B54B80EFAE72A42F480BB8B413E36A95EBC806B6B47EA4881AC81136","System Administrator","Analytics Cloud Security User Role,Salesforce API Only System Integrations" )
+
 
 #region Set Paramaters and Vaeiables
 $baseUrl = $args[2]
@@ -20,7 +20,6 @@ $global:results = @()
 #Script Constants
 
 [string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Password_Rotate.log"
-[string]$LogFile = "c:\temp\Salesforce.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Salesforce Password Change"
 $foundAccounts = @()

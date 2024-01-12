@@ -18,8 +18,7 @@
 
 # Expected Argd args=@("Discovery Mode Advanced/Default"Service Now Tenenant Base URL",SNOW Priovileged Username","SNOW Priovileged Password",""SNOW Client ID","SNOW Client Secret" ,"Private Key" ,"Admin Role ID","Local Group ID"  )
 
-#$args = @("https://authteam02904.service-now.com","RickRoca","@nd3rsL3327","19fc7a85c956f9105961247b8a697b3c","Password1","admin=2831a114c611228501d4ea6c309d626d,Knowledge Admin=1f26da36c0a8016b000c7f06a1ce7e14","App Engine Admins=c38f00f4530360100999ddeeff7b1298","")
-$args = @("Advanced","https://authteam02904.service-now.com", "rickroca", "@nd3rsL3327", "19fc7a85c956f9105961247b8a697b3c", "Password1", "admin=2831a114c611228501d4ea6c309d626d", "App Engine Admins=c38f00f4530360100999ddeeff7b1298", "")
+
 #region define variables
 #Define Argument Variables
 
@@ -44,8 +43,7 @@ Add-Content -Path "c:\temp\snoq.txt" -Value $value
 
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Discovery.log"
-[string]$LogFile = "c:\temp\ServiceNow-Discovery.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "ServiceNow Discovery"
 [string]$scope = "useraccount"
 #endregion
