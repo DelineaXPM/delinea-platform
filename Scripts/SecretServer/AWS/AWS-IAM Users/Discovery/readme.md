@@ -6,7 +6,7 @@ Add Disclaimer
 
   
 
-This scanner can help perform an Scan for Windows Systems based off an IP address range.
+This scanner can help perform a Windows Systems Scan based on an IP address range.
 
   
 
@@ -22,7 +22,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Fill out the required fields with the information
 
--  **Nmae:** (Evxample: AWS Tenant)
+-  **Name:** (Example: AWS Tenant)
 
 -  **Active:** (Checked)
 
@@ -52,7 +52,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Fill out the required fields with the information
 
--  **Nmae:** (Evxample: AWS IAM User)
+-  **Name:** (Example: AWS IAM User)
 
 -  **Active:** (Checked)
 
@@ -86,9 +86,9 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Fill out the required fields with the information from the application registration
 
-- Name: ( example -AWS IAM User Scaner)
+- Name: ( example -AWS IAM User Scanner)
 
-- Description: (Enter something meaningful to your Orgabization)
+- Description: (Enter something meaningful to your Organization)
 
 - Active: (Checked)
 
@@ -131,7 +131,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 -  **Input Template**: Manual Input Discovery
 
--  **Output Template:**: AWS Tenant (Use Temaplte that Was Created in the [SaaS Scan Template Section](#create-aws-tenant-scan-template
+-  **Output Template:**: AWS Tenant (Use the Template that Was created in the [SaaS Scan Template Section](#create-aws-tenant-scan-template
 
 - Click Save
 
@@ -161,15 +161,15 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 -  **Base Scanner:** PowerShell Discovery Create Discovery Script
 
--  **Input Template**: AWS Tenant (Use Temaplte that Was Created in the [AWS Tenant Scan Template Section](#create-aws-tenant-scan-template))
+-  **Input Template**: AWS Tenant (Use the Template that Was Created in the [AWS Tenant Scan Template Section](#create-aws-tenant-scan-template))
 
--  **Output Template:**: AWS IAM User (Use Temaplte that Was Created in the [AWS IAM Usert Scan Template Section](#create-account-scan-template))
+-  **Output Template:**: AWS IAM User (Use the Template that Was Created in the [AWS IAM Usert Scan Template Section](#create-account-scan-template))
 
--  **Script:** ServiceNow Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+-  **Script:** AWS Local Account Scanner (Use the Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
 -  **Script Arguments:**
 
-``` powershell
+``` PowerShell
 
 "IAMUser-Advanced" $[1]$AccessKey $[1]$SecretKey $[1]$Admin-Criteria $[1]$SVC-Account-Criteria
 
@@ -177,7 +177,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Click Save
 
-- This completes the creation of the ServiceNow Account Scanner
+- This completes the creation of the AWS Account Scanner
 
   
 
@@ -205,9 +205,9 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Click **Add Scanner**
 
-- Find the AWS Tenant Scanner or the Scanner Creatted in the [Create AWS Tenant Scanner Section](#create-aws-tenant-scanner) and Click **Add Scanner**
+- Find the AWS Tenant Scanner or the Scanner created in the [Create AWS Tenant Scanner Section](#create-aws-tenant-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just completed and Click **Edit Scanner**
 
 - In the **lines Parse Format** Section Enter the Source Name (example: AWS Tenant)
 
@@ -217,9 +217,9 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Local Account Scanner or the Scanner Creatted in the [Create SWS IAM User Scanner Section](#create-aws-iam-user-scanner) and Click **Add Scanner**
+- Find the AWS Local Account Scanner or the Scanner created in the [Create SWS IAM User Scanner Section](#create-aws-iam-user-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just completed and Click **Edit Scanner**
 
 - Click **Edit Scanner**
 
@@ -227,17 +227,17 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Search for the AWS Service Account Secret created in the [instructions.md file](../Instructions.md)
 
-- Check the Use Site Run As Secret Check box to enable it
+- Check the Use Site Run-As Secret Check box to enable it
 
-**Note Default Site run as Secret had to ne setup in the Site configuration.
+**Note Default Site run as Secret has to be set up in the Site configuration.
 
 See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
 
 - Click Save
 
-- Click on the Discovery Source yab and Click the Active check box
+- Click on the Discovery Source tab and Click the Active check box
 
-- This completes the creation of theDiscovery Source
+- This completes the creation of the discovery Source
 
   
   
@@ -254,7 +254,7 @@ The AWS configuration is now complete. The next step is to run a manual discover
 
 - Click on **Network view**
 
-- Find the newly cretaed discocvery source and Users
+- Find the newly created discovery source and Users
 
   
 
@@ -262,7 +262,7 @@ The AWS configuration is now complete. The next step is to run a manual discover
 
   
 
-In this section, There are instructions on how to create an optional report to display user information found in the discovery.
+In this section, There are instructions on creating an optional report to display user information found in the discovery.
 
   
 
