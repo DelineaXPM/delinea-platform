@@ -1,0 +1,130 @@
+<secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<name>Adobe Sign Account</name>
+<active>true</active>
+<fields>
+<field isexpirationfield="false">
+<displayname>Tenant-url</displayname>
+<description>Tenant-url</description>
+<name>Tenant-url</name>
+<mustencrypt>true</mustencrypt>
+<isurl>false</isurl>
+<ispassword>false</ispassword>
+<isnotes>false</isnotes>
+<listtype/>
+<isfile>false</isfile>
+<passwordcharacterset/>
+<passwordlength>-1</passwordlength>
+<historylength>2147483647</historylength>
+<isindexable>false</isindexable>
+<editablepermission>2</editablepermission>
+<required>false</required>
+<fieldslugname>tenant-url</fieldslugname>
+<hideonview>false</hideonview>
+</field>
+<field isexpirationfield="false">
+<displayname>email</displayname>
+<description>The name associated with the password.</description>
+<name>email</name>
+<mustencrypt>true</mustencrypt>
+<isurl>false</isurl>
+<ispassword>false</ispassword>
+<isnotes>false</isnotes>
+<listtype/>
+<isfile>false</isfile>
+<passwordcharacterset/>
+<passwordlength>-1</passwordlength>
+<historylength>2147483647</historylength>
+<isindexable>false</isindexable>
+<editablepermission>2</editablepermission>
+<required>false</required>
+<fieldslugname>email</fieldslugname>
+<hideonview>false</hideonview>
+</field>
+<field isexpirationfield="true">
+<displayname>Password</displayname>
+<description>The password used to access Information</description>
+<name>Password</name>
+<mustencrypt>true</mustencrypt>
+<isurl>false</isurl>
+<ispassword>true</ispassword>
+<isnotes>false</isnotes>
+<listtype/>
+<isfile>false</isfile>
+<passwordcharacterset/>
+<passwordlength>-1</passwordlength>
+<historylength>2147483647</historylength>
+<isindexable>false</isindexable>
+<editablepermission>2</editablepermission>
+<required>false</required>
+<fieldslugname>password</fieldslugname>
+<hideonview>false</hideonview>
+</field>
+<field isexpirationfield="false">
+<displayname>Account-Admin</displayname>
+<description>Determines if the User is a Account Admin as per the discovery Criteria</description>
+<name>Account-Admin</name>
+<mustencrypt>true</mustencrypt>
+<isurl>false</isurl>
+<ispassword>false</ispassword>
+<isnotes>false</isnotes>
+<listtype/>
+<isfile>false</isfile>
+<passwordcharacterset/>
+<passwordlength>-1</passwordlength>
+<historylength>2147483647</historylength>
+<isindexable>false</isindexable>
+<editablepermission>2</editablepermission>
+<required>false</required>
+<fieldslugname>account-admin</fieldslugname>
+<hideonview>false</hideonview>
+</field>
+<field isexpirationfield="false">
+<displayname>Group-Admin</displayname>
+<description>This indicates if the account is a group admin account as determined by the Discovery Criteria</description>
+<name>Group-Admin</name>
+<mustencrypt>true</mustencrypt>
+<isurl>false</isurl>
+<ispassword>false</ispassword>
+<isnotes>false</isnotes>
+<listtype/>
+<isfile>false</isfile>
+<passwordcharacterset/>
+<passwordlength>-1</passwordlength>
+<historylength>2147483647</historylength>
+<isindexable>false</isindexable>
+<editablepermission>2</editablepermission>
+<required>false</required>
+<fieldslugname>group-admin</fieldslugname>
+<hideonview>false</hideonview>
+</field>
+<field isexpirationfield="false">
+<displayname>Service-Account</displayname>
+<description>Determines if the User is a Service Account per the Discovery criteria</description>
+<name>Service-Account</name>
+<mustencrypt>true</mustencrypt>
+<isurl>false</isurl>
+<ispassword>false</ispassword>
+<isnotes>false</isnotes>
+<listtype/>
+<isfile>false</isfile>
+<passwordcharacterset/>
+<passwordlength>-1</passwordlength>
+<historylength>2147483647</historylength>
+<isindexable>false</isindexable>
+<editablepermission>2</editablepermission>
+<required>false</required>
+<fieldslugname>service-account</fieldslugname>
+<hideonview>false</hideonview>
+</field>
+</fields>
+<expirationdays>30</expirationdays>
+<secretnamehistorylength>0</secretnamehistorylength>
+<imageclass>fa-cogs</imageclass>
+<onetimepasswordenabled xsi:nil="true"/>
+<onetimepasswordcodelength xsi:nil="true"/>
+<onetimepassworddurationseconds xsi:nil="true"/>
+<onetimepasswordhashmode xsi:nil="true"/>
+<validatepasswordrequirementsoncreate>false</validatepasswordrequirementsoncreate>
+<validatepasswordrequirementsonedit>false</validatepasswordrequirementsonedit>
+<permissions/>
+</secrettype>
