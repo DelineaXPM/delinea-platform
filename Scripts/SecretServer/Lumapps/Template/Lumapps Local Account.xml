@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-16"?>
+<secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>Lumapps Local Account</name>
+  <active>true</active>
+  <fields>
+    <field isexpirationfield="false">
+      <displayname>emailaddress</displayname>
+      <description />
+      <name>emailaddress</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>true</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>true</required>
+      <fieldslugname>emailaddress</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>password</displayname>
+      <description />
+      <name>password</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>true</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>true</required>
+      <fieldslugname>password</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Notes</displayname>
+      <description />
+      <name>Notes</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>true</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>notes</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>URL</displayname>
+      <description />
+      <name>URL</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>true</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>true</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>url</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+  </fields>
+  <expirationdays>0</expirationdays>
+  <secretnamehistorylength>0</secretnamehistorylength>
+  <imageclass>fa-cogs</imageclass>
+  <onetimepasswordenabled xsi:nil="true" />
+  <onetimepasswordcodelength xsi:nil="true" />
+  <onetimepassworddurationseconds xsi:nil="true" />
+  <onetimepasswordhashmode xsi:nil="true" />
+  <validatepasswordrequirementsoncreate>false</validatepasswordrequirementsoncreate>
+  <validatepasswordrequirementsonedit>false</validatepasswordrequirementsonedit>
+  <permissions />
+</secrettype>
