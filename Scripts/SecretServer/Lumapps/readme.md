@@ -1,6 +1,6 @@
 # Prerequisites for Lumapps Integrations
 * [OAUTH access configured](https://docs.lumapps.com/docs/admin-l02262716934071929extensions)
-* SaaS Client Credential template installed with the following data entered
+* [SaaS Client Credential template](./Template/SaaSClientCredentials.xml) installed with the following data entered
   * Application ID
   * Application Secret
   * Organization ID
