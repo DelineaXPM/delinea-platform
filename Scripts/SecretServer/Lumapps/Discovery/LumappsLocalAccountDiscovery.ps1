@@ -1,4 +1,4 @@
-#ARGUMENTS $[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $[1]$OrganizationID $[1]$email $target
+#ARGUMENTS $[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $target $[1]$email $[1]$BaseURL
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $APIBaseUrl = $args[0]
@@ -6,11 +6,11 @@ if ($APIBaseUrl -notlike 'https://*' ) { Throw "Associated Secret Not Found - AP
 
 $ApplicationID = $args[1]
 $ApplicationSecret = $args[2]
-$OrganizationID = $args[3]
+$OrganizationID = $args[3] -replace "ou=",""
 $Email = $args[4]
 if ($Email -notlike '*@*.*' ) { Throw "Associated Secret Email missing" }
 
-$target = $args[5] -replace "ou=", "https://"
+$BaseURL = $args[5]
 
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
 $session.UserAgent = "Mozilla/5.0 (compatible; Delinea/PrivOtter; +http://www.delinea.com)" 
@@ -29,6 +29,6 @@ $Result = Invoke-RestMethod -UseBasicParsing -Method POST -Uri "$($APIBaseUrl)/_
 
 #available values "accountType","alternateEmail","apiProfile","canAccessSA","changePasswordAtNextLogin","createdAt","customer","customProfile","email","employeeId","expirationDate","externalDirectoryUrl","federationValue","firstName","fullName","id","identityProvider","instancesSuperAdmin","isDesigner","isGod","isHidden","isSuperAdmin","lang","langs","lastName","lastSynchronization","loginId","loginProvider","profileId","profilePicture","profilePictureUrl","profileStatus","properties","settings","socialAdvocacyPermissions","socialNetworkAccesses","status","subscriptions","synchronized","tutorials","uid","unifiedProfileId","unreadNotificationCount","updatedAt","url"
 
-$accounts = $Result.items | Where-Object isHidden -EQ $false | Select-Object email, fullName, isSuperAdmin, @{Name = "resource"; Expression = { $target } }
+$accounts = $Result.items | Where-Object isHidden -EQ $false | Select-Object @{Name="EmailAddress";E={$_.email}}, fullName, isSuperAdmin, @{Name="URL";Expression={$BaseURL}},@{Name="OrganizationID";Expression={$OrganizationID}}
 
 return $accounts

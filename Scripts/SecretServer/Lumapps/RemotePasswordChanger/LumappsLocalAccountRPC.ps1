@@ -1,4 +1,4 @@
-#ARGUMENTS $[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $[1]$OrganizationID $emailaddress $newpassword
+#ARGUMENTS $[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $OrganizationID $emailaddress $newpassword
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $APIBaseUrl = $args[0]
@@ -48,3 +48,6 @@ try {
         -Body ($body | ConvertTo-Json -Depth 10) 
 }
 catch { Write-Error "Error Updating password: $_" }
+
+
+
