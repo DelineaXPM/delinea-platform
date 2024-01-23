@@ -4,9 +4,28 @@
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
-      <displayname>emailaddress</displayname>
-      <description />
-      <name>emailaddress</name>
+      <displayname>OrganizationID</displayname>
+      <description>Lumapps OrganizationID</description>
+      <name>OrganizationID</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>3</editablepermission>
+      <required>true</required>
+      <fieldslugname>organizationid</fieldslugname>
+      <hideonview>true</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>EmailAddress</displayname>
+      <description>Lumapps User email address</description>
+      <name>EmailAddress</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -17,7 +36,7 @@
       <passwordlength>-1</passwordlength>
       <historylength>2147483647</historylength>
       <isindexable>true</isindexable>
-      <editablepermission>2</editablepermission>
+      <editablepermission>3</editablepermission>
       <required>true</required>
       <fieldslugname>emailaddress</fieldslugname>
       <hideonview>false</hideonview>
@@ -42,6 +61,25 @@
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
+      <displayname>URL</displayname>
+      <description>URL for Lumapps login page</description>
+      <name>URL</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>true</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>true</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>url</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
       <displayname>Notes</displayname>
       <description />
       <name>Notes</name>
@@ -58,25 +96,6 @@
       <editablepermission>2</editablepermission>
       <required>false</required>
       <fieldslugname>notes</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>URL</displayname>
-      <description />
-      <name>URL</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>true</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>true</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>false</required>
-      <fieldslugname>url</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>
