@@ -1,5 +1,5 @@
 # Lumapps Local account password changing
-*Heartbeating not available for these accounts*
+*Heartbeat is not available for these accounts*
 
 ## Pre-Requisistes
 - [Lumapps base pre-requisites](./readme.md)
@@ -24,10 +24,10 @@
 
 # Configure Secret Template
 - Install [Lumapps local account template](./Template/Lumapps%20Local%20Account.xml)
-- Open tempalte and configure mappings
+- Open the template and configure mappings
 - Enable RPC
 - Set Max Attempts and RPC Interval to desired values
-- Do not enable Heartbeat as it is unavilable
+- Do not enable Heartbeat as it is unavailable
 - Select the ***Lumapps Local Account*** password changer
 - Password fields
   - Domain -> URL
@@ -35,13 +35,13 @@
   - User Name -> Emailaddress
  - Configure Launcher
  - Add ***Website Launcher***
-   - Do not Restrict Userinput
+   - Do not Restrict User input
    - Launcher FIelds
      - Password -> Password
      - URL -> URL
      - Username -> Emailaddress
 
 # Create Secret
-Create a new secret and enter the appropriate values for your account. URL should be the lbase ogin page of your instance.
-Once you have entered the basic information, navigate to the ***Remote Password Changing*** tab and add the SaaS Client Credential teempalte secret as ***Assocaited Secret number 1****
+Create a new secret and enter the appropriate values for your account. URL should be the base login page of your instance.
+Once you have entered the basic information, navigate to the ***Remote Password Changing*** tab and add the SaaS Client Credential template secret as ***Associated Secret number 1****
   
