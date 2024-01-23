@@ -1,6 +1,8 @@
 
 # Lumapps Delinea Secret Server Integration
-This package is designed to discover and manage local accounts in [Lumapps](https://www.lumapps.com/). It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions.md document which can be found [Here](./instructions.md)
+This package is designed to discover and manage local accounts in [Lumapps](https://www.lumapps.com/). 
+
+It includes detailed instructions and necessary scripts to perform these functions. Before implementing any of the specific processes, it is a requirement to perform all the tasks mentioned in the Instructions.md document. You can find the instructions document [Here](./instructions.md)
 
 ## Functions Included
 - Discovery of local accounts
