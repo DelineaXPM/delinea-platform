@@ -1,6 +1,6 @@
 # Git Delinea Secret Server Integration
 
-This package is designed to discover Github User Accounts. It will also provide a method of determining Administrative and Service accounts based on a configurable criteria. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions.md document which can be found  [Here](https://file+.vscode-resource.vscode-cdn.net/c%3A/DelineaPS/Secret-Server-Customer-Integrations/Github/instructions.md)
+This package is designed to discover Github User Accounts. It will also provide a method of determining Administrative and Service accounts based on a configurable criteria. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions.md document which can be found  [Here](./instructions.md)
 
 ## Functionality
 
