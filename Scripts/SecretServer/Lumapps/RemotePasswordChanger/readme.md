@@ -35,7 +35,7 @@
   - User Name -> Emailaddress
  - Configure Launcher
  - Add ***Website Launcher***
-   - Do not Restrict Uerinput
+   - Do not Restrict Userinput
    - Launcher FIelds
      - Password -> Password
      - URL -> URL
