@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-16"?>
+<secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>Box Discovery Account</name>
+  <active>true</active>
+  <fields>
+    <field isexpirationfield="false">
+      <displayname>tenant-url</displayname>
+      <description>Example: https://app.box.com</description>
+      <name>tenant-url</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>tenant-url</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>ClientId</displayname>
+      <description />
+      <name>ClientId</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>clientid</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>ClientSecret</displayname>
+      <description />
+      <name>ClientSecret</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>clientsecret</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>subjecttype</displayname>
+      <description>Subject type of the app token. Example: enterprise</description>
+      <name>subjecttype</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>subjecttype</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>subjectid</displayname>
+      <description>The subject id for the app. Example: 1234567891</description>
+      <name>subjectid</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>subjectid</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>AdminRoles</displayname>
+      <description>Roles designated as Adminstrators. Example: Admin,coadmin</description>
+      <name>AdminRoles</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>adminroles</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>service-account-group-names</displayname>
+      <description>Comma separated names of groups designated as Service Accounts.</description>
+      <name>service-account-group-names</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>service-account-group-names</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+  </fields>
+  <expirationdays>0</expirationdays>
+  <secretnamehistorylength>0</secretnamehistorylength>
+  <imageclass>fa-cogs</imageclass>
+  <onetimepasswordenabled xsi:nil="true" />
+  <onetimepasswordcodelength xsi:nil="true" />
+  <onetimepassworddurationseconds xsi:nil="true" />
+  <onetimepasswordhashmode xsi:nil="true" />
+  <validatepasswordrequirementsoncreate>false</validatepasswordrequirementsoncreate>
+  <validatepasswordrequirementsonedit>false</validatepasswordrequirementsonedit>
+  <permissions />
+</secrettype>
