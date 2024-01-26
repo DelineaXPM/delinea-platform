@@ -78,7 +78,7 @@
         - ***Input Template***: Lumapps Base URL 
         - ***Output Template:***: Lumapps Local Account Account  
         - ***Script:*** Lumapps Local Account Discovery script uploaded in pre-requisites
-        - ***Script Arguments:*** ``` $[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $[1]$OrganizationID $[1]$email $target ```
+        - ***Script Arguments:*** ```$[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $target $[1]$email $[1]$BaseURL ```
         - Click Save
         - This completes the creation of the Lumapps Local Account Scanner
 
@@ -96,7 +96,7 @@
 - Click ***Add Scanner***
 - Find ***Lumapps Base URL*** and Click ***Add Scanner***
 - Select the Scanner just Created and Click ***Edit Scanner*** 
-- In the ***lines Parse Format*** Section Enter the Base URL without https:// (example: csbx-us.lumapps.com/a/delinea-mp/home)
+- In the ***lines Parse Format*** Section Enter the OrganizationID
 - Click ***Save***
 
 - Click ***Add Scanner***
