@@ -17,7 +17,7 @@
   - Click ***Save***
 - Password Change Commands
   - Select the [Lumapps Local Account RPC Script ](./RemotePasswordChanger/LumappsLocalAccountRPC.ps1)
-  - The arguments are  `$[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $[1]$OrganizationID $emailaddress $newpassword`
+  - The arguments are  `$$[1]$apiurl $[1]$ApplicationID $[1]$ApplicationSecret $OrganiztionID $emailaddress $newpassword`
   - Click ***Save***
 - Advanced Settings
   - Set ***Bypass verify after password change*** to ***Yes***
