@@ -1,5 +1,3 @@
-#Args used for development (Remove before pushing to production):
-
 
 
 Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"

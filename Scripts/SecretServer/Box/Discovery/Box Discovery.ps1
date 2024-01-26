@@ -1,6 +1,3 @@
-#Args used for development (Remove before pushing to production):
-
-
 
 Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"
 #Import-Module -Name ".\Delinea.PoSH.Helpers\Utils.psm1"
@@ -20,7 +17,7 @@ Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\
 
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Box-Discovery.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Box Discovery"
 #endregion
 #region Get Access Token
