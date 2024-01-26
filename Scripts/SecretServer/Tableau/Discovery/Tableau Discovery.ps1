@@ -1,5 +1,3 @@
-#Args used for development (Remove before pushing to production):
-$args = @("Advanced","https://prod-useast-b.online.tableau.com", "delineapsdev", "7f62078d-7bed-49a3-9ff4-8e38b188ad52", "toAdh4hs71taM1CttuN2NCA7WcHiVKfi3vslgshfkPA=", "SiteAdministratorCreator,SiteAdministratorExplorer", "ServiceAccts","JLutherPAT","XLirSzRLQlCBDMOMsPJPTQ==:CJz67F3WKe5oOStIjHaRnSbQIJaeDRZf")
 
 #region define variables
     #Define Argument Variables
