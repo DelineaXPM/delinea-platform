@@ -8,7 +8,7 @@ This connector provides the following functions
 
 Follow the Steps below to complete the base setup for the Connector
 
-This connector utilizes a Service Account alond with its Access Key and Secret. This flow is typically used for server-to-server API requests where the application itself needs to authenticate and interact with AWS APIs.
+This connector utilizes a Service Account along with its Access Key and Secret. This flow is typically used for server-to-server API requests where the application itself needs to authenticate and interact with AWS APIs.
 ​
 ### Prerequisites
 
@@ -16,13 +16,13 @@ This connector utilizes a Service Account alond with its Access Key and Secret. 
   - These permissions must allow the Service Account to:
     - View and Manage all users
     - View all group memberships
-    - View all permission policiy assignments 
-- Installation of AWS Tools PowerShell module intsall on all Secret Server Distributed Engines that will be involved in RPC and Discovery processes.  For more information on AWS Tools click [here](https://www.powershellgallery.com/packages/AWS.Tools.IdentityManagement/4.1.483)
+    - View all permission policy assignments 
+- Installation of AWS Tools PowerShell module install on all Secret Server Distributed Engines that will be involved in RPC and Discovery processes.  For more information on AWS Tools click [here](https://www.powershellgallery.com/packages/AWS.Tools.IdentityManagement/)
 
 ## Create AWS Service Account
-- Cunsult your AWS Administrator to create a user to be used as the Service Account.
-- Document the Accesss Key and Secret Key.  
-- Assign the permissons detailed in the [Prerequisites Section](#prerequisites)
+- Consult your AWS Administrator to create a user to be used as the Service Account.
+- Document the Access Key and Secret Key.  
+- Assign the permissions detailed in the [Prerequisites Section](#prerequisites)
 
 
 ## Creating secret template for AWS Accounts 
@@ -64,12 +64,12 @@ The following steps are required to create the Secret Template for the AWS Privi
       - Username 
       - Access Key
       - Secret Key
-  - Admin-Criteria  - Comma Seperted List of AWS Policies used to determine Admin Accounts (Policy Name=Policy arn
+  - Admin-Criteria  - Comma Separated List of AWS Policies used to determine Admin Accounts (Policy Name=Policy arn
       example: Admin Access=arn:aws:iam::aws:policy/AdministratorAccess","Service-accounts,Custom Access=arn:aws:iam::aws:policy/CustomAccess" 
   - SVC-Account-Criteria Comma Separated List of AWS Groups used to determine Service Accounts 
         example:  Service-Accounts1,ServiceAccounts2
   - Click Create Secret
-  - This completes the creation of a secret in Secret Server for the ServiceNow Priviled Account
+  - This completes the creation of a secret in Secret Server for the AWS Privileged Account
 
 ## Next Steps
 
