@@ -1,12 +1,11 @@
 # AWS IAM User Discovery
 
-Add Disclaimer
 
 ## Create Discovery Source
 
   
 
-This scanner can help perform a Windows Systems Scan based on an IP address range.
+This scanner will scan AWS for administrative accounts.
 
   
 
@@ -36,7 +35,7 @@ This scanner can help perform a Windows Systems Scan based on an IP address rang
 
 - Click Save
 
-- This completes the creation of the Saas Scan Template Creation
+- This completes the creation of the SaaS Scan Template Creation
 
   
 
@@ -92,11 +91,11 @@ This scanner can help perform a Windows Systems Scan based on an IP address rang
 
 - Active: (Checked)
 
-- Script Type: Powershell
+- Script Type: PowerShell
 
 - Category: Discovery Scanner
 
-- Merge Fields: Leave Blanck
+- Merge Fields: Leave Blank
 
 - Script: Copy and paste the Script included in the file [AWS IAM User Discovery.ps2](./AWS%20IAM%20User%20Discovery.ps1)
 
@@ -163,7 +162,7 @@ This scanner can help perform a Windows Systems Scan based on an IP address rang
 
 -  **Input Template**: AWS Tenant (Use the Template that Was Created in the [AWS Tenant Scan Template Section](#create-aws-tenant-scan-template))
 
--  **Output Template:**: AWS IAM User (Use the Template that Was Created in the [AWS IAM Usert Scan Template Section](#create-account-scan-template))
+-  **Output Template:**: AWS IAM User (Use the Template that Was Created in the [AWS IAM User Scan Template Section](#create-account-scan-template))
 
 -  **Script:** AWS Local Account Scanner (Use the Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
@@ -231,7 +230,7 @@ This scanner can help perform a Windows Systems Scan based on an IP address rang
 
 **Note Default Site run as Secret has to be set up in the Site configuration.
 
-See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
+See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
 
 - Click Save
 
@@ -250,7 +249,7 @@ The AWS configuration is now complete. The next step is to run a manual discover
 
 - Navigate to **Admin | Discovery**
 
-- Click the **Run Discovery Noe** (Dropdon) and select **Run Discovery Now**
+- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Scan**
 
 - Click on **Network view**
 
