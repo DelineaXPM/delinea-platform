@@ -1,9 +1,7 @@
 
 #Expected Argumnts @("username", "password", "clientId", "clientSecret", "kid", "tenant", "privuseremail", "privateKeyPEM")
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$args = @("rroca66@delinea.com","@nd3rsL3327", "https://delinea6-dev-ed.develop.my.salesforce.com", "3MVG9Xl3BC6VHB.ZLyfZKb0Jasih5obkPHuF8E3MYeRPttN3lO.VSO3PUU8.jF165HSSV.zuDZEFLg_JECAr6", "3BFDA3D0B54B80EFAE72A42F480BB8B413E36A95EBC806B6B47EA4881AC81136","admin@blue.com","P3pper!2345" )
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 #Expected Argumnts @("Privileged User Name","Privileged User Password", "Instance URL", "SF Client iD","clientSecret" ,"SFDC UserName","SFDC User Domain" ,"New Password"  )
 
 #region Set Paramaters and Vaeiables
@@ -104,7 +102,7 @@ try
                  }
         $payload = $body | ConvertTo-Json
         $uri ="$api/data/v58.0/sobjects/User/$SFDCuserId/password"
-        $result = Invoke-RestMethod -Uri $uri -Method Post -Headers $Headers -Body $payload -ContentType "application/json"
+        Invoke-RestMethod -Uri $uri -Method Post -Headers $Headers -Body $payload -ContentType "application/json" 
         
 
     }

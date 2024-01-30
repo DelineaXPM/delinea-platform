@@ -86,7 +86,7 @@ If you have not already done, so, please follow the steps in the **Instructions.
 
 - Navigate to **ADMIN** > **Remote Password Changing**
 
-- Click on Options (Gropdown List) and select ***Configure Password Changers**
+- Click on Options (Dropdown List) and select ***Configure Password Changers**
 
 - Click on Create Password Changer
 
@@ -98,12 +98,10 @@ If you have not already done, so, please follow the steps in the **Instructions.
 
 - Under the **Verify Password Changed Commands** section, Enter the following information:
 
--  **PowerShell Script** (DropdownList) Select PowerShell Script or the Script that was Creted in the [Heartbeat](#heartbeat-script) Section
+-  **PowerShell Script** (DropdownList) Select PowerShell Script or the Script that was Created in the [Heartbeat](#heartbeat-script) Section
 
--  **Script Args**: 
-``` )9wershell
-$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $username $password
-```
+-  **Script Args**: Leave Blank
+
 - Click **Save**
 
   
@@ -122,7 +120,7 @@ $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $u
 
 - Click **Save**
 
-- This completes the creationof the RemotePassword Changer
+- This completes the creation of the RemotePassword Changer
 
   
 
@@ -174,11 +172,11 @@ $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $u
 
 - Navigate to **ADMIN** > **Remote Password Changing**
 
-- Click on Options (Gropdown List) and select ***Configure Password Changers**
+- Click on Options Dropdown List) and select ***Configure Password Changers**
 
 - Select the Salesforce Remote Password Changer or the Password Changer created in the [create-password-change](#create-password-changer) section
 
-- Click **Configure Scan Template at the bottom of the pasge**
+- Click **Configure Scan Template at the bottom of the page**
 
 - Click Edit
 
