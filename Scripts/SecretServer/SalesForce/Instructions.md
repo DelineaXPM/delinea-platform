@@ -12,6 +12,8 @@ This connector provides the following functions
 
 - Heartbeats Coming by end of 1st quarter) to verify that user credentials are still valid
 
+A heartbeat place holder has been provided so that the process is complete
+
 For a temporary simulated Heartbeat process Please contact Delinea Account Manager to possibly engage Professional Services
 
   
