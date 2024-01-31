@@ -1,15 +1,15 @@
-# Expected Argd args=@("Discovery Mode Advanced/Default", "FiveTran Tenenant Base URL", "FiveTran API ClientId","FiveTran API ClientSecret","Admin Account Teams IDs","Service Account Teams Ids"  )
+# Expected Argd args=@( "FiveTran Tenenant Base URL", "FiveTran API ClientId","FiveTran API ClientSecret","Admin Account Teams IDs","Service Account Teams Ids"  )
 
 
 ## This block will be used when passing args in from Secret Server
 
-    $DiscoveryMode     = $args[0]
-    $baseURL           = $args[1]
-    $clientID          = $args[2]
-    $clientSecret      = $args[3]
-    $adminTeamsIds     = $args[4]
-    $serviceTeamsIDs   = $args[5]
-    $federatedDomains  = $args[6]
+  
+    $baseURL           = $args[0]
+    $clientID          = $args[1]
+    $clientSecret      = $args[2]
+    $adminTeamsIds     = $args[3]
+    $serviceTeamsIDs   = $args[4]
+    $federatedDomains  = $args[5]
 
 
     #Create Filter arrays
@@ -21,7 +21,7 @@
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Fivetran.log"
 [int32]$LogLevel              = 2
 [string]$logApplicationHeader = "FiveTran Discovery"
-$globalResults                = @{}
+$globalResults = @{}
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$($clientId):$($clientSecret)"))
 
 #endregion
