@@ -2,7 +2,7 @@
 
 ## Create Discovery Source
 
-This scanner can help perform a Scan for user accounts within Heroku. Account types will be distinguished by roles, and/or Username prefixes sites designated by Heroku.
+This scanner will perform a Scan for user accounts within Heroku. Account types will be distinguished by roles, and/or Username prefixes sites designated by in the Privileged Account Secret.
 
 ### Create SaaS Scan Template
 If this Script has already been created in another Delinea Integration package please skip
@@ -12,7 +12,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Nmae:** (Example: SaaS Tenant)
+    - **Name:** (Example: SaaS Tenant)
     - **Active:** (Checked)
     - **Scan Type:** Host
     - **Parent Scan Template:** Host Range
@@ -28,7 +28,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Nmae:** (Example: Heroku Account)
+    - **Name:** (Example: Heroku Account)
     - **Active:** (Checked)
     - **Scan Type:** Account
     - **Parent Scan Template:** Account(Basic)
@@ -90,7 +90,9 @@ to the [Create Account Scanner Section](#create-Heroku-account-scanner)
         - **Output Template:**: Heroku Account  (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
         - **Script:** Heroku Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
         - **Script Arguments:** 
-        ```Advanced $[1]$PAToken $[1]$service-account-name $[1]$DomainName```
+        ``` powershell
+        Advanced $[1]$ApiKey $[1]$TeamName $[1]$AdminRoles $[1]$service-account-name 
+        ```
         - Click Save
         - This completes the creation of the Heroku Account Scanner
 
@@ -131,7 +133,7 @@ to the [Create Account Scanner Section](#create-Heroku-account-scanner)
 - Navigate to  **Admin | Discovery**
 - Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Scan**
 - Click on the **Network view** Button in the upper right corner
-- Click on the newly created discocvery source
+- Click on the newly created discovery source
 - Click the **Domain \ Cloud Accounts** tab to view the discovered accounts
 
 ## Optional Report
