@@ -74,7 +74,7 @@ If you have not already done, so, please follow the steps in the **instructions.
 
 - Click Save
 
-- This completes the creation of the ServiceNow Heartbeat Script
+- This completes the creation of the Okta Heartbeat Script
 
   
 
@@ -154,7 +154,7 @@ $[1]tenant-url $[1]$client-id $[1]$Key-id $[1]$ $[1]Private-Key $username  $newp
 
 -  **Heartbeat Interval Hours** 4
 
--  **Password Type to use** Select **ServiceNow Remote Password Changer** or the Password Changer create in the [Create Password Changer Section](#create-password-changer)
+-  **Password Type to use** Select **Okta Remote Password Changer** or the Password Changer create in the [Create Password Changer Section](#create-password-changer)
 
 - In the **Password Type Fields** Section, fill out the following
 
@@ -166,7 +166,7 @@ $[1]tenant-url $[1]$client-id $[1]$Key-id $[1]$ $[1]Private-Key $username  $newp
 
 - Click Save
 
-- This completes the Update ServiceNow User template section
+- This completes the Update Okta User template section
 
   
 
@@ -178,9 +178,9 @@ $[1]tenant-url $[1]$client-id $[1]$Key-id $[1]$ $[1]Private-Key $username  $newp
 
 - Navigate to **ADMIN** > **Remote Password Changing**
 
-- Click on Options (Gropdown List) and select ***Configure Password Changers**
+- Click on Options (Dropdown List) and select ***Configure Password Changers**
 
-- Select the ServiceNow Remote Password Changer or the Password Changer created in the [create-password-change](#create-password-changer) section
+- Select the Okta Remote Password Changer or the Password Changer created in the [create-password-change](#create-password-changer) section
 
 - Click **Configure Scan Template at the bottom of the pasge**
 

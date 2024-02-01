@@ -2,7 +2,11 @@
 
   
 
+  
+
 This package is designed to discover and Manage Okta ID User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [Here](./instructions.md)
+
+  
 
   
 
@@ -10,15 +14,25 @@ This package is designed to discover and Manage Okta ID User Accounts. It will p
 
   
 
-- Local Account Disccovery
+  
+
+- Local Account Discovery
+
+  
 
 - Local Account Remote Password Changing
+
+  
 
 - Heartbeat ( This is used to Verify User credentials)
 
   
 
+  
+
 # Disclaimer
+
+  
 
   
 
