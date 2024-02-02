@@ -39,6 +39,11 @@ More information can be found [here](https://developers.docusign.com/docs/esign-
 > [!NOTE]
 > Field descriptions and details can be found at [Docusign JWT structure and properties](https://developers.docusign.com/platform/auth/jwt/jwt-get-token/#see-details-jwt-structure-and-properties).
 
+## Install the Delinea Utils Powershell Module
+
+This module contains to commandlets that are used within this script and the ine installation must be run on all Distributed Engines that will participate in running the scripts provided in this integration.
+- Follow the instructions provided [Here](./Delinea.PoSH.Helpers/readme.md) to install the module.
+
 ## Creating secret template for Docusign eSignature Accounts 
 
 ### eSignature User Account Template
