@@ -12,29 +12,18 @@ This connector provides the following functions
 
 - Discovery of Heroku User Accounts in a given team
 
+## Not currently available in Heroku Cloud
+
+
+- Remote Password Changing Heroku users
+
+- Heartbeats to verify that user credentials are still valid
+
+**NOTE** - Heroku does not support Remote Password changing or Heartbeat. There is a placeholder script along with instructions that can be used to create a "Mock" password changer that will allow the importing of discovered accounts.  
   
 
 ** Note ** A different Discovery source and Access Key Secret and Discovery Source will be Needed for each Team
 
-  
-
-  
-
-## Not currently available in Heroku Cloud
-
-  
-
-  
-
-- Remote Password Changing Heroku users
-
-  
-
-- Heartbeats to verify that user credentials are still valid
-
-  
-
-  
 
 Follow the Steps below to complete the base setup for the Connector
 
@@ -229,7 +218,7 @@ The following steps are required to create the Secret Template for Heroku Discov
 
   
 
-## Create secret in Secret Server for the Heroku Discovery Account
+## Create Secret in Secret Server for the Heroku Discovery Account
 
   
 

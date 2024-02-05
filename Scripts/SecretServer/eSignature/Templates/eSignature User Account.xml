@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-16"?>
 <secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <name>Heroku Discovery Credentials</name>
+  <name>eSignature User Account</name>
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
-      <displayname>Teamname</displayname>
-      <description>Name of the Team Being Discovered</description>
-      <name>Teamname</name>
+      <displayname>tenant-url</displayname>
+      <description />
+      <name>tenant-url</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>true</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>true</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>tenant-url</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>Username</displayname>
+      <description />
+      <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -19,13 +38,13 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>teamname</fieldslugname>
+      <fieldslugname>username</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>ApiKey</displayname>
-      <description>Apikey created in Heroku Tenant</description>
-      <name>ApiKey</name>
+      <displayname>Password</displayname>
+      <description />
+      <name>Password</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>true</ispassword>
@@ -38,13 +57,13 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>apikey</fieldslugname>
+      <fieldslugname>password</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Admin-Roles</displayname>
-      <description>Comma Seperated List of Admin Roles Or a single Role if only one is being used</description>
-      <name>Admin-Roles</name>
+      <displayname>Admin-Account</displayname>
+      <description />
+      <name>Admin-Account</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -57,13 +76,13 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>admin-roles</fieldslugname>
+      <fieldslugname>admin-account</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Service-Acct-Name-Prefixes</displayname>
-      <description>Comma Seperated list or Single value of Prefixes of Usernames That Identifiy as Service Accounts</description>
-      <name>Service-Acct-Name-Prefixes</name>
+      <displayname>Service-Account</displayname>
+      <description />
+      <name>Service-Account</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -76,13 +95,13 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>service-acct-name-prefixes</fieldslugname>
+      <fieldslugname>service-account</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Discovery-Mode</displayname>
-      <description>Adavnced Mode Identifies Admin and Service Accounts. Default just returns Username and Team</description>
-      <name>Discovery-Mode</name>
+      <displayname>Local-Account</displayname>
+      <description />
+      <name>Local-Account</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -95,10 +114,11 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>discovery-mode</fieldslugname>
+      <fieldslugname>local-account</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>
+  <descriptions>Used for importing Docusign eSignature user credentials from Discovery</descriptions>
   <expirationdays>0</expirationdays>
   <secretnamehistorylength>0</secretnamehistorylength>
   <imageclass>fa-cogs</imageclass>

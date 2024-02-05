@@ -15,15 +15,16 @@ Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\
 
 
 #Script Constants
-[string]$baseURL = "https://api.heroku.com"
+[string]$baseURL = "https://api.heroku.com"  # This the URL for all Heroku Tenents
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Heroku-Discovery.log"
 
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Heroku Discovery"
 
 #create Arrays
 $adminRolesArray = $adminRoles.split(",")
 $svcacctNamePrefixeArray = $svcacctNamePrefixes.Split(",")
+
 #endregion
 
 

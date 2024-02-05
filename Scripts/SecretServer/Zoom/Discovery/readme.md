@@ -1,6 +1,4 @@
-# Okta Local Account Discovery
-
-  
+# Zoom Account Discovery
 
   
 
@@ -8,320 +6,175 @@
 
   
 
-  
-
-This scanner can help perform a Discovery of Okta Users.
-
-  
-
-  
-
-### Create Okta Tenant Scan Template
-
-  
+### Create Zoom Scan Template
 
   
 
 - Log in to Secret Server Tenant
 
-  
-
 - Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
-
-  
 
 - Click **Create Scan Template**
 
-  
-
 - Fill out the required fields with the information
 
-  
-
--  **Name:** (Example: Okta Tenant)
-
-  
+-  **Name:** (Example: Zoom Tenant)
 
 -  **Active:** (Checked)
-
-  
 
 -  **Scan Type:** Host
 
-  
-
 -  **Parent Scan Template:** Host Range
 
-  
-
 -  **Fields**
-
-  
 
 - Change HostRange to **tenant-url**
 
-  
-
 - Click Save
 
-  
-
-- This completes the creation of the Okta Scan Template Creation
+- This completes the creation of the Zoom Scan Template Creation
 
   
 
-  
-
-### Create Account Scan Template
-
-  
+### Create Zoom Account Scan Template
 
   
 
 - Log in to Secret Server Tenant
-
-  
 
 - Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
-  
-
 - Click **Create Scan Template**
-
-  
 
 - Fill out the required fields with the information
 
-  
-
--  **Name:** (Example: Okta User)
-
-  
+-  **Name:** (Example: Zoom Account)
 
 -  **Active:** (Checked)
 
-  
-
 -  **Scan Type:** Account
-
-  
 
 -  **Parent Scan Template:** Account(Basic)
 
-  
-
 -  **Fields**
-
-  
 
 - Change Resource to **tenant-url**
 
-  
+- Add field: Local-Account (Leave Parent and Include in Match Blank)
 
 - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-  
-
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
-
-  
-
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
-
-  
+- Add field: Service-Account (Leave parent and Include in Match Blank)
 
 - Click Save
 
-  
+- This completes the creation of the Zoom Account Scan Template Creation
 
-- This completes the creation of the Account Scan Template Creation
-
-  
-
-### Create Discovery Script
-
-  
+### Create Local Account Discovery Script
 
   
 
 - Log in to Secret Server Tenant
 
-  
-
-- Navigate to**ADMIN** > **Scripts**
-
-  
+- Navigate to **ADMIN** > **Scripts**
 
 - Click on **Create Script**
 
-  
-
 - Fill out the required fields with the information from the application registration
 
-  
-
-- Name: ( example - Okta Local Account Scaner)
-
-  
+- Name: ( example Zoom Account Scanner)
 
 - Description: (Enter something meaningful to your Organization)
 
-  
-
 - Active: (Checked)
-
-  
 
 - Script Type: Powershell
 
-  
-
 - Category: Discovery Scanner
-
-  
 
 - Merge Fields: Leave Blank
 
-  
-
-- Script: Copy and paste the Script included in the file [Okta Loacl Account Discoverey.ps1](./Okta%20Local%20Account%20Discovery.ps1)
-
-  
+- Script: Copy and paste the Script included in the file [Zoom Discovery.ps1](./Zoom%20Discovery.ps1)
 
 - Click Save
-
-  
 
 - This completes the creation of the Local Account Discovery Script
 
   
 
-  
+### Create Zoom Tenant Scanner
 
-### Create Saas Tenant Scanner
-
-  
   
 
 - Log in to Secret Server Tenant
 
-  
-
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >
-
-  
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
-  
-
 - Click **Create Scanner**
-
-  
 
 - Fill out the required fields with the information
 
-  
+-  **Name:** > Zoom Tenant Scanner
 
--  **Name:** > Okta Tenant Scanner
-
-  
-
--  **Description:** (Example - Base scanner used to discover Okta Tenant)
-
-  
+-  **Description:** (Example - Base scanner used to discover Zoom)
 
 -  **Discovery Type:** Host
 
-  
+-  **Base Scanner:** Manual Input Discovery
 
--  **Base Scanner:** Host
+-  **Input Template**: Discovery Source
 
-  
-
--  **Input Template**: Manual Input Discovery
-
-  
-
--  **Output Template:**: Okta Tenant (Use Template that Was Created in the [Okta Scan Template Section](#create-saas-scan-template))
-
-  
+-  **Output Template:**: Zoom Tenant (Use Template that Was Created in the [Zoom Scan Template Section](#create-Zoom-scan-template))
 
 - Click Save
 
-  
-
-- This completes the creation of the Saas Tenant Scanner
+- This completes the creation of the Zoom Tenant Scanner
 
   
 
-  
-
-### Create Okta Local Account Scanner
-
-  
+### Create Zoom Account Scanner
 
   
 
 - Log in to Secret Server Tenant
 
-  
-
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >
-
-  
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
-  
-
 - Click **Create Scanner**
-
-  
 
 - Fill out the required fields with the information
 
-  
+-  **Name:** (Example - Zoom Account Scanner)
 
--  **Name:** (Example - Okta Local Account Scanner)
+-  **Description:** (Example - Discovers Zoom accounts according to configured privileged account template )
 
-  
-
--  **Description:** (Example - Discovers Okta local accounts according to configured privileged account template )
-
-  
-
--  **Discovery Type:** Account
-
-  
+-  **Discovery Type:** Accounts
 
 -  **Base Scanner:** PowerShell Discovery Create Discovery Script
 
-  
+-  **Allow OU Input**: Yes
 
--  **Input Template**: Okta Tenant (Use Template that Was Created in the [Okta Scan Template Section](#create-saas-scan-template))
+-  **Input Template**: Zoom Tenant (Use Template that Was Created in the [Zoom Scan Template Section](#Zoom-scan-template))
 
-  
+-  **Output Template:**: Zoom Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
 
--  **Output Template:**: Okta User (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
+-  **Script:** Zoom Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
-  
+-  **Script Arguments:**
 
--  **Script:** Okta Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+```PowerShell
 
-  
+$[1]$discovery-mode $[1]$tenant-url $[1]$account-id $[1]$client-id $[1]$client-secret $[1]$federation-domains $[1]$service-account-groups
 
--  **Script Arguments: **Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$sac-groupids $[1]$local-acct-grpids**
-
-  
+```
 
 - Click Save
 
-  
-
-- This completes the creation of the Okta Account Scanner
-
-  
+- This completes the creation of the Zoom Account Scanner
 
   
 
@@ -329,143 +182,60 @@ This scanner can help perform a Discovery of Okta Users.
 
   
 
-  
-
-- Navigate to **Admin | Discovery | Configuration**
-
-  
+- Navigate to **Admin | Discovery | Discovery Sources**
 
 - Click **Create** drop-down
 
-  
-
 - Click **Empty Discovery Source**
-
-  
 
 -Enter the Values below
 
-  
+- **Name:** (example: Zoom Test Tenant)
 
--  **Name:** (example: Okta Test Tenant)
+- **Site** (Select Site Where Discovery will run)
 
-  
-
--  **Site** (Select Site Where Discovery will run)
-
-  
-
--  **Source Type** Empty
-
-  
+- **Source Type** Empty
 
 - Click Save
 
-  
-
 - Click Cancel on the Add Flow Screen
-
-  
 
 - Click **Add Scanner**
 
-  
-
-- Find the Okta Tenant Scanner or the Scanner Created in the [Create Okta Tenant Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
-
-  
+- Find the Saas Tenant Scanner or the Scanner Created in the [Create Zoom Tenant Scanner Section](#create-Zoom-tenant-scanner) and Click **Add Scanner**
 
 - Select the Scanner just Created and Click **Edit Scanner**
 
-  
-
-- In the **lines Parse Format** Section Enter the Source Name (example: Okta Test Tenant)
-
-  
+- In the **lines Parse Format** Section Enter the Source Name (example: Zoom Test Tenant)
 
 - Click **Save**
 
   
 
-  
-
 - Click **Add Scanner**
 
-  
-
-- Find the Okta Local Account Scanner or the Scanner Created in the [Create Okta Local Account Scanner Section](#create-okta-local-account-scanner) and Click **Add Scanner**
-
-  
+- Find the Zoom Account Scanner or the Scanner Created in the [Create Zoom Account Scanner Section](#create-Zoom-account-såcanner) and Click **Add Scanner**
 
 - Select the Scanner just Created and Click **Edit Scanner**
 
-  
-
 - Click **Edit Scanner**
-
-  
 
 - Click the **Add Secret** Link
 
-  
-
-- Search for the Privoleged Account Secret created in the [Overview.md file](../instructions.md)
-
-  
+- Search for the Privileged Account Secret created in the [Overview.md file](../Overview.md)
 
 - Check the Use Site Run As Secret Check box to enable it
 
-  
-
-**Note Default Site run as Secret had to have been setup in the Site configuration.
-
-  
+**Note Default Site run as Secret had to ne setup in the Site configuration.
 
 See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
 
-  
-
 - Click Save
-
-  
 
 - Click on the Discovery Source tab and Click the Active check box
 
-  
+- This completes the creation of the Discovery Source
 
-- This completes the creation of theDiscovery Source
-
-  
-
-  
-
-### Next Steps
-
-  
-
-  
-
-The Okta configuration is now complete. The next step is to run a manual discovery scan.
-
-  
-
-- Navigate to **Admin | Discovery**
-
-  
-
-- Click the **Run Discovery Noe** (Dropdon) and select **Run Discovery Now**
-
-  
-
-- Click on the **Network view** Button in the upper right corner
-
-  
-
-- Click on the newly created discovery source
-
-  
-
-- Click the **Domain \ Cloud Accounts** tab to view the discovered accounts
   
 
 ## Optional Report
@@ -482,15 +252,13 @@ In this section, There are instructions on creating an optional report to displa
 
 - Login to Secret Server Tenant (If you have not already done so)
 
-  
-
 - Navigate to the Reports module
 
 - click on the New Report Button
 
 - Fill in the following values:
 
-- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
+- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section (ex. MyDiscoverySource - Discovery )
 
 - Description: (Enter something meaningful to your organization)
 
@@ -530,11 +298,11 @@ d.[ComputerAccountId]
 
   
 
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Account]
 
   
 
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Account]
 
   
 
@@ -567,3 +335,21 @@ GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
   
 
 You will now find this report under the section you chose in the Category field.
+
+  
+
+### Next Steps
+
+  
+
+The Zoom configuration is now complete. The next step is to run a manual discovery scan.
+
+- Navigate to **Admin | Discovery**
+
+- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Now**
+
+- Click on the **Network view** Button in the upper right corner
+
+- Click on the newly created discovery source
+
+- Click the **Domain \ Cloud Accounts** tab to view the discovered accounts

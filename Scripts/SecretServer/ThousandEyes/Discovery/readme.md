@@ -1,8 +1,8 @@
-# Heroku Local Account Discovery
+# ThousandEyes Local Account Discovery
 
 ## Create Discovery Source
 
-This scanner will perform a Scan for user accounts within Heroku. Account types will be distinguished by roles, and/or Username prefixes sites designated by in the Privileged Account Secret.
+This scanner can help perform a Scan for user accounts within ThousandEyes. Account types will be distinguished by appropriate groups, roles, and/or sites designated by ThousandEyes.
 
 ### Create SaaS Scan Template
 If this Script has already been created in another Delinea Integration package please skip
@@ -28,7 +28,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Name:** (Example: Heroku Account)
+    - **Name:** (Example: ThousandEyes Account)
     - **Active:** (Checked)
     - **Scan Type:** Account
     - **Parent Scan Template:** Account(Basic)
@@ -46,20 +46,20 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields with the information from the application registration
-    - Name: (example Heroku Local Account Scanner)
+    - Name: (example ThousandEyes Local Account Scanner)
     - Description: (Enter something meaningful to your Organization)
     - Active: (Checked)
     - Script Type: Powershell
     - Category: Discovery Scanner
     - Merge Fields: Leave Blank
-    - Script: Copy and paste the Script included in the file [Heroku Discovery.ps1](./Heroku%20Discovery.ps1)
+    - Script: Copy and paste the Script included in the file [ThousandEyes Discovery.ps1](./ThousandEyes%20Discovery.ps1)
     - Click Save
     - This completes the creation of the Local Account Discovery Script
 
 ### Create Saas Tenant Scanner
 
-If this Script has already been created in another Delinea Integration package please skip
-to the [Create Account Scanner Section](#create-Heroku-account-scanner) 
+If this Scanner has already been created in another Delinea Integration package please skip
+to the [Create Account Scanner Section](#create-ThousandEyes-account-scanner) 
 
 - Log in to Secret Server Tenant
 - Navigate to **ADMIN** > **Discovery** > **Configuration** > 
@@ -75,26 +75,23 @@ to the [Create Account Scanner Section](#create-Heroku-account-scanner)
     - Click Save
     - This completes the creation of the Saas Tenant Scanner
 
-### Create Heroku Account Scanner
+### Create ThousandEyes Account Scanner
 
 - Log in to Secret Server Tenant
 - Navigate to **ADMIN** > **Discovery** > **Configuration** > 
     - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
     - Click **Create Scanner**
     - Fill out the required fields with the information
-        - **Name:** (Example - Heroku Local Account Scanner) 
-        - **Description:** (Example - Discovers Heroku local accounts according to configured Discovery Account template )
+        - **Name:** (Example - ThousandEyes Local Account Scanner) 
+        - **Description:** (Example - Discovers ThousandEyes local accounts according to configured Discovery Account template )
         - **Discovery Type:**  Account
         - **Base Scanner:** PowerShell Discovery Create Discovery Script
         - **Input Template**: SaaS Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
-        - **Output Template:**: Heroku Account  (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
-        - **Script:** Heroku Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
-        - **Script Arguments:** 
-        ``` powershell
-        Advanced $[1]$ApiKey $[1]$TeamName $[1]$AdminRoles $[1]$service-account-name 
-        ```
+        - **Output Template:**: ThousandEyes Account  (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
+        - **Script:** ThousandEyes Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+        - **Script Arguments:** ```Advanced $[1]$AccessToken $[1]$adminroles $[1]$Service-Account-Roles $[1]$LocalDomain```
         - Click Save
-        - This completes the creation of the Heroku Account Scanner
+        - This completes the creation of the ThousandEyes Account Scanner
 
 ### Create Discovery Source
 
@@ -102,7 +99,7 @@ to the [Create Account Scanner Section](#create-Heroku-account-scanner)
 - Click **Create** drop-down
 - Click **Empty Discovery Source**
 -Enter the Values below
-    - **Name:** (example: Heroku Tenant)
+    - **Name:** (example: ThousandEyes Tenant)
     - **Site** (Select Site Where Discovery will run)
     - **Source Type** Empty
 - Click Save
@@ -110,11 +107,11 @@ to the [Create Account Scanner Section](#create-Heroku-account-scanner)
 - Click **Add Scanner**
 - Find the Saas Tenant Scanner or the Scanner Created in the [Create Saas Tenant Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
 - Select the Scanner just Ceated and Click **Edit Scanner**
-- In the **lines Parse Format** Section Enter the Source Name (example: Heroku Tenant)
+- In the **lines Parse Format** Section Enter the Source Name (example: ThousandEyes Tenant)
 - Click **Save**
 
 - Click **Add Scanner**
-- Find the Heroku Local Account Scanner  or the Scanner Creatted in the [Create Heroku Account Scanner Section](#create-Heroku-account-scanner) and Click **Add Scanner**
+- Find the ThousandEyes Local Account Scanner  or the Scanner Created in the [Create ThousandEyes Account Scanner Section](#create-ThousandEyes-account-scanner) and Click **Add Scanner**
 - Select the Scanner just Created and Click **Edit Scanner**
 - Click **Edit Scanner**
 - Click the **Add Secret** Link
@@ -129,11 +126,11 @@ to the [Create Account Scanner Section](#create-Heroku-account-scanner)
 
 ### Next Steps
 
- The Heroku configuration is now complete.  The next step is to run a manual discovery scan.
+ The ThousandEyes configuration is now complete.  The next step is to run a manual discovery scan.
 - Navigate to  **Admin | Discovery**
 - Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Scan**
 - Click on the **Network view** Button in the upper right corner
-- Click on the newly created discovery source
+- Click on the newly created discocvery source
 - Click the **Domain \ Cloud Accounts** tab to view the discovered accounts
 
 ## Optional Report
