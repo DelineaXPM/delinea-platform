@@ -5,9 +5,9 @@
   <fields>
     <field isexpirationfield="false">
       <displayname>Tenant-url</displayname>
-      <description>This is the base URL for the ServiceNow instance. There should be no trailing / in the address
+      <description>This is the base URL for the Okta instance. There should be no trailing / in the address
 
-Example: https://MyInstance.Servicenow.com </description>
+Example: https://MyInstance.Okta.com </description>
       <name>Tenant-url</name>
       <mustencrypt>true</mustencrypt>
       <isurl>true</isurl>
@@ -26,7 +26,7 @@ Example: https://MyInstance.Servicenow.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>This is the username that will be used to make the Oauth autehentication to the ServiceNow API application</description>
+      <description>This is the username that will be used to make the Oauth autehentication to the Okta API application</description>
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -64,7 +64,7 @@ Example: https://MyInstance.Servicenow.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>client-id</displayname>
-      <description>ServiceNow API Application ClientUD</description>
+      <description>Okta API Application ClientUD</description>
       <name>client-id</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
