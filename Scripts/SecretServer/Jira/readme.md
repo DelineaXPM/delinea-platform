@@ -1,12 +1,12 @@
 # Jira Delinea Secret Server Integration
 
-This package is designed to discover and Manage Atlassian Accounts for Jira.  It will provides detailed instructions and the necessary Scripts to perform these functions. Before implementing any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [Here](./Instructions.md)
+This package is designed to discover and Manage Atlassian Accounts for Jira.  It will provide detailed instructions and the necessary Scripts to perform these functions. Before implementing any of the specific processes, performing the tasks contained in the instruction document which can be [found here](./instructions.md) is required.
 
 ## Connector Functions
 
 - Discovery :white_check_mark:
-- Password Changing :no:
-- Heartbeat :no:
+- Password Changing ✖️
+- Heartbeat ✖️
 
 # Disclaimer
 
