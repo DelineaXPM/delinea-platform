@@ -48,10 +48,10 @@ This document will cover adding a discovery source to Secret Server to allow rep
 - Select the Scanner just Created and Click ***Edit Scanner***
 - Click ***Edit Scanner***
 - Click the ***Add Secret*** Link
-- Search for the API Credential secret created in the [prerequisites](./instructions.md)
+- Search for the API Credential secret created in the [prerequisites](../instructions.md)
 - Check the ***Use Site Run As Secret*** Check box to enable it
     ***Note Default Site run as Secret had to be set in the Site configuration.
-    See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
+    See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
 - Click Save
 - Click on the Discovery Source tab and Click the Active check box
 - This completes the creation of the discovery Source
