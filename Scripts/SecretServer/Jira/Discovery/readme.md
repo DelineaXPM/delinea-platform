@@ -3,8 +3,8 @@
 This document will cover adding a discovery source to Secret Server to allow reporting on administrative Atlassian accounts in a Jira instance. 
 
 ## Prerequisites
-- [Jira base pre-requisites](./readme.md)
-- [Jira Account Discovery Script](./Discovery/jira-account-discovery.ps1) added to Secret Server
+- [Jira base pre-requisites](../readme.md)
+- [Jira Account Discovery Script](./jira-account-discovery.ps1) added to Secret Server
 
 ## Scanner Definition
 
@@ -59,7 +59,7 @@ This document will cover adding a discovery source to Secret Server to allow rep
 ### Custom Report
 
 - Navigate to ***Reports*** in your instance and click the ***New Report** button
-- Paste in the contents of the [Jira custom report](./Jira-additional-data-report.sql) into the Report SQL box
+- Paste the contents of the [Jira custom report](./Jira-additional-data-report.sql) into the Report SQL box
   - Update line 19 to match the name of the Discovery Source created in the previous step if you chose a different Name  
     `WHERE ds.name = 'Jira Account Discovery` -> `WHERE ds.name = 'Your Custom Name`
 - Do not add a Chart
