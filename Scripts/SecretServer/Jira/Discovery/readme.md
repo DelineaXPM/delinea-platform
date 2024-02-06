@@ -3,7 +3,7 @@
 This document will cover adding a discovery source to Secret Server to allow reporting on administrative Atlassian accounts in a Jira instance. 
 
 ## Prerequisites
-- [Jira base pre-requisites](../readme.md)
+- [Jira base pre-requisites](../instructions.md)
 - [Jira Account Discovery Script](./jira-account-discovery.ps1) added to Secret Server
 
 ## Scanner Definition
