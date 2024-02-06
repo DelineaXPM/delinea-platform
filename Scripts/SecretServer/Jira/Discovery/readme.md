@@ -61,7 +61,7 @@ This document will cover adding a discovery source to Secret Server to allow rep
 - Navigate to ***Reports*** in your instance and click the ***New Report** button
 - Paste the contents of the [Jira custom report](./Jira-additional-data-report.sql) into the Report SQL box
   - Update line 19 to match the name of the Discovery Source created in the previous step if you chose a different Name  
-    `WHERE ds.name = 'Jira Account Discovery` -> `WHERE ds.name = 'Your Custom Name`
+    `WHERE ds.name = 'Jira Account Discovery' ` -> `WHERE ds.name = 'Your Custom Name' `
 - Do not add a Chart
 - Enter whatever you would like for the following items
   - Name 
