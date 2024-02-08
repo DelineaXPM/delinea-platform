@@ -1,4 +1,3 @@
-$args = @("Advanced", "https://192.168.111.129","admin",".eWeek09@")
 
 #region define variables
 #Define Argument Variables
@@ -19,7 +18,6 @@ catch {
 
 #region Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\PAN-OS-Discovery.log"
-[string]$LogFile = "c:\temp\PAN-OS-Discovery.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "PAN-OS Discovery"
 [System.Collections.ArrayList]$adminAccounts = New-Object System.Collections.ArrayList

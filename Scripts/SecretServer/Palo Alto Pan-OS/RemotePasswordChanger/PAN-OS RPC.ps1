@@ -1,4 +1,3 @@
-$args = @("https://192.168.111.129","admin",".eWeek09@","rsmith",".Yahoo09@")
 
 #region define variables
 #Define Argument Variables
@@ -21,7 +20,6 @@ catch {
 
 #region Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\PAN-OS-RPC.log"
-[string]$LogFile = "c:\temp\PAN-OS-RPC.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "PAN-OS RPC"
 [int]$commitTimeout = 60 * 5 #5 minutes
