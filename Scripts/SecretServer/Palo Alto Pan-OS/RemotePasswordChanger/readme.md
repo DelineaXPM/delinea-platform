@@ -15,15 +15,15 @@ If you have not already done, so, please follow the steps in the **Instructions.
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields 
-    - **Name**: ( example PAN-OS Remote Password Changer)
-    - **Description**: (Enter something meaningful to your Organization)
-    - **Active** (Checked)
-    - **Script Type**: Powershell
-    - **Category**: Password Changing
-    - **Merge Fields**: Leave Blank
-    - **Script**: Copy and paste the Script included in the file [PAN-OS RPC.ps1](./PAN-OS%20RPC.ps1)
-    - Click Save
-    - This completes the creation of the Remote Password Changing Script
+- **Name**: ( example PAN-OS Remote Password Changer)
+- **Description**: (Enter something meaningful to your Organization)
+- **Active** (Checked)
+- **Script Type**: Powershell
+- **Category**: Password Changing
+- **Merge Fields**: Leave Blank
+- **Script**: Copy and paste the Script included in the file [PAN-OS RPC.ps1](./PAN-OS%20RPC.ps1)
+- Click Save
+- This completes the creation of the Remote Password Changing Script
 
 ### Heartbeat Script
 

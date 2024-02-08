@@ -41,15 +41,15 @@
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields with the information from the application registration
-    - Name: ( example PAN-OS Account Scanner)
-    - Description: (Enter something meaningful to your Organization)
-    - Active: (Checked)
-    - Script Type: Powershell
-    - Category: Discovery Scanner
-    - Merge Fields: Leave Blank
-    - Script: Copy and paste the Script included in the file [PAN-OS Discovery.ps1](./PAN-OS%20Discovery.ps1)
-    - Click Save
-    - This completes the creation of the Local Account Discovery Script
+- Name: ( example PAN-OS Account Scanner)
+- Description: (Enter something meaningful to your Organization)
+- Active: (Checked)
+- Script Type: Powershell
+- Category: Discovery Scanner
+- Merge Fields: Leave Blank
+- Script: Copy and paste the Script included in the file [PAN-OS Discovery.ps1](./PAN-OS%20Discovery.ps1)
+- Click Save
+- This completes the creation of the Local Account Discovery Script
 
 ### Create PAN-OS Tenant Scanner
 
