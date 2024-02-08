@@ -1,51 +1,51 @@
-# Creating secret templates for Juniper Mist Accounts 
+# Creating secret templates for Coveo Accounts 
 
-### Juniper Mist User Account Template
+### Coveo User Account Template
 
-The following steps are required to create the Secret Template for Juniper Mist Users:
-
-- Log in to the Delinea Secret Server (If you have not already done so)
-- Navigate to Admin / Secret Templates
-- Click on Create / Import Template
-- Click on Import.
-- Copy and Paste the XML in the [Juniper Mist User Template.xml File](./Juniper Mist%20User%20Secret%20Template.xml)
-- Click on Save
-- This completes the creation of the User Account template
-
-### Juniper Mist Discovery Account Template
-
-The following steps are required to create the Secret Template for Juniper Mist Discovery Account:
+The following steps are required to create the Secret Template for Coveo Users:
 
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Juniper Mist Discovery Account Template.xml File](./Juniper Mist%20Discovery%20Secret%20Template.xml)
+- Copy and Paste the XML in the [Coveo User Template.xml File](./Coveo%20User%20Secret%20Template.xml)
+- Click on Save
+- This completes the creation of the User Account template
+
+###  Coveo Discovery Account Template
+
+The following steps are required to create the Secret Template for Coveo Discovery Account:
+
+- Log in to the Delinea Secret Server (If you have not already done so)
+- Navigate to Admin / Secret Templates
+- Click on Create / Import Template
+- Click on Import.
+- Copy and Paste the XML in the [Coveo Discovery Account Template.xml File](./Coveo%20Discovery%20Secret%20Template.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
 
-## Create secret in Secret Server for the Juniper Mist Discovery Account
+## Create secret in Secret Server for the Coveo Discovery Account
  
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Secrets
 - Click on Create Secret
-- Select the template created in the earlier step [Above](#Juniper Mist-discovery-account-template).
+- Select the template created in the earlier step [Above](#coveo-discovery-account-template).
 - Fill out the required fields with the information from the application registration
-    - Secret Name (for example Juniper Mist API Account )
+    - Secret Name (for example Coveo API Account )
     - Workspace Name
-    - workspace-url (Juniper Mist base workspace url with no trailing slash)
+    - workspace-url (Coveo base workspace url with no trailing slash)
 - The following field values are as created in the [Create an OAuth Application Registry](../Instructions.md/#create-an-oauth-application-registry) Section
     - OAuthToken
     - admin-roles
     - svcacct-roles
 - Click Create Secret
   - For additional information regarding which admin and service account roles are supported, refer to the table and examples below.
-  - This completes the creation of a secret in Secret Server for the Juniper Mist Discovery Account
+  - This completes the creation of a secret in Secret Server for the Coveo Discovery Account
 
 
-## Juniper Mist Roles as defined by [Juniper Mist User Types](https://api.Juniper Mist.com/types/user)
-### Juniper Mist User Role Definitions
+##
+### Coveo Role Definitions
 ```
 - is_admin = Indicates whether the user is an Admin of the current workspace
 - is_service = Indicates whether the user is an Owner of the current workspace.

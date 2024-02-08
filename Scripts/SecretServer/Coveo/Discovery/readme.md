@@ -2,7 +2,6 @@
 Add Disclaimer
 
 ## Create Discovery Source
-.
 
 ### Create SaaS Scan Template
 If this template has already been created in another Delinea Integration package please skip
@@ -28,7 +27,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Name:** (Evxample: Coveo Account)
+    - **Name:** (Example: Coveo Account)
     - **Active:** (Checked)
     - **Scan Type:** Account
     - **Parent Scan Template:** Account(Basic)
@@ -43,7 +42,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 ### Create Discovery Script
 
 - Log in to Secret Server Tenant
-- Navigate to**ADMIN** > **Scripts**
+- Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields with the information from the application registration
     - Name: ( example - Coveo Local Account Scanner)
@@ -66,9 +65,9 @@ to the [Create Account Scanner Section](#create-saas-tenant-scanner )
     - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
     - Click **Create Scanner**
     - Fill out the required fields with the information
-        - **Name:** > SaaS Tenant Scanner 
-        - **Description:** (Example - Base scanner used to discover SaaS applications)
-        - **Discovery Type:**  Host
+    - **Name:** > SaaS Tenant Scanner 
+    - **Description:** (Example - Base scanner used to discover SaaS applications)
+    - **Discovery Type:**  Host
     - **Base Scanner:**  Host
     - **Input Template**: Manual Input Discovery
     - **Output Template:**: Sass Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))

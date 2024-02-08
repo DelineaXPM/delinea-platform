@@ -5,7 +5,7 @@ The steps below show how to Set up and configure a Coveo Remote Password Changer
 If you have not already done, so, please follow the steps in the **Instructions.md Document** found [Here](../Instructions.md)
 
 ## Disclaimer
-**Currently, Juniper Mist does not support remote password changing for user accounts. The scripts provided here are placeholders to enable the functionality within and for Discovery.**
+**Currently, Coveo does not support remote password changing for user accounts. The scripts provided here are placeholders to enable the functionality within and for Discovery.**
 
 ## Create Scripts
 
@@ -15,13 +15,14 @@ If you have not already done, so, please follow the steps in the **Instructions.
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields 
-    - **Name**: ( example Juniper Mist Remote Password Changer)
+    - **Name**: ( example Coveo Remote Password Changer)
     - **Description**: (Enter something meaningful to your Organization)
     - **Active** (Checked)
     - **Script Type**: Powershell
     - **Category**: Password Changing
     - **Merge Fields**: Leave Blank
-    - **Script**: Copy and paste the Script included in the file [Juniper Mist RPC Placeholder.ps1](./Juniper Mist%20RPC%20Placeholder.ps1)
+    - **Script**: Copy and paste the Script included in the file [Coveo RPC Placeholder.ps1](./Coveo%20Placeholder.ps1)
+  )
     - Click Save
     - This completes the creation of the Remote Password Changing Script
 
@@ -31,15 +32,15 @@ If you have not already done, so, please follow the steps in the **Instructions.
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields 
-    - **Name**: ( example Juniper Mist Heartbeat)
+    - **Name**: ( example Coveo Heartbeat)
     - **Description**: (Enter something meaningful to your Organization)
     - **Active** (Checked)
     - **Script Type**: Powershell
     - **Category**: Heartbeat
     - **Merge Fields**: Leave Blank
-    - **Script**: Copy and paste the Script included in the file [Juniper Mist Heartbeat Placeholder.ps1](./Juniper Mist%20Heartbeat%20Placeholder.ps1)
+    - **Script**: Copy and paste the Script included in the file [Coveo Heartbeat Placeholder.ps1](./Coveo%20Heartbeat%20Placeholder.ps1)
     - Click Save
-    - This completes the creation of the Juniper Mist Heartbeat Script
+    - This completes the creation of the Coveo Heartbeat Script
 
 ## Create Password Changer
 
@@ -75,23 +76,23 @@ If you have not already done, so, please follow the steps in the **Instructions.
   - **RPC Interval Hours** 8
   - **Enable Heartbeat** Checked
   - **Heartbeat Interval Hours** 4
-  - **Password Type to use** Select **Juniper Mist Remote Password Changer** or the Password Changer created in the [Create Password Changer Section](#create-password-changer)
+  - **Password Type to use** Select **Coveo Remote Password Changer** or the Password Changer created in the [Create Password Changer Section](#create-password-changer)
 - In the **Password Type Fields** Section, fill out the following
   - **Domain** workspace-url
   - **Password** Password
   - **Username** Username
 - Click Save
-- This completes the Update Juniper Mist User template section
+- This completes the Update Coveo User template section
 
 ## Update Remote Password Changer
 
 - Log in to Secret Server Tenant (if not already logged in)
 - Navigate to **ADMIN** > **Remote Password Changing**
 - Click on Options (Dropdown List) and select **Configure Password Changers**
-- Select the Juniper Mist Remote Password Changer or the Password Changer created in the [create-password-changer](#create-password-changer) section
+- Select the Coveo Remote Password Changer or the Password Changer created in the [create-password-changer](#create-password-changer) section
 - Click **Configure Scan Template at the bottom of the page**
 - Click Edit
-- Click the **Scan Template to use** (Dropdown List) Select the Juniper Mist User template created in the [Instructions.md Document](../Instructions.md)
+- Click the **Scan Template to use** (Dropdown List) Select the Coveo User template created in the [Instructions.md Document](../Instructions.md)
 - Map the following fields that appear after the selection
   - **workspace-url** -> Domain
   - **Username** -> username

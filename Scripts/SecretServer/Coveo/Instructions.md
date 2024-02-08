@@ -25,7 +25,7 @@ API Key with the the required privileges.
 ## Create an OAuth Application Registry
 
 - Have, or create, a new API Key that has an Account Administrator role permission.  
-- 
+
 Document the following values as they will be needed in the upcoming sections
   - API Key
 
