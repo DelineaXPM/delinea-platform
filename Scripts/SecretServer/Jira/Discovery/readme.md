@@ -24,7 +24,7 @@ This document will cover adding a discovery source to Secret Server to allow rep
         - ***Script:*** Jira Local Account Discovery script uploaded in pre-requisites
         - ***Script Arguments:*** ```$[1]$Username $[1]$Password $[1]$URL $[1]$notes ```
         - Click Save
-        - This completes the creation of the Jira Local Account Scanner
+    - This completes the creation of the Jira Local Account Scanner
 
 ### Create Discovery Source
 
