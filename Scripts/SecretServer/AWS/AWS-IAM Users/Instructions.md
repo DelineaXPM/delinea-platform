@@ -17,12 +17,12 @@ This connector utilizes a Service Account along with its Access Key and Secret. 
     - View and Manage all users
     - View all group memberships
     - View all permission policy assignments 
-- Installation of AWS Tools PowerShell module install on all Secret Server Distributed Engines that will be involved in RPC and Discovery processes.  For more information on AWS Tools click [here](https://www.powershellgallery.com/packages/AWS.Tools.IdentityManagement/)
+- Installation of AWS Tools PowerShell module install on all Secret Server Distributed Engines that will be involved in RPC and Discovery processes.  For more information on AWS Tools click [here](https://www.powershellgallery.com/packages/AWS.Tools.IdentityManagement/).
 
 ## Create AWS Service Account
 - Consult your AWS Administrator to create a user to be used as the Service Account.
 - Document the Access Key and Secret Key.  
-- Assign the permissions detailed in the [Prerequisites Section](#prerequisites)
+- Assign the permissions detailed in the [Prerequisites Section](#prerequisites).
 
 
 ## Creating secret template for AWS Accounts 
@@ -34,8 +34,8 @@ The following steps are required to create the Secret Template for AWS Users:
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
-- Click on Import.
-- Copy and Paste the XML in the [AWS User Advanced.xml File](./Templates/AWS%20User%20Advanced%20Template.xml)
+- Click on Import
+- Copy and Paste the XML in the [AWS User Advanced.xml file](./Templates/AWS%20User%20Advanced%20Template.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
@@ -46,8 +46,8 @@ The following steps are required to create the Secret Template for the AWS Privi
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
-- Click on Import.
-- Copy and Paste the XML in the [AWS Service Account Advanced Privileged Template.xml File](./Templates/AWS%20Service%20Account%20Advanced%20Template.xml)
+- Click on Import
+- Copy and Paste the XML in the [AWS Service Account Advanced Privileged Template.xml file](./Templates/AWS%20Service%20Account%20Advanced%20Template.xml)
 - Click on Save
 - This completes the creation of the Privileged Account template
 
@@ -57,19 +57,19 @@ The following steps are required to create the Secret Template for the AWS Privi
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Secrets
 - Click on Create Secret
-- Select the AWS Service Account template created in the earlier step [Above](#aws-service-account-template).
+- Select the AWS Service Account template created in the earlier step [above](#aws-service-account-template).
 - Fill out the required fields with the information from the application registration
     - Secret Name (for example AWS Service Account )
     - The following field values are as created in the [Prerequisites Section](#prerequisites)
       - Username 
       - Access Key
       - Secret Key
-  - Admin-Criteria  - Comma Separated List of AWS Policies used to determine Admin Accounts (Policy Name=Policy arn
+  - Admin-Criteria  - Comma Separated List of AWS Policies used to determine Admin Accounts (Policy Name=Policy, an
       example: Admin Access=arn:aws:iam::aws:policy/AdministratorAccess","Service-accounts,Custom Access=arn:aws:iam::aws:policy/CustomAccess" 
-  - SVC-Account-Criteria Comma Separated List of AWS Groups used to determine Service Accounts 
+  - SVC-Account-Criteria Comma Separated List of AWS Groups used to determine Service Accounts, 
         example:  Service-Accounts1,ServiceAccounts2
   - Click Create Secret
-  - This completes the creation of a secret in Secret Server for the AWS Privileged Account
+- This completes the creation of a secret in Secret Server for the AWS Privileged Account
 
 ## Next Steps
 

@@ -1,62 +1,20 @@
-Adobe Acrobat Sign Connector base configuration
-
-  
-
+# Adobe Acrobat Sign Connector base configuration
 This connector provides the following functions
-
-  
-
 - Discovery of Local Accounts
 - Discovery of Account Admin Accounts
 - Discovery of Service Accounts
-
-  
-
 Follow the Steps below to complete the base setup for the Connector.
-
-  
-
 ## Prepare Authentication
-
-  
-
-## Adobe Sign Integration Key
-
-  
-
+### Adobe Sign Integration Key
 This connector utilizes Adobe Sign integration key to authenticate API calls.
-
-  
-
-Follow the instruction to create and Integration Key.
-
-  
-
-[here] (https://helpx.adobe.com/sign/kb/how-to-create-an-integration-key.html)
-
-​
-
+Follow the instruction to create and Integration Key [here](https://helpx.adobe.com/sign/kb/how-to-create-an-integration-key.html).
 ### Prerequisites
-
-  
-
 - Access to a Adobe Sign instance with administrative privileges.
-
 - A generated Adobe Sign Integration Key
-
   
-
 ## Creating secret template for Adobe Sign Accounts
-
-  
-
 ### Adobe Sign User Account Template
-
-  
-
 The following steps are required to create the Secret Template for ServiceNow Users:
-
-  
 
 - Log in to the Delinea Secret Server (If you have not already done so)
 
@@ -66,21 +24,15 @@ The following steps are required to create the Secret Template for ServiceNow Us
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Adobe Sign Account.xml File](./Templates/Adobe%20Sign%20Account.xml)
+- Copy and Paste the XML in the [Adobe Sign Account.xml file](./Templates/Adobe%20Sign%20Account.xml)
 
 - Click on Save
 
 - This completes the creation of the User Account template
 
-  
+### Adobe Sign Integration Key Template  
 
-### Adobe Sign Integration Key Template
-
-  
-
-The following steps are required to create the Secret Template for Adobe Sign Integration Key:
-
-  
+The following steps are required to create the Secret Template for Adobe Sign Integration Key: 
 
 - Log in to the Delinea Secret Server (If you have not already done so)
 
@@ -90,13 +42,11 @@ The following steps are required to create the Secret Template for Adobe Sign In
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Adobe Sign Integration Key.xml File](./Templates/Adobe%20Sign%20Integration%20Key.xml)
+- Copy and Paste the XML in the [Adobe Sign Integration Key.xml file](./Templates/Adobe%20Sign%20Integration%20Key.xml)
 
 - Click on Save
 
-- This completes the creation of the Integration Key template
-
-  
+- This completes the creation of the Integration Key template 
   
 
 ## Create Secret in Secret Server for the Adobe Sign Privileged Account
@@ -107,7 +57,7 @@ The following steps are required to create the Secret Template for Adobe Sign In
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#adobe-sign-integration-key-template).
+- Select the template created in the earlier step [above](#adobe-sign-integration-key-template).
 
 - Fill out the required fields with the information from the application registration
 
@@ -128,10 +78,6 @@ Example:
 
 - This completes the creation of a secret in Secret Server for the Adobe Sign Privilaged Account
 
-  
-
 ## Next Steps
-
-  
 
 Once the tasks above are completed you can now proceed to create a [Discovery Scanner](./Discovery/readme.md)
