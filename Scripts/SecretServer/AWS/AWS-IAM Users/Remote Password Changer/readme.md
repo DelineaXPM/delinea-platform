@@ -1,8 +1,8 @@
 # AWS Remote Password Changer
 
-**NOTE** AWS IAM User Password Changer does not support Heartbeats. If the password change fails an error will be reported
+**NOTE** AWS IAM User Password Changer does not support Heartbeats. If the password change fails an error will be reported.
 
-## Associate the Amazon IAM Console Password Privileged Account Remote Password Changer with the AWS IAM User template
+## Associate the Amazon IAM Console Password Privileged Account Remote Password Changer with the AWS IAM User Template
 - Log in to the Delinea Secret Server
 - Navigate to Admin / Secret Templates
 - Click on the AWS User Advanced template created in the [instructions.md file](../Instructions.md)
@@ -12,7 +12,7 @@
     - Password Type to use: Select the Amazon IAM Console Password Privileged Account
 - Click on Save
 
-## Associate AWS Service account to AWS secret
+## Associate AWS Service Account to AWS Secret
 To be able to correctly use the password changer, the AWS Service account must be associated with the AWS IAM User secret. This can be done by following the steps below:
 - Log in to the Delinea Secret Server
 - Navigate to Secrets

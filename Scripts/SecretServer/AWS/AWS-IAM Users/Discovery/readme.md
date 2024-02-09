@@ -97,7 +97,7 @@ This scanner will scan AWS for administrative accounts.
 
 - Merge Fields: Leave Blank
 
-- Script: Copy and paste the Script included in the file [AWS IAM User Discovery.ps2](./AWS%20IAM%20User%20Discovery.ps1)
+- Script: Copy and paste the Script included in the file [AWS IAM User Discovery.ps1](./AWS%20IAM%20User%20Discovery.ps1)
 
 - Click Save
 
