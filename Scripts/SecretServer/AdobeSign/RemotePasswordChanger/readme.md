@@ -23,7 +23,7 @@ If you have not already done, so, please follow the steps in the **Instructions.
     - **Merge Fields**: Leave Blank
     - **Script**: Copy and paste the Script included in the file [Adobe Sign RPC Placeholder.ps1](./Adobe%20Sign%20RPC%20Placeholder.ps1)
     - Click Save
-    - This completes the creation of the Remote Password Changing Script
+- This completes the creation of the Remote Password Changing Script
 
 ### Heartbeat Script
 
@@ -39,7 +39,7 @@ If you have not already done, so, please follow the steps in the **Instructions.
     - **Merge Fields**: Leave Blank
     - **Script**: Copy and paste the Script included in the file [Adobe Sign Heartbeat Placeholder.ps1](./Adobe%20Sign%20Heartbeat%20Placeholder.ps1)
     - Click Save
-    - This completes the creation of the Adobe Sign Heartbeat Script
+- This completes the creation of the Adobe Sign Heartbeat Script
 
 ## Create Password Changer
 
