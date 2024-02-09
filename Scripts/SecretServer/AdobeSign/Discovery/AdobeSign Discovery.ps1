@@ -1,4 +1,3 @@
-$args = @("Default","api.na1.adobesign.com", "3AAABLblqZhDgUgDAXcpI9wbn1uaA0L_EvnsFST0qfWWxyKZOB9R8m6txuMYii2rK9saXwv2RlFRUmA7icf5pYOpO6JK_AXbP","true","ServiceAccounts=CBJCHBCAABAADKXZhgQc1ZiSl3WydXp9KbAFLPdSF4Qm")
 #region define variables
 #Define Argument Variables
 
@@ -42,8 +41,6 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
 }
 #endregion Error Handling Functions
@@ -296,8 +293,6 @@ catch {
    
     $headers = @{
     "Authorization" = "Bearer $accessToken"     
-    #"Accept" = "application/json, application/xml"
-    #"Content-Type" = "application/json, application/xml"
     }
 
     Write-Log -Errorlevel 0 -Message "Obtaining List of URIs"    
@@ -365,10 +360,7 @@ while ($null -ne $pageObj.nextCursor) {
 
 
 #region Main Process
-<#
-    if Discovery Mode is set to default, only retreive local administrators will be run
-#>
-
+#if Discovery Mode is set to default, only retreive local administrators will be run
 $adminAccounts = New-Object System.Collections.ArrayList
 $adminuser = New-Object -TypeName PSObject
 
