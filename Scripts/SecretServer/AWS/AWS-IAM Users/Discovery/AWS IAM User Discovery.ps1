@@ -52,8 +52,6 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
 }
 
@@ -77,7 +75,6 @@ try {
 }
 #endregion Error Handling Functions
 
-#New-AccessKeys -RootAccessKey $args[0] -RootSecretKey $args[1] -IAMUser $args[2] -IAMUserAccessKey $args[3] -SecretId  $args[4] -Url "https://ps01.thycotic.blue/secretserver" -UserName $args[5] -Password $args[6]
 #Begin Main Process
 
 try {
