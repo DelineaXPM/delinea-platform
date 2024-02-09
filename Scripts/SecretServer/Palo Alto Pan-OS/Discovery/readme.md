@@ -15,7 +15,7 @@
     - **Fields**
         - Change HostRange to **tenant-url**
     - Click Save
-    - This completes the creation of the PAN-OS Scan Template Creation
+- This completes the creation of the PAN-OS Scan Template Creation
  
 
 ### Create PAN-OS Account Scan Template
@@ -33,7 +33,7 @@
         - Add field: Local-Account (Leave Parent and Include in Match Blank)
         - Add field: Admin-Account (Leave Parent and Include in Match Blank)
     - Click Save
-    - This completes the creation of the PAN-OS Account Scan Template Creation
+- This completes the creation of the PAN-OS Account Scan Template Creation
  
 ### Create Local Account Discovery Script
 
@@ -65,7 +65,7 @@
     - **Input Template**: Discovery Source
     - **Output Template:**: PAN-OS Tenant (Use Template that Was Created in the [PAN-OS Scan Template Section](#create-PAN-OS-scan-template))
     - Click Save
-    - This completes the creation of the PAN-OS Tenant Scanner
+- This completes the creation of the PAN-OS Tenant Scanner
 
 ### Create PAN-OS Account Scanner
 
@@ -88,14 +88,14 @@
         $[1]$discovery-mode $[1]$tenant-url $[1]$username $[1]$password
         ```
         - Click Save
-        - This completes the creation of the PAN-OS Account Scanner
+- This completes the creation of the PAN-OS Account Scanner
 
 ### Create Discovery Source
 
 - Navigate to **Admin | Discovery | Discovery Sources**
 - Click **Create** drop-down
 - Click **Empty Discovery Source**
--Enter the Values below
+- Enter the Values below
     - **Name:** (example: PAN-OS Test Tenant)
     - **Site** (Select Site Where Discovery will run)
     - **Source Type** Empty
@@ -132,7 +132,7 @@ In this section, There are instructions on creating an optional report to displa
 - Navigate to the Reports module
 - click on the New Report Button
 - Fill in the following values:
-	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section (ex. MyDiscoverySource - Discovery )
+	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section (ex. MyDiscoverySource - Discovery)
 	- Description: (Enter something meaningful to your organization)
 	- Category: Select the Section where you would like the report to appear (ex. Discovery Scan)
 	- Report SQL: Copy and Paste the SQL Query below

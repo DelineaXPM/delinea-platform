@@ -5,7 +5,7 @@ The steps below show how to Set up and configure a PAN-OS Remote Password Change
 If you have not already done, so, please follow the steps in the **Instructions.md Document** found [Here](../Instructions.md)
 
 ## Disclaimer
-** Heartbeat will work with any account that in the Administrator Accounts section of the PAN-OS dashboard (Device -> Administrator). It will not work for accounts that only exist in the Local User Database.  If the account exits in both sections of the PAN-OS dashboard the Heartbeat will function correctly. Remote Password change will not work with any account in the Local User Database section of the PAN-OS dashboard.  These accounts are unable to update their password once they are associated with a Authentication Profile.**
+** Heartbeat will work with any account that is in the Administrator Accounts section of the PAN-OS dashboard (Device -> Administrator). It will not work for accounts that only exist in the Local User Database.  If the account exits in both sections of the PAN-OS dashboard the Heartbeat will function correctly. Remote Password change will not work with any account in the Local User Database section of the PAN-OS dashboard.  These accounts are unable to update their password once they are associated with a Authentication Profile.**
 
 ## Create Scripts
 
@@ -31,15 +31,15 @@ If you have not already done, so, please follow the steps in the **Instructions.
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields 
-    - **Name**: ( example PAN-OS Heartbeat)
-    - **Description**: (Enter something meaningful to your Organization)
-    - **Active** (Checked)
-    - **Script Type**: Powershell
-    - **Category**: Heartbeat
-    - **Merge Fields**: Leave Blank
-    - **Script**: Copy and paste the Script included in the file [PAN-OS Heartbeat.ps1](./PAN-OS%20Heartbeat.ps1)
-    - Click Save
-    - This completes the creation of the PAN-OS Heartbeat Script
+  - **Name**: ( example PAN-OS Heartbeat)
+  - **Description**: (Enter something meaningful to your Organization)
+  - **Active** (Checked)
+  - **Script Type**: Powershell
+  - **Category**: Heartbeat
+  - **Merge Fields**: Leave Blank
+  - **Script**: Copy and paste the Script included in the file [PAN-OS Heartbeat.ps1](./PAN-OS%20Heartbeat.ps1)
+  - Click Save
+- This completes the creation of the PAN-OS Heartbeat Script
 
 ## Create Password Changer
 
