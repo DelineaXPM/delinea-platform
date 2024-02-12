@@ -81,7 +81,7 @@ The following steps are required to create the Secret Template for Confluent Use
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Confluent User Template.xml File](./Templates/Confluent%20User%20Account.xml)
+- Copy and Paste the XML in the [Confluent User Template File](./Templates/Confluent%20User%20Account.xml)
 
 - Click on Save
 
@@ -105,7 +105,7 @@ The following steps are required to create the Secret Template for Confluent Dis
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Confluent Discovery Credentials Template.xml File](./Templates/Confluent%20Discovery%20Credentials.xml)
+- Copy and Paste the XML in the [Confluent Discovery Credentials Template File](./Templates/Confluent%20Discovery%20Credentials.xml)
 
 - Click on Save
 
@@ -122,21 +122,21 @@ The following steps are required to create the Secret Template for Confluent Dis
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#Confluent-discovery-account-template).
+- Select the template created in the earlier step [above](#Confluent-discovery-account-template).
 
 - Fill out the required fields with the information from the application registration
 
-- Secret Name (for example Confluent Discovery Account)
+  - Secret Name (for example Confluent Discovery Account)
 
-- tenant-url (base Confluent url with no trailing slash)
+  - tenant-url (base Confluent url with no trailing slash)
 
 - The following field values are as created in the [Create an OAuth Application Registry](#create-an-oauth-application-registry) Section
 
-- ApiKey
+  - ApiKey
 
-- ApiSecret
+  - ApiSecret
 
-- AdminRoles
+  - AdminRoles
 
 - Click Create Secret
 
