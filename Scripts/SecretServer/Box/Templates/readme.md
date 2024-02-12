@@ -1,4 +1,4 @@
-# Creating secret template for Box Accounts 
+# Creating Secret Template for Box Accounts 
 
 ### Box User Account Template
 
@@ -8,7 +8,7 @@ The following steps are required to create the Secret Template for Box Users:
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Box User Template.xml File](./Box%20User%20Account.xml)
+- Copy and Paste the XML in the [Box User Template File](./Box%20User%20Account.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
@@ -20,7 +20,7 @@ The following steps are required to create the Secret Template for Box Discovery
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Box Discovery Account Template.xml File](./Box%20Discovery%20Account.xml)
+- Copy and Paste the XML in the [Box Discovery Account Template File](./Box%20Discovery%20Account.xml)
 - Click on Save
 - This completes the creation of the Discovery Account template
 
@@ -30,7 +30,7 @@ The following steps are required to create the Secret Template for Box Discovery
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Secrets
 - Click on Create Secret
-- Select the template created in the earlier step [Above](#Box-discovery-account-template).
+- Select the template created in the earlier step [above](#Box-discovery-account-template).
 - Fill out the required fields with the information from the application registration
     - Secret Name (for example Box Discovery Account)
     - tenant-url (base Box url with no trailing slash)
