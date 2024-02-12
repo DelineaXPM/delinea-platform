@@ -1,6 +1,5 @@
 
 Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"
-#Import-Module -Name ".\Delinea.PoSH.Helpers\Utils.psm1"
 #region define variables
     #Define Argument Variables
 
