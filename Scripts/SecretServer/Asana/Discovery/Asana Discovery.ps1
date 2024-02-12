@@ -1,7 +1,6 @@
 
 
 Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"
-#Import-Module -Name ".\Delinea.PoSH.Helpers\Utils.psm1"
 #region define variables
     #Define Argument Variables
 
@@ -129,9 +128,7 @@ catch {
 
 #region Main Process
 #Region Get Advanced User Data
-<#
-    if Discovery Mode is set to default, parsing svcAccount names and admin users is skipped
-#>
+    #if Discovery Mode is set to default, parsing svcAccount names and admin users is skipped
 
 if($DiscoveryMode -eq "Advanced"){
 

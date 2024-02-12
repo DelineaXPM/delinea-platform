@@ -28,8 +28,6 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel, $logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        #Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
     if($LogFileCheck){
         if($LogFile -eq $null -or $LogFile -eq ""){
