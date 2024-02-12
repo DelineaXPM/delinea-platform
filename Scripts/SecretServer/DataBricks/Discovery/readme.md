@@ -8,7 +8,7 @@ This connector provides the following functions
 - Discovery of Local Accounts
 
 
-- Remote Password Changing of Local aUsers
+- Remote Password Changing of Local Users
 
 
 - Heartbeats of Local Accounts to verify that user credentials are still valid
@@ -35,17 +35,17 @@ The following steps are required to create the Secret Template for Databricks Ad
 
 - Fill out the required fields with the information
 
--  **Name:** (Example: Databricks Tenant)
+  -  **Name:** (Example: Databricks Tenant)
 
--  **Active:** (Checked)
+  -  **Active:** (Checked)
 
--  **Scan Type:** Host
+  -  **Scan Type:** Host
 
--  **Parent Scan Template:** Host Range
+  -  **Parent Scan Template:** Host Range
 
--  **Fields**
+  -  **Fields**
 
-- Change HostRange to **tenant-url**
+  - Change HostRange to **tenant-url**
 
 - Click Save
 
@@ -67,23 +67,23 @@ The following steps are required to create the Secret Template for Databricks Ad
 
 - Fill out the required fields with the information
 
--  **Name:** (Example: Databricks Account)
+  -  **Name:** (Example: Databricks Account)
 
--  **Active:** (Checked)
+  -  **Active:** (Checked)
 
--  **Scan Type:** Account
+  -  **Scan Type:** Account
 
--  **Parent Scan Template:** Account(Basic)
+  -  **Parent Scan Template:** Account(Basic)
 
--  **Fields**
+  -  **Fields**
 
-- Change Resource to **tenant-url**
+  - Change Resource to **tenant-url**
 
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
+  - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
+  - Add field: Service-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Local-Admin (Leave Parent and Include in Match Blank)
+  - Add field: Local-Admin (Leave Parent and Include in Match Blank)
 
 
 - Click Save
@@ -91,105 +91,23 @@ The following steps are required to create the Secret Template for Databricks Ad
 - This completes the creation of the Account Scan Template Creation
 
   
-  
-  
-
-  
-
-
-  
-
-  
-
-  
-
-- Discovery of Local Accounts
-
-  
-
-  
-
-- Remote Password Changing of Local aUsers
-
-  
-
-  
-
-- Heartbeats of Local Accounts to verify that user credentials are still valid
-
-  
-
-  
-
-  
 
 Follow the Steps below to complete the base setup for this integration. These steps are required to run any of the processes.
 
-  
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-  
-
-  
-  
-  
-
-  
-
-  
 
 The following steps are required to create the Secret Template for Databricks Advanced Users:
 
-  
-
-  
-
-  
-
 - Log in to the Delinea Secret Server (If you have not already done so)
-
-  
-
-  
 
 - Navigate to Admin / Secret Templates
 
-  
-
-  
-
 - Click on Create / Import Template
-
-  
-
-  
 
 - Click on Import.
 
-  
-
-  
-
-- Copy and Paste the XML in the [Databricks User Advanced.xml File](./templates/Databricks%20User%20Advanced.xml)
-
-  
-
-  
+- Copy and Paste the XML in the [Databricks User Advanced File](./templates/Databricks%20User%20Advanced.xml)
 
 - Click on Save
-
-  
-
-  
 
 - This completes the creation of the User Account template
 
