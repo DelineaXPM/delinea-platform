@@ -1,34 +1,3 @@
-#Args used for development (Remove before pushing to production):
-<#
-$args = @("Advanced","https://demo.docusign.net", "account-d.docusign.com", "c5473482-00fc-4e91-b6cd-476347640bbc", "f55537f1-0d35-490c-b4aa-960e203643fb", "-----BEGIN PRIVATE KEY-----
-MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDxq/UtsJS3GEgT
-yR051dKlCj62rF6FjgTj6mcH4x5xHQ0KfKP98+7tnXQpqXhrxSIvs1QBjNT6xqAd
-6PpdIXZ0yCVxexpQmBoIXmbvW6fOrDams2JFD/pNUpTPOQo9fy5BjOAcaEVQTCwp
-xgSduak6DbAN8yTU7th9ruNCAnyxekXLfZtQ2G6MOSPKfTzkrO6hGK0JbG5ZYJ+f
-qR9BCvLzZTwHTU5YeztIKPJA6rG/a0eyoNyZG+2NLW9fUk0z2B0CAIBPTB0vi1Wu
-Ek4jHONX6wO7zJMGOjGV49ZX7YFVTs3aoRQkShsTZ9r5mUszjfDyg8bvV91ZJ8sc
-NPJeIP+VAgMBAAECggEAVbTQLLX058IavbmTPdGQ9KrfdtVGaELnhRS6GVf4kdDl
-sRRm7Ec4MtimO6g4Zq/w4c3NOweA+La8Th8zuxeE9QGOFeK8gFyQzur7wmNU7byx
-XQk9DpUOBaIF2D+4W/rgoqqdSDXKbyG0f9QUCwOu+kGkcC4Mn99cs6X0PpK3OhEc
-g2QNyuXNYKd8zfMAWsZUAIQ5ev0a9/o0ioXWn9h6+UbE/OW22qWbIojEhVGYxU48
-j8SqLn+Go8kqT2QSPlKg5UOQXuRLBlgVJs5Vu149As1CwcqsFGj82tsBoDkPU35X
-fx1979ghjKvHg3idqCpmUhzsucfx/9nGXaVwvvsVeQKBgQD77vvgkXq8rMyPaez+
-8dij4Jb7l7jdzp4yE5RFRSM7Gc4woUxYdxsl4JaVYDwGt+0cXYqtLB/WdOVSyKiy
-Wwv9Tzt1Ca8ErxW50NZBHTi+kEZcV1X0tVspHEj4I/n6WMpigzUoJE6OMP/mLIoG
-iErLs20hQyZd2u0vUkZUEuZVwwKBgQD1kpImb+7+4aO5b7MWsffWoJsjA0Ne9vQT
-ZWqN1TtgJ6RTPS0WZC3QzfEkcC2v0lj8Un7pfhrDoly1MyzKxx7UYc7I7/UPC1cx
-NivxEkWYno5SPQmes1RYmLYoHnciTrB9FLTkhHFYte/OvjXqtzOQyWra6L5xSVyT
-NC42RJQHxwKBgQDvWgYDPTQWvTU7q692J99jEqVfMq54TS0O9nsPtLfcFpBGs3gN
-NFueiNmH4X4mA+hJ4rU2AY3d+gFFvU5I5Sdm6jfa4fBdytohR7/G7TRUGE5AvNj1
-PLf3PuA0oDmHF4RwQ6flE1luzi7RR896lVI6ZaVwzJNO6AgfxVL73VjocQKBgQCS
-aOWL1xZ1jc+QQmFSuZ5arvxvXoWvO6r/WWqyzxuMU3YsTn/wJqAOKoqHv/3tIor9
-PK3/xbhtRQLi4XTmHNtrojioIjBH3OoKJBMEsnEd8gJGU6/Fl4NFIx8PQkKjCKk+
-mbbTu4bcbfRgnZUFsF4lB4EWrMbGQgfYl7apki9zhwKBgQDNFohJIsUaRyGkpbvg
-tfes0VV7oQFGe2jndfMrb+JGWBr5fj5v8NGXUIQP3QylbMVizQW3Y5IyqWtL/ivp
-LeN8H/p+8dCZLTpOpchKmrcY59vnOcfbFmJNwLJhEyR/eHAwR6KsAc/WLSsSf6tF
-dnBi8hMJTK+AnwGF1JhtlNSx4w==
------END PRIVATE KEY-----", "23836283","Sales")
-##>
 Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"
 #region define variables
     #Define Argument Variables
