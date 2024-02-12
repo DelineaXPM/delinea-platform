@@ -1,10 +1,9 @@
 # Amazon CloudFormation Delinea Secret Server Integration
 
-Amazon CloudFormation is managed using AWS Identity and Access Management tools. 
-[documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html)
+Amazon CloudFormation is managed using AWS Identity and Access Management tools, documentation can be found [here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html)
 
 To discover and manage these accounts you should implement the [AWS IAM Users discovery and password changing tools](/Scripts/SecretServer/AWS/AWS-IAM%20Users/).  Scanning for the  `arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
-` ARN along with any other specific ARNS needed
+` ARN along with any other specific ARNS needed.
 
 
 # Disclaimer
