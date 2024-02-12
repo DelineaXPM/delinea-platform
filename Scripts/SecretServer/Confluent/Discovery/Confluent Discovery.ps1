@@ -46,7 +46,7 @@ try {
 }
 catch {
     $Err = $_
-    Write-Log -ErrorLevel 0 -Message "Check if Admin Acct Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
+    Write-Log -ErrorLevel 0 -Message "Check if Admin Account Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
     Write-Log -ErrorLevel 2 -Message $Err.Exception -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
     throw $Err.Exception 
 }
@@ -64,7 +64,7 @@ try {
 }
 catch {
     $Err = $_
-    Write-Log -ErrorLevel 0 -Message "Check if Local Acct Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
+    Write-Log -ErrorLevel 0 -Message "Check if Local Account Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
     Write-Log -ErrorLevel 2 -Message $Err.Exception -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
     throw $Err.Exception 
 }
