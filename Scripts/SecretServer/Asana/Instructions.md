@@ -38,8 +38,6 @@ Due to the requirement of user challenge interaction with the Client_Credentials
 
 More information can be found [here](https://developers.asana.com/docs/authentication).
 
-​
-
 ### Prerequisites
 
   
@@ -58,15 +56,13 @@ More information can be found [here](https://developers.asana.com/docs/authentic
 
 - Create and record the PAT using the user account with appropriate permissions that the client needs to access the restricted resources on the instance.
 
-  
-
-*** For more information and directions, click [here](https://developers.asana.com/docs/personal-access-token).
+-  For more information and directions, click [here](https://developers.asana.com/docs/personal-access-token).
 
   
 
 - Document the following values as they will be needed in the upcoming sections
 
-- PAT value
+  - PAT value
 
   
 
@@ -90,7 +86,7 @@ The following steps are required to create the Secret Template for Asana Users:
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Asana User Template.xml File](./Templates/Asana%20User%20Account.xml)
+- Copy and Paste the XML in the [Asana User Template File](./Templates/Asana%20User%20Account.xml)
 
 - Click on Save
 
@@ -114,7 +110,7 @@ The following steps are required to create the Secret Template for Asana Discove
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Asana Discovery Account Template.xml File](./Templates/Asana%20Discovery%20Credentials.xml)
+- Copy and Paste the XML in the [Asana Discovery Account Template File](./Templates/Asana%20Discovery%20Credentials.xml)
 
 - Click on Save
 
@@ -131,7 +127,7 @@ The following steps are required to create the Secret Template for Asana Discove
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#Asana-discovery-account-template).
+- Select the template created in the earlier step [above](#Asana-discovery-account-template).
 
 - Fill out the required fields with the information from the application registration
 

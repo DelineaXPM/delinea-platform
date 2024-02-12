@@ -1,8 +1,8 @@
 # Asana Local Account Discovery
-Add Disclaimer
+
 ## Create Discovery Source
 
-This scanner can help perform a Scan for user accounts within Asana. Account types will be distinguished by appropriate groups, roles, and/or sites designated by Asana.
+This scanner can help perform a scan for user accounts within Asana. Account types will be distinguished by appropriate groups, roles, and/or sites designated by Asana.
 
 ### Create SaaS Scan Template
 If this Script has already been created in another Delinea Integration package please skip
@@ -12,14 +12,14 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Nmae:** (Example: SaaS Tenant)
+    - **Name:** (Example: SaaS Tenant)
     - **Active:** (Checked)
     - **Scan Type:** Host
     - **Parent Scan Template:** Host Range
     - **Fields**
         - Change HostRange to **tenant-url**
     - Click Save
-    - This completes the creation of the Saas Scan Template Creation
+- This completes the creation of the Saas Scan Template Creation
  
 
 ### Create Account Scan Template
@@ -28,7 +28,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Nmae:** (Example: Asana Account)
+    - **Name:** (Example: Asana Account)
     - **Active:** (Checked)
     - **Scan Type:** Account
     - **Parent Scan Template:** Account(Basic)
@@ -38,7 +38,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
         - Add field: Service-Account (Leave Parent and Include in Match Blank)
         - Add field: Local-Account (Leave Parent and Include in Match Blank)
     - Click Save
-    - This completes the creation of the Account Scan Template Creation
+- This completes the creation of the Account Scan Template Creation
  
 ### Create Discovery Script
 
@@ -54,9 +54,9 @@ to the [Create Account Scan Template](#create-account-scan-template )
     - Merge Fields: Leave Blank
     - Script: Copy and paste the Script included in the file [Asana Discovery.ps1](./Asana%20Discovery.ps1)
     - Click Save
-    - This completes the creation of the Local Account Discovery Script
+- This completes the creation of the Local Account Discovery Script
 
-### Create Saas Tenant Scanner
+### Create SaaS Tenant Scanner
 
 If this Scanner has already been created in another Delinea Integration package please skip
 to the [Create Account Scanner Section](#create-Asana-account-scanner) 
@@ -73,7 +73,7 @@ to the [Create Account Scanner Section](#create-Asana-account-scanner)
     - **Input Template**: Manual Input Discovery
     - **Output Template:**: Saas Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
     - Click Save
-    - This completes the creation of the Saas Tenant Scanner
+- This completes the creation of the Saas Tenant Scanner
 
 ### Create Asana Account Scanner
 
@@ -91,7 +91,7 @@ to the [Create Account Scanner Section](#create-Asana-account-scanner)
         - **Script:** Asana Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
         - **Script Arguments:** ```Advanced $[1]$PAToken $[1]$service-account-name $[1]$DomainName```
         - Click Save
-        - This completes the creation of the Asana Account Scanner
+    - This completes the creation of the Asana Account Scanner
 
 ### Create Discovery Source
 
@@ -100,22 +100,22 @@ to the [Create Account Scanner Section](#create-Asana-account-scanner)
 - Click **Empty Discovery Source**
 -Enter the Values below
     - **Name:** (example: Asana Tenant)
-    - **Site** (Select Site Where Discovery will run)
-    - **Source Type** Empty
+    - **Site:** (Select Site Where Discovery will run)
+    - **Source Type:** Empty
 - Click Save
 - Click Cancel on the Add Flow Screen
 - Click **Add Scanner**
-- Find the Saas Tenant Scanner or the Scanner Created in the [Create Saas Tenant Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
-- Select the Scanner just Ceated and Click **Edit Scanner**
-- In the **lines Parse Format** Section Enter the Source Name (example: Asana Tenant)
+- Find the Saas Tenant Scanner or the Scanner Created in the [Create Saas Tenant Scanner Section](#create-saas-tenant-scanner) and click **Add Scanner**
+- Select the Scanner just Ceated and click **Edit Scanner**
+- In the **Lines Parse Format** Section Enter the Source Name (example: Asana Tenant)
 - Click **Save**
 
 - Click **Add Scanner**
 - Find the Asana Local Account Scanner  or the Scanner Creatted in the [Create Asana Account Scanner Section](#create-Asana-account-scanner) and Click **Add Scanner**
-- Select the Scanner just Created and Click **Edit Scanner**
+- Select the Scanner just created and click **Edit Scanner**
 - Click **Edit Scanner**
 - Click the **Add Secret** Link
-- Search for the Discovery Account Secret created in the [Instructions.md file](../Instructions.md)
+- Search for the Discovery Account Secret created in the [Instructions File](../Instructions.md)
 - Check the Use Site Run As Secret Check box to enable it
     **Note Default Site run as Secret had to be setup in the Site configuration.
     See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
@@ -144,11 +144,11 @@ In this section, There are instructions on creating an optional report to displa
 - Login to Secret Server Tenant (If you have not already done so)
 
 - Navigate to the Reports module
-- click on the New Report Button
+- Click on the New Report Button
 - Fill in the following values:
-	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
+	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) section
 	- Description: (Enter something meaningful to your organization)
-	- Category: Select the Section where you would like the report to appear (ex. Discovery Scan)
+	- Category: Select the section where you would like the report to appear (ex. Discovery Scan)
 	- Report SQL: Copy and Paste the SQL Query  below
 		***Note** " You must replace the WHERE d.DiscoverySourceId =  32 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL 
    
