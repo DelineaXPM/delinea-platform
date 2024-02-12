@@ -16,7 +16,7 @@ This connector provides the following functions:
 
 - Remote Password Changing Box users
 
-- Heartbeats to verify that user credentials are still valid
+- Heartbeat to verify that user credentials are still valid
 
   
 
@@ -35,8 +35,6 @@ Follow the Steps below to complete the base setup for the Connector
 This connector utilizes an OAuth 2.0 application in Box using the Client Credentials grant type. This flow is typically used for server-to-server API requests where the application itself needs to authenticate and interact with Box APIs.
 
 More information can be found [here](https://developer.box.com/guides/authentication/oauth2/).
-
-​
 
 ### Prerequisites
 
@@ -58,7 +56,7 @@ More information can be found [here](https://developer.box.com/guides/authentica
 
   
 
-*** For more information and directions, click [here](https://developer.box.com/guides/authentication/oauth2/oauth2-setup/).
+**For more information and directions, click**  [here](https://developer.box.com/guides/authentication/oauth2/oauth2-setup/).
 
   
 
@@ -88,7 +86,7 @@ The following steps are required to create the Secret Template for Box Users:
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Box User Template.xml File](./Templates/Box%20User%20Account.xml)
+- Copy and Paste the XML in the [Box User Template File](./Templates/Box%20User%20Account.xml)
 
 - Click on Save
 
@@ -112,7 +110,7 @@ The following steps are required to create the Secret Template for Box Discovery
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Box Discovery Account Template.xml File](./Templates/Box%20Discovery%20Account.xml)
+- Copy and Paste the XML in the [Box Discovery Account Template File](./Templates/Box%20Discovery%20Account.xml)
 
 - Click on Save
 
@@ -129,7 +127,7 @@ The following steps are required to create the Secret Template for Box Discovery
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#Box-discovery-account-template).
+- Select the template created in the earlier step [above](#Box-discovery-account-template).
 
 - Fill out the required fields with the information from the application registration
 
@@ -137,17 +135,17 @@ The following steps are required to create the Secret Template for Box Discovery
 
 - The following field values are as created in the [Create an OAuth Application Registry](#create-an-oauth-application-registry) Section
 
-- ClientId
+  - ClientId
 
-- ClientSecret
+  - ClientSecret
 
-- subjectType
+  - subjectType
 
-- subjectId
+  - subjectId
 
-- AdminRoles
+  - AdminRoles
 
-- Service-account-group-names
+  - Service-account-group-names
 
 - Click Create Secret
 
