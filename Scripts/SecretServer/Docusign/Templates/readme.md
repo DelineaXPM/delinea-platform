@@ -8,7 +8,7 @@ The following steps are required to create the Secret Template for Docusign User
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Docusign User Template.xml File](./Docusign%20User%20Account.xml)
+- Copy and Paste the XML in the [Docusign User Template File](./Docusign%20User%20Account.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
@@ -20,17 +20,17 @@ The following steps are required to create the Secret Template for Docusign Priv
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Docusign Discovery Account Template.xml File](./Docusign%20Discovery%20Account.xml)
+- Copy and Paste the XML in the [Docusign Discovery Account Template File](./Docusign%20Discovery%20Account.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
 
-## Create secret in Secret Server for the Docusign Discovery Account
+## Create Secret in Secret Server for the Docusign Discovery Account
  
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Secrets
 - Click on Create Secret
-- Select the template created in the earlier step [Above](#docusign-discovery-account-template).
+- Select the template created in the earlier step [above](#docusign-discovery-account-template).
 - Fill out the required fields with the information from the application registration
     - Secret Name (for example Docusign Discovery Account)
     - tenant-url (base Docusign url with no trailing slash)

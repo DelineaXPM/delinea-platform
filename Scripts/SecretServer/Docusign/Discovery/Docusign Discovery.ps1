@@ -39,7 +39,7 @@ $response = Invoke-RestMethod -Uri $tokenurl -Method POST -Headers $headers -Bod
     $accessToken = $response.access_token
 
     
-    Write-Log -Errorlevel 0 -Message "Access Token Successfuly Obtained " -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
+    Write-Log -Errorlevel 0 -Message "Access Token Successfuly Obtained" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
 
 }
 catch {
@@ -101,7 +101,7 @@ try {
 }
 catch {
     $Err = $_
-    Write-Log -ErrorLevel 0 -Message "Check if Local Acct Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
+    Write-Log -ErrorLevel 0 -Message "Check if Local Account Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
     Write-Log -ErrorLevel 2 -Message $Err.Exception -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
     throw $Err.Exception 
 }

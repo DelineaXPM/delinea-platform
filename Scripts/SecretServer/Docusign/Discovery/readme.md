@@ -1,8 +1,8 @@
 # Docusign Local Account Discovery
-Add Disclaimer
+
 ## Create Discovery Source
 
-This scanner can help perform a Scan for user accounts within Docusign. Account types will be distinguished by appropriate groups, roles, and/or sites designated by Docusign.
+This scanner can help perform a scan for user accounts within Docusign. Account types will be distinguished by appropriate groups, roles, and/or sites designated by Docusign.
 
 ### Create SaaS Scan Template
 If this Script has already been created in another Delinea Integration package please skip
@@ -12,14 +12,13 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Nmae:** (Example: SaaS Tenant)
+    - **Name:** (Example: SaaS Tenant)
     - **Active:** (Checked)
     - **Scan Type:** Host
     - **Parent Scan Template:** Host Range
-    - **Fields**
-        - Change HostRange to **tenant-url**
+    - **Fields:** Change HostRange to **tenant-url**
     - Click Save
-    - This completes the creation of the Saas Scan Template Creation
+- This completes the creation of the Saas Scan Template Creation
  
 
 ### Create Account Scan Template
@@ -28,7 +27,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Discovery** > **Configuration** >   **Scanner Definition** > **Scan Templates** 
 - Click **Create Scan Template**
 - Fill out the required fields with the information
-    - **Nmae:** (Example: Docusign Account)
+    - **Name:** (Example: Docusign Account)
     - **Active:** (Checked)
     - **Scan Type:** Account
     - **Parent Scan Template:** Account(Basic)
@@ -38,7 +37,7 @@ to the [Create Account Scan Template](#create-account-scan-template )
         - Add field: Service-Account (Leave Parent and Include in Match Blank)
         - Add field: Local-Account (Leave Parent and Include in Match Blank)
     - Click Save
-    - This completes the creation of the Account Scan Template Creation
+- This completes the creation of the Account Scan Template Creation
  
 ### Create Discovery Script
 
@@ -46,17 +45,17 @@ to the [Create Account Scan Template](#create-account-scan-template )
 - Navigate to **ADMIN** > **Scripts**
 - Click on **Create Script**
 - Fill out the required fields with the information from the application registration
-    - Name: (example Docusign Local Account Scanner)
-    - Description: (Enter something meaningful to your Organization)
-    - Active: (Checked)
-    - Script Type: Powershell
-    - Category: Discovery Scanner
-    - Merge Fields: Leave Blank
-    - Script: Copy and paste the Script included in the file [Docusign Discovery.ps1](./Docusign%20Discovery.ps1)
+    - **Name:** (example Docusign Local Account Scanner)
+    - **Description:** (Enter something meaningful to your Organization)
+    - **Active:** (Checked)
+    - **Script Type:** Powershell
+    - **Category:** Discovery Scanner
+    - **Merge Fields:** Leave Blank
+    - **Script:** Copy and paste the Script included in the file [Docusign Discovery](./Docusign%20Discovery.ps1)
     - Click Save
-    - This completes the creation of the Local Account Discovery Script
+- This completes the creation of the Local Account Discovery Script
 
-### Create Saas Tenant Scanner
+### Create SaaS Tenant Scanner
 
 If this Script has already been created in another Delinea Integration package please skip
 to the [Create Account Scanner Section](#create-Docusign-account-scanner) 
@@ -69,11 +68,11 @@ to the [Create Account Scanner Section](#create-Docusign-account-scanner)
         - **Name:** > SaaS Tenant Scanner 
         - **Description:** (Example - Base scanner used to discover SaaS applications)
         - **Discovery Type:**  Host
-    - **Base Scanner:**  Host
-    - **Input Template**: Manual Input Discovery
-    - **Output Template:**: Saas Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
+        - **Base Scanner:**  Host
+        - **Input Template**: Manual Input Discovery
+        - **Output Template:**: Saas Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
     - Click Save
-    - This completes the creation of the Saas Tenant Scanner
+- This completes the creation of the Saas Tenant Scanner
 
 ### Create Docusign Account Scanner
 
@@ -91,7 +90,7 @@ to the [Create Account Scanner Section](#create-Docusign-account-scanner)
         - **Script:** Docusign Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
         - **Script Arguments:** ```Advanced $[1]$tenant-url $[1]$audience-uri $[1]$issuer $[1]$subject $[1]$privateKeyPEM $[1]$accountid $[1]$service-account-group-names```
         - Click Save
-        - This completes the creation of the Docusign Account Scanner
+    - This completes the creation of the Docusign Account Scanner
 
 ### Create Discovery Source
 
@@ -106,16 +105,16 @@ to the [Create Account Scanner Section](#create-Docusign-account-scanner)
 - Click Cancel on the Add Flow Screen
 - Click **Add Scanner**
 - Find the Saas Tenant Scanner or the Scanner Created in the [Create Saas Tenant Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just created and Click **Edit Scanner**
 - In the **lines Parse Format** Section Enter the Source Name (example: Docusign Tenant)
 - Click **Save**
 
 - Click **Add Scanner**
-- Find the Docusign Local Account Scanner  or the Scanner Creatted in the [Create Docusign Account Scanner Section](#create-Docusign-account-scanner) and Click **Add Scanner**
+- Find the Docusign Local Account Scanner  or the Scanner created in the [Create Docusign Account Scanner Section](#create-Docusign-account-scanner) and Click **Add Scanner**
 - Select the Scanner just Created and Click **Edit Scanner**
 - Click **Edit Scanner**
 - Click the **Add Secret** Link
-- Search for the Discovery Account Secret created in the [Instructions.md file](../Instructions.md)
+- Search for the Discovery Account Secret created in the [Instructions file](../Instructions.md)
 - Check the Use Site Run As Secret Check box to enable it
     **Note Default Site run as Secret had to be setup in the Site configuration.
     See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
@@ -144,7 +143,7 @@ In this section, There are instructions on creating an optional report to displa
 - Login to Secret Server Tenant (If you have not already done so)
 
 - Navigate to the Reports module
-- click on the New Report Button
+- Click on the New Report Button
 - Fill in the following values:
 	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
 	- Description: (Enter something meaningful to your organization)
@@ -156,19 +155,12 @@ In this section, There are instructions on creating an optional report to displa
 ``` SQL
 
 SELECT
-
 d.[ComputerAccountId]
-
 ,d.[CreatedDate]
-
 ,d.[AccountName] AS [Username]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
 
 FROM tbComputerAccount AS d
@@ -180,9 +172,6 @@ INNER JOIN tbScanItemTemplate AS s ON s.ScanItemTemplateId = d.ScanItemTemplateI
 WHERE d.DiscoverySourceId =  32
 
 GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
-
-  
-
 ```
 - Click Save
 
