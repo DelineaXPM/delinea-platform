@@ -1,6 +1,6 @@
 # Script usage
-# use powershell script for both hearthbeat and password changing.
-# parameters to provide in each case are:
+# Use powershell script for both hearthbeat and password changing.
+# Parameters to provide in each case are:
 # Heartbeat: hb $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password 
 # Password Change: rpc $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password $newpassword
 
@@ -38,18 +38,16 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}" -f $Timestamp, $MessageLevel, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
 }
 
-###   ###   ###   ###   ###  Log Cleanup  ###   ###   ###   ###   ###
+#Log Cleanup
 if (( Get-Item -Path $LogFile -ErrorAction SilentlyContinue ).Length -gt 25MB) {    
     Remove-Item -Path $LogFile -Force -ErrorAction SilentlyContinue
-    Write-Log -Errorlevel 2 -Message "Old logdata has been purged."
+    Write-Log -Errorlevel 2 -Message "Old log data has been purged."
 }
 
-###   ###   ###   ###   ###    Modules    ###   ###   ###   ###   ###
+#Modules
 try {
     Write-Log -Errorlevel 0 -Message "Loading Microsoft Graph PowerShell modules"
     # Modules needed for Microsoft Graph Powershell
@@ -61,7 +59,7 @@ try {
     throw $Err.Exception
 }
 
-###   ###   ###   ###    Variable handling       ###   ###   ###   ###
+#ariable handling
 if ($response) {
     Remove-Variable response
 }
@@ -90,7 +88,6 @@ if ($action -eq 'rpc') {
 }
 Write-Log -Errorlevel 0 -Message "All variables correctly set"
 
-###   ###   ###   ###   ###    HB    ###   ###   ###   ###   ###
 # Function to try and authenticate to the Microsoft Graph API using the Resource Owner Password Credentials Grant
 # The resulting token is not further used. The authentication request is just to validate the credentials
 function Invoke-HB {
@@ -117,7 +114,7 @@ function Invoke-HB {
     Write-Log -Errorlevel 0 -Message "Start Authentication towards TenantId: $TenantId for user $thy_username"
     try {
         $response = Invoke-WebRequest -Uri $authUrl -Method POST -headers $headers -Body $body
-        # on a succesful authentication, the response code will be 200 which will be available in $response.StatusCode
+        # On a succesful authentication, the response code will be 200 which will be available in $response.StatusCode
         # In the unlikely event the authentication succeeds but the response code is not 200, the authentication is considered failed
         if ($response.StatusCode -eq 200) {
             Write-Log -Errorlevel 0 -Message "Authentication Successful for user $thy_username"
@@ -132,8 +129,8 @@ function Invoke-HB {
         # Invoke-webrequest goes into error mode when the response code is not indicating success
         $errormessage = $_.ErrorDetails | ConvertFrom-Json
         # If the error message contains the string 'multi-factor', the authentication is considered succesful
-        # if the error message contains the string 'invalid', the authentication is considered failed
-        # all other error messages are considered unknown and the authentication is considered failed
+        # If the error message contains the string 'invalid', the authentication is considered failed
+        # All other error messages are considered unknown and the authentication is considered failed
         if ($errormessage.error_description -like '*multi-factor*') {
             Write-Log 0 -Message "Authentication Successful for user $thy_username - MFA protected account"
             write-log -ErrorLevel 3 -Message $errormessage.error_description
@@ -150,7 +147,7 @@ function Invoke-HB {
     }
 }
 
-###   ###   ###   ###   ###    RPC    ###   ###   ###   ###   ###
+#RPC
 # Function to rotate password of managed account user application account
 # The function will connect to Microsoft Graph using the application client id and client secret
 # It will then set the password of the managed account without the requirement to know the current password
@@ -158,7 +155,7 @@ function Invoke-HB {
 function Invoke-RPC {
     try {
         Write-Log -Errorlevel 0 -Message "Start Authentication towards TenantId: $TenantId for applicationID: $clientid"
-        # create client credentials and stored in creds variable using the clientid and clientsecret variables
+        # Create client credentials and stored in creds variable using the clientid and clientsecret variables
         $creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $clientid, (ConvertTo-SecureString -String $clientsecret -AsPlainText -Force)
         # Connect to Microsoft Graph using the client credentials
         Connect-MgGraph -ClientSecretCredential $creds -TenantId $tenantid -NoWelcome -ErrorAction Stop

@@ -18,7 +18,7 @@ Follow the Steps below to complete the base setup for this integration. These st
 
   
 
-## Creating secret template for ServiceNow Accounts
+## Creating Secret Template for ServiceNow Accounts
 
   
 
@@ -32,7 +32,7 @@ The provided functions leverage the Microsoft Graph functionality in Azure AD / 
 
 - Tenant ID
 
-- application ID (which originates from an App Registration in Azure AD / EntraID)
+- Application ID (which originates from an App Registration in Azure AD / EntraID)
 
 - Client Secret (which again originates from an App Registration in Azure AD / EntraID)
 
@@ -62,11 +62,11 @@ The provided functions leverage the Microsoft Graph functionality in Azure AD / 
 
   
 
-## Creating secret template for EntraID Accounts
+## Creating Secret Template for EntraID Accounts
 
   
 
-### Creating secret template for User Accounts
+### Creating Secret Template for User Accounts
 
   
 
@@ -82,7 +82,7 @@ The following steps are required to create the Secret Template for EntraID Users
 
 - Click on Import.
 
-- Cpoy and Paste the XML in the [Entra ID User.xml File](./Templates/Entra%20ID%20User.xml)
+- Copy and Paste the XML in the [Entra ID User File](./Templates/Entra%20ID%20User.xml)
 
 - Click on Save
 
@@ -90,7 +90,7 @@ The following steps are required to create the Secret Template for EntraID Users
 
   
 
-## Creating Secret template for Privileged Account
+## Creating Secret Template for Privileged Account
 
   
 
@@ -102,7 +102,7 @@ The following steps are required to create the secret template for the applicati
 
 - Click on Create / Import Template
 
-- Copy and Paste the XML in the [EntraID Privileged Account.xml File](./Templates/EntraID%20Privileged%20Account.xml)
+- Copy and Paste the XML in the [EntraID Privileged Account File](./Templates/EntraID%20Privileged%20Account.xml)
 
 - Click on Save
 
@@ -164,7 +164,7 @@ The application registration is used to provide the password changer with the ne
 
   
 
-## Providing password changer application with permissions to manage users
+## Providing Password Changer Application with Permissions to Manage Users
 
 - Log in to the Azure / Entra ID Portal
 
@@ -190,7 +190,7 @@ The application registration is used to provide the password changer with the ne
 
   
 
-## Create secret in Secret Server for the EntraID Privileged Account
+## Create Secret in Secret Server for the EntraID Privileged Account
 
 - Log in to the Delinea Secret Server
 
@@ -202,13 +202,13 @@ The application registration is used to provide the password changer with the ne
 
 - Fill out the required fields with the information from the application registration
 
-- Secret Name (for example Delinea Password Changer)
+  - **Secret Name:** (for example Delinea Password Changer)
 
-- Tenant ID (which can be retrieved from the Azure AD / Entra ID properties)
+  - **Tenant ID:** (which can be retrieved from the Azure AD / Entra ID properties)
 
-- Application ID (which can be retrieved from the Application Registration - Application (client) ID)
+  - **Application ID:** (which can be retrieved from the Application Registration - Application (client) ID)
 
-- Client Secret which was generated in the [earlier step](#creating-an-app-registration)
+  - Client Secret which was generated in the [earlier step](#creating-an-app-registration)
 
 - Click on Create Secret
 
