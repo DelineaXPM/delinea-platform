@@ -3,8 +3,8 @@
 This document will cover adding a discovery source to Secret Server to allow reporting on accounts in a Prophecy.io instance.
 
 ## Prerequisites
-- [Prophecy.io base pre-requisites](../instructions.md)
-- [Prophecy.io Account Discovery Script](./prophecy.io_account_scanner.ps1) added to Secret Server
+- [Prophecy.io base pre-requisites](../Instructions.md)
+- [Prophecy.io Account Discovery Script](./prophecy.io_discovery_scanner.ps1) added to Secret Server
 
 ## Scanner Definition
 
@@ -46,7 +46,7 @@ This document will cover adding a discovery source to Secret Server to allow rep
 - Find ***Prophecy.io Account Scanner*** and Click ***Add Scanner***
 - Select the Prophecy.io Account Scanner created above and Click ***Edit Scanner***
 - Click the ***Add Secret*** Link under Credentials
-- Search for the API Credential secret created in the [prerequisites](../instructions.md)
+- Search for the API Credential secret created in the [prerequisites](../Instructions.md)
 - Check the ***Use Site Run As Secret*** Check box to enable it
     ***Note Default Site run as Secret had to be set in the Site configuration.
     See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
