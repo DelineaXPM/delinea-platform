@@ -6,11 +6,11 @@ This connector provides the following functions:
 
   
 
-- Discovery of FiveTran User (Standard, Service & Administrator) Accounts in a given Workspace
+- Discovery of FiveTran User (Standard, Service & Administrator) Accounts in a given workspace
 
   
 
-## Not currently available
+## Not Currently Available
 
 - Remote Password Changing FiveTran users
 
@@ -18,7 +18,7 @@ This connector provides the following functions:
 
   
 
-Follow the Steps below to complete the base setup for the Connector
+
 
   
 
@@ -27,7 +27,7 @@ Follow the Steps below to complete the base setup for the Connector
 
   
 
-The provided configurations are developed by using a static [user OAuth Access Token](https://fivetran.com/docs/rest-api/getting-started) for Authentication and Authorization. This is the only current method to authentcate and provide the neccessary access to complete this process. Due to a user challenge requirement with authorization code grant type, we have opted to use a static token for this automation integration. The supported grant types are:
+The provided configurations are developed by using a static [user OAuth Access Token](https://fivetran.com/docs/rest-api/getting-started) for Authentication and Authorization. This is the only current method to authenticate and provide the necessary access to complete this process. Due to a user challenge requirement with authorization code grant type, we have opted to use a static token for this automation integration. The supported grant types are:
 
 - JSON Web Token Signed from an RSA key (256 bit encryption padded to PKCS11; This can change later as features are needed)
 
@@ -41,9 +41,6 @@ The provided configurations are developed by using a static [user OAuth Access T
   
 
 # Prepare API Access Key Authentication
-
-  
-
   
 
 ## OAuth API Access Key Flow in Fivetran
@@ -94,7 +91,7 @@ This connector utilizes an API key authentication to interact with Fivetran. Thi
 
   
 
-*** For more information click [here](https://fivetran.com/docs/rest-api/getting-started/scoped-api-key-faq).
+**For more information click [here](https://fivetran.com/docs/rest-api/getting-started/scoped-api-key-faq).**
 
   
   
@@ -141,7 +138,7 @@ The following steps are required to create the Secret Template for FiveTran User
 
 - Click on Import.
 
-- Copy and Paste the XML in the [FiveTran User Template.xml File](./Templates/FiveTran%20User%20Secret%20Template.xml).
+- Copy and Paste the XML in the [FiveTran User Template File](./Templates/FiveTran%20User%20Secret%20Template.xml).
 
 - Click on Save
 
@@ -165,7 +162,7 @@ The following steps are required to create the Secret Template for FiveTran Disc
 
 - Click on Import.
 
-- Copy and Paste the XML in the [FiveTran Discovery Account Template.xml File](./Templates/FiveTran%20Discovery%20Secret%20Template.xml).
+- Copy and Paste the XML in the [FiveTran Discovery Account Template File](./Templates/FiveTran%20Discovery%20Secret%20Template.xml).
 
 - Click on Save
 
@@ -174,7 +171,7 @@ The following steps are required to create the Secret Template for FiveTran Disc
   
   
 
-## Create secret in Secret Server for the FiveTran Discovery Account
+## Create Secret in Secret Server for the FiveTran Discovery Account
 
 - Log in to the Delinea Secret Server (If you have not already done so)
 
@@ -182,7 +179,7 @@ The following steps are required to create the Secret Template for FiveTran Disc
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#fivetran-discovery-account-template).
+- Select the template created in the earlier step [above](#fivetran-discovery-account-template).
 
 - Fill out the required fields with the information from the application registration
 
@@ -194,15 +191,15 @@ The following steps are required to create the Secret Template for FiveTran Disc
 
 - Advanced will use Criteria entered Below
 
-The following field values are as created in the [Create an API Access Key](#create-an-api-access-key) Section
+- The following field values are as created in the [Create an API Access Key](#create-an-api-access-key) Section
 
-- Tenant-url
+  - Tenant-url
 
-- API-Key
+  - API-Key
 
-- API-Secret
+  - API-Secret
 
-- Admin-Account-Teams
+  - Admin-Account-Teams
 
 - FiveTran uses two random words which are dash-separated as IDs) and a Team Name . Values must be a comma separated List of TeamName=ID
 
