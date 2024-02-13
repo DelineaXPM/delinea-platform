@@ -1,4 +1,4 @@
-$SearchWords = @("Password","Username","Pass")
+$SearchWords = @("Password", "Username", "Pass")
 $TargetServer = ($args[0].Split("."))[0]
 $Path = \\$TargetServer\c$\TargetFolder #ChangeMe
 
@@ -18,9 +18,9 @@ $FilePath = Join-Path -Path $ResultFolder -ChildPath $Filename
 
 # Search for each keyword in the files in the specified path
 $results = foreach ($sw in $SearchWords) {
-    Get-Childitem -Path $Path -Recurse -include "*.txt","*.config","*.ini" |
+    Get-ChildItem -Path $Path -Recurse -Include "*.txt", "*.config", "*.ini" |
     Select-String -Pattern "$sw" |
-    Select Path,LineNumber,@{n='SearchWord';e={$sw}}
+    Select-Object Path, LineNumber, @{n = 'SearchWord'; e = { $sw } }
 }
 
 # Check if there are any results before creating the file
