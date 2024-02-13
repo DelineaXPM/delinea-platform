@@ -1,6 +1,6 @@
 # Prophecy.io Delinea Secret Server Integration
 
-Before beginning to implement any of the specific processes please refer to the Instructions.md document which can be found [here](./Instructions.md) for any pre-requisites.
+Before beginning to implement any of the specific processes please refer to the [Instructions document](./Instructions.md) for any pre-requisites.
 
 # Disclaimer
 
