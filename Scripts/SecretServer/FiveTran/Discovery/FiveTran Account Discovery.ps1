@@ -1,6 +1,3 @@
-# Expected Argd args=@( "FiveTran Tenenant Base URL", "FiveTran API ClientId","FiveTran API ClientSecret","Admin Account Teams IDs","Service Account Teams Ids"  )
-
-
 ## This block will be used when passing args in from Secret Server
 
   
@@ -49,8 +46,6 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
 }
 #endregion
@@ -111,7 +106,8 @@ function isAdmin ( [string]$userId ) {
         $Err = $_
         Write-Log -ErrorLevel 0 -Message "FAILED: Check if Admin Acct"
         Write-Log -ErrorLevel 2 -Message $Err.Exception
-        throw $Err.Exception <#Do this if a terminating exception happens#>
+        #Do this if a terminating exception happens
+        throw $Err.Exception 
     }
             
     return $isadmin
@@ -138,7 +134,8 @@ function get-SvcAccounts {
                 $returnedSvcTeamUsers = Invoke-RestMethod -Uri $uri -Headers @{"Authorization" = "Basic $base64AuthInfo"} -Method Get
                 
                 foreach ($user in $returnedSvcTeamUsers.data.items.user_id) {
-                    $svcTeamUsers += $user  # make sure this is correct form
+                    # Make sure this is correct form
+                    $svcTeamUsers += $user  
                 }
 
                 Write-Log -ErrorLevel 0 -Message "  Successfully found $($svcTeamUsers.Count) Service Accounts"    
@@ -176,7 +173,8 @@ function isSvc ( [string]$userId ) {
         $Err = $_
         Write-Log -ErrorLevel 0 -Message "FAILED: Check if Service Acct"
         Write-Log -ErrorLevel 2 -Message $Err.Exception
-        throw $Err.Exception <#Do this if a terminating exception happens#>
+        #Do this if a terminating exception happens
+        throw $Err.Exception 
     }
             
     return $isSvc
@@ -221,9 +219,8 @@ function isLocal{
 #endregion
 
 #region Main Process
-####################################
-### Main Body Commands
-###
+
+# Main Body Commands
 
 
 #define Output Array
@@ -239,14 +236,10 @@ Try {
     $globalResults.svcUsers = get-SvcAccounts
     foreach ($user in $allUsers.data.items)  {
         if ($user.active -eq $false) { continue }
-        ### $userDetails = Get-UserDetails $user
         $isAdmin = isadmin $user.Id
         $isSvcAccount = isSvc $user.id
         $isLocal = isLocal -userId $user.email
         $object = New-Object -TypeName PSObject
-
-        ###$Timestamp = get-date -Format $timeformat
-        ###$object | Add-Member -MemberType NoteProperty -Name Timestamp -Value $Timestamp
         $object | Add-Member -MemberType NoteProperty -Name tenant-url -Value $baseURL       
         $object | Add-Member -MemberType NoteProperty -Name Username -Value $User.email
         $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isAdmin
