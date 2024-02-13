@@ -18,7 +18,7 @@ Follow the Steps below to complete the base setup for this integration. These st
 
   
 
-## Creating Secret Template for ServiceNow Accounts
+## Creating Secret Template for EntraID Accounts
 
   
 

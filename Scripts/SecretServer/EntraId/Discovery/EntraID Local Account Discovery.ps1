@@ -1,5 +1,5 @@
 # Script usage
-# use powershell script for Discovering of EntraID/Azure/Office 695 Local Accounts.
+# use powershell script for Discovering of EntraID/Azure/Office 365 Local Accounts.
 # parameters to provide in each case are:
 # Discovery $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password 
 
