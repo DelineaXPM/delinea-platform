@@ -1,4 +1,4 @@
-# Creating secret templates for FiveTran Accounts 
+# Creating Secret Templates for FiveTran Accounts 
 
 ### FiveTran User Account Template
 
@@ -8,7 +8,7 @@ The following steps are required to create the Secret Template for FiveTran User
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [FiveTran User Template.xml File](./FiveTran%20User%20Secret%20Template.xml)
+- Copy and Paste the XML in the [FiveTran User Template File](./FiveTran%20User%20Secret%20Template.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
@@ -20,7 +20,7 @@ The following steps are required to create the Secret Template for FiveTran Disc
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [FiveTran Discovery Account Template.xml File](./FiveTran%20Discovery%20Secret%20Template.xml)
+- Copy and Paste the XML in the [FiveTran Discovery Account Template File](./FiveTran%20Discovery%20Secret%20Template.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
@@ -30,7 +30,7 @@ The following steps are required to create the Secret Template for FiveTran Disc
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Secrets
 - Click on Create Secret
-- Select the template created in the earlier step [Above](#FiveTran-discovery-account-template).
+- Select the template created in the earlier step [above](#FiveTran-discovery-account-template).
 - Fill out the required fields with the information from the application registration
     - Secret Name (for example FiveTran API Account )
     - Workspace Name

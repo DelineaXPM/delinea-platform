@@ -11,17 +11,17 @@
 
 - Click on Create Script
 
-- Name: Provide a name for the script (for example Azure AD / Entra ID Remote Password Changer)
+  - **Name:** Provide a name for the script (for example Azure AD / Entra ID Remote Password Changer)
 
-- Description: Provide a description for the script (for example Azure AD / Entra ID Remote Password Changer)
+  - **Description:** Provide a description for the script (for example Azure AD / Entra ID Remote Password Changer)
 
-- Select Active
+  - Select Active
 
-- Script Type: PowerShell
+  - **Script Type:** PowerShell
 
-- Category: Password Changing
+  - **Category:** Password Changing
 
-- Script: Copy the contents of the [Entra ID RPC.ps1](../Remote%20Password%20Changer/EbtraID%20RPC.ps1) script into the script field
+  - **Script:** Copy the contents of the [Entra ID RPC](../Remote%20Password%20Changer/EbtraID%20RPC.ps1) script into the script field
 
 - Click on Save
 
@@ -33,17 +33,17 @@
 
 - Click on Create Script
 
-- Name: Provide a name for the script (for example Azure AD / Entra ID Remote Password Changer)
+  - **Name:** Provide a name for the script (for example Azure AD / Entra ID Remote Password Changer)
 
-- Description: Provide a description for the script (for example Azure AD / Entra ID Remote Password Changer)
+  - **Description:** Provide a description for the script (for example Azure AD / Entra ID Remote Password Changer)
 
-- Select Active
+  - Select Active
 
-- Script Type: PowerShell
+  - **Script Type:** PowerShell
 
-- Category: Heartbeat
+  - **Category:** Heartbeat
 
-- Script: Copy the contents of the [Entra ID Heartbeat.ps1](./Entra%20ID%20Heartbeat.ps1) script into the script field
+  - **Script:** Copy the contents of the [Entra ID Heartbeat](./Entra%20ID%20Heartbeat.ps1) script into the script field
 
 - Click on Save
 
@@ -62,9 +62,9 @@
 
 - Click on Create Password Changer
 
-- Base Password Changer: PowerShell Script
+  - **Base Password Changer:** PowerShell Script
 
-- Name: Provide a name for the password changer (for example Azure AD / Entra ID Remote Password Changer)
+  - **Name:** Provide a name for the password changer (for example Azure AD / Entra ID Remote Password Changer)
 
 - Click on Save
 
@@ -112,12 +112,9 @@ $[1]$Tenant-ID $[1]$application-id $[1]$Client-Secret $username  $newpassword
 
 - Change the following field to use the password changer you created in the previous step:
 
-- Password Type to use: Select the password changer you created in the previous step
+  - **Password Type to use:** Select the password changer you created in the previous step
 
 - Click on Save
-
--
-
   
 
 ## Associate scripting account to Azure AD secret
@@ -146,7 +143,7 @@ To be able to correctly use the password changer, the scripting account must be 
 
   
 
-This can Also bee done using a Secret Poicy assigned to the Parent Folder
+This can Also bee done using a Secret Policy assigned to the Parent Folder
 
   
 
@@ -200,7 +197,7 @@ To test the configuration, you can now change the password of the Azure AD Accou
 
 - Click on Change Password Now
 
-- Select Randoly Generated or Manual (and enter a password)
+- Select Randomly Generated or Manual (and enter a password)
 
 - Click on Change Password
 
