@@ -5,8 +5,7 @@
   <fields>
     <field isexpirationfield="false">
       <displayname>Tenant-url</displayname>
-      <description>Thic isthe base URL of the ServiceNow Tenant.  The URL should not have  a trailing /
-i.e.  https://MyTenant.service-now.com</description>
+      <description>Generic description</description>
       <name>Tenant-url</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>

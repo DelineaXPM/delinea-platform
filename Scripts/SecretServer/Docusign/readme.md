@@ -1,6 +1,6 @@
 # Docusign Delinea Secret Server Integration
 
-This package is designed to discover Docusign User Accounts.  It will provide detailed instructions and the neccessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions.md document which can be found [Here](./Instructions.md)
+This package is designed to discover Docusign User Accounts.  It will provide detailed instructions and the neccessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions.md document which can be found [here](./Instructions.md)
 
 # Disclaimer
 

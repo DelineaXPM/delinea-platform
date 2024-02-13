@@ -6,7 +6,7 @@
 
   
 
-This scanner will perform a Scan for Fivetran User accounts .
+This scanner will perform a scan for FiveTran User accounts .
 
   
 
@@ -24,17 +24,15 @@ This scanner will perform a Scan for Fivetran User accounts .
 
 - Fill out the required fields with the information
 
--  **Name:** (Example: FiveTran Tenant)
+  -  **Name:** (Example: FiveTran Tenant)
 
--  **Active:** (Checked)
+  -  **Active:** (Checked)
 
--  **Scan Type:** Host
+  -  **Scan Type:** Host
 
--  **Parent Scan Template:** Host Range
+  -  **Parent Scan Template:** Host Range
 
--  **Fields**
-
-- Change HostRange to **tenant-url**
+  -  **Fields:** Change HostRange to **tenant-url**
 
 - Click Save
 
@@ -54,23 +52,21 @@ This scanner will perform a Scan for Fivetran User accounts .
 
 - Fill out the required fields with the information
 
--  **Name:** (Example: FiveTran Account)
+  -  **Name:** (Example: FiveTran Account)
 
--  **Active:** (Checked)
+  -  **Active:** (Checked)
 
--  **Scan Type:** Account
+  -  **Scan Type:** Account
 
--  **Parent Scan Template:** Account(Basic)
+  -  **Parent Scan Template:** Account(Basic)
 
--  **Fields**
+  -  **Fields:** Change Resource to **tenant-url**
 
-- Change Resource to **tenant-url**
+  - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
+  - Add field: Service-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
-
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
+  - Add field: Local-Account (Leave Parent and Include in Match Blank)
 
 - Click Save
 
@@ -82,25 +78,25 @@ This scanner will perform a Scan for Fivetran User accounts .
 
 - Log in to Secret Server Tenant
 
-- Navigate to**ADMIN** > **Scripts**
+- Navigate to **ADMIN** > **Scripts**
 
 - Click on **Create Script**
 
 - Fill out the required fields with the information from the application registration
 
-- Name: ( example - FiveTran Account Scanner)
+  - **Name:** ( example - FiveTran Account Scanner)
 
-- Description: (Enter something meaningful to your Organization)
+  - **Description:** (Enter something meaningful to your Organization)
 
-- Active: (Checked)
+  - **Active:** (Checked)
 
-- Script Type: Powershell
+  - **Script Type:** Powershell
 
-- Category: Discovery Scanner
+  - **Category:** Discovery Scanner
 
-- Merge Fields: Leave Blank
+  - **Merge Fields:** Leave Blank
 
-- Script: Copy and paste the Script included in the file [FiveTran Account Discovery.ps1](./FiveTran%20Account%20Discovery.ps1)
+  - **Script:** Copy and paste the Script included in the file [FiveTran Account Discovery](./FiveTran%20Account%20Discovery.ps1)
 
 - Click Save
 
@@ -122,17 +118,17 @@ This scanner will perform a Scan for Fivetran User accounts .
 
 - Fill out the required fields with the information
 
--  **Name:** > FiveTran Tenant Scanner
+  -  **Name:** FiveTran Tenant Scanner
 
--  **Description:** (Example - Base Scanner used to discover FiveTran application)
+  -  **Description:** (Example - Base Scanner used to discover FiveTran application)
 
--  **Discovery Type:** Host
+  -  **Discovery Type:** Host
 
--  **Base Scanner:** Manual Input Discovery
+  -  **Base Scanner:** Manual Input Discovery
 
--  **Input Template**: Discovery Source
+  -  **Input Template:**: Discovery Source
 
--  **Output Template:**: FiveTran Tenant (Use Template that Was Created in the [FiveTran Scan Template Section](#create-tenant-scan-template))
+  -  **Output Template:**: FiveTran Tenant (Use Template that Was Created in the [FiveTran Scan Template Section](#create-tenant-scan-template))
 
 - Click Save
 
@@ -154,23 +150,23 @@ This scanner will perform a Scan for Fivetran User accounts .
 
 - Fill out the required fields with the information
 
--  **Name:** (Example - FiveTran Account Scanner)
+  -  **Name:** (Example - FiveTran Account Scanner)
 
--  **Description:** (Example - Discovers FiveTran accounts according to configured Fivetran Discovery Secret)
+  -  **Description:** (Example - Discovers FiveTran accounts according to configured FiveTran Discovery Secret)
 
--  **Discovery Type:** Account
+  -  **Discovery Type:** Account
 
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
+  -  **Base Scanner:** PowerShell Discovery Create Discovery Script
 
-- Allow OU Input Checked
+  - Allow OU Input Checked
 
--  **Input Template**: FiveTran Tenant (Use Template that Was Created in the [FiveTran Scan Template Section](#create-tenant-scan-template))
+  -  **Input Template**: FiveTran Tenant (Use Template that Was Created in the [FiveTran Scan Template Section](#create-tenant-scan-template))
 
--  **Output Template:**: FiveTran Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
+  -  **Output Template:**: FiveTran Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
 
--  **Script:** FiveTran Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+  -  **Script:** FiveTran Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
-- **Script Arguments:
+  - **Script Arguments:**
 
 ```powershell
 
@@ -196,13 +192,13 @@ $[1]$Discovery-Mode $[1]$tenant-url $[1]$API-Key $[1]$API-Secret $[1]$Admin-Acco
 
 - Click **Empty Discovery Source**
 
--Enter the Values below
+- Enter the Values below
 
-- **Name:** (example: FiveTran Discovery)
+  - **Name:** (example: FiveTran Discovery)
 
-- **Site** (Select Site Where Discovery will run)
+  - **Site** (Select Site Where Discovery will run)
 
-- **Source Type** Empty
+  - **Source Type** Empty
 
 - Click Save
 
@@ -214,11 +210,9 @@ $[1]$Discovery-Mode $[1]$tenant-url $[1]$API-Key $[1]$API-Secret $[1]$Admin-Acco
 
 - Select the Scanner just Created and Click **Edit Scanner**
 
-- In the **lines Parse Format** Section Enter the Source Name (example: FiveTran  Tenant)
+- In the **Lines Parse Format** Section Enter the Source Name (example: FiveTran  Tenant)
 
 - Click **Save**
-
-  
 
 - Click **Add Scanner**
 
@@ -234,7 +228,7 @@ $[1]$Discovery-Mode $[1]$tenant-url $[1]$API-Key $[1]$API-Secret $[1]$Admin-Acco
 
 - Check the Use Site Run As Secret Check box to enable it
 
-**Note Default Site run as Secret had to ne setup in the Site configuration.
+**Note Default Site run as Secret had to ne setup in the Site configuration.**
 
 See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
 
@@ -274,7 +268,7 @@ In this section, There are instructions on creating an optional report to displa
 - Login to Secret Server Tenant (If you have not already done so)
 
 - Navigate to the Reports module
-- click on the New Report Button
+- Click on the New Report Button
 - Fill in the following values:
 	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
 	- Description: (Enter something meaningful to your organization)
@@ -282,24 +276,17 @@ In this section, There are instructions on creating an optional report to displa
 	- Report SQL: Copy and Paste the SQL Query  below
 		***Note** " You must replace the WHERE d.DiscoverySourceId =  38 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL 
 
-        Example: https://MyTenant.secretservercloud.com/app/#/admin/discovery/source/38/general
+    - Example: https://MyTenant.secretservercloud.com/app/#/admin/discovery/source/38/general
 
 ``` SQL
 
 SELECT
-
 d.[ComputerAccountId]
-
 ,d.[CreatedDate]
-
 ,d.[AccountName] AS [Username]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
-
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
 
 FROM tbComputerAccount AS d
@@ -311,9 +298,6 @@ INNER JOIN tbScanItemTemplate AS s ON s.ScanItemTemplateId = d.ScanItemTemplateI
 WHERE d.DiscoverySourceId =  38
 
 GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
-
-  
-
 ```
 - Click Save
 

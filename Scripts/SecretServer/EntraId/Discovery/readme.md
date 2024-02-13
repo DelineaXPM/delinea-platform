@@ -19,17 +19,15 @@
 
 - Fill out the required fields with the information
 
--  **Name:** (Evxample: Entra ID Tenant)
+    -  **Name:** (Example: Entra ID Tenant)
 
--  **Active:** (Checked)
+    -  **Active:** (Checked)
 
--  **Scan Type:** Host
+    -  **Scan Type:** Host
 
--  **Parent Scan Template:** Host Range
+    -  **Parent Scan Template:** Host Range
 
--  **Fields**
-
-- Change HostRange to **tenant-Name**
+    -  **Fields:** Change HostRange to **tenant-Name**
 
 - Click Save
 
@@ -49,23 +47,21 @@
 
 - Fill out the required fields with the information
 
--  **Name:** (Evxample: Entra ID Account)
+    -  **Name:** (Example: Entra ID Account)
 
--  **Active:** (Checked)
+    -  **Active:** (Checked)
 
--  **Scan Type:** Account
+    -  **Scan Type:** Account
 
--  **Parent Scan Template:** Account(Basic)
+    -  **Parent Scan Template:** Account(Basic)
 
--  **Fields**
+    -  **Fields:** Change Resource to **tenant-id**
 
-- Change Resource to **tenant-id**
+    - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
+    - Add field: Service-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
-
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
+    - Add field: Local-Account (Leave Parent and Include in Match Blank)
 
 - Click Save
 
@@ -73,29 +69,27 @@
 
 ### Create Discovery Script
 
-  
-
 - Log in to Secret Server Tenant
 
-- Navigate to**ADMIN** > **Scripts**
+- Navigate to **ADMIN** > **Scripts**
 
 - Click on **Create Script**
 
 - Fill out the required fields with the information from the application registration
 
-- Name: ( example -Azure AD / Entra ID Local Account Scaner)
+    - Name: ( example -Azure AD / Entra ID Local Account Scanner)
 
-- Description: (Enter something meaningful to your Orgabization)
+    - Description: (Enter something meaningful to your Organization)
 
-- Active: (Checked)
+    - Active: (Checked)
 
-- Script Type: Powershell
+    - Script Type: Powershell
 
-- Category: Discovery Scanner
+    - Category: Discovery Scanner
 
-- Merge Fields: Leave Blanck
+    - Merge Fields: Leave Blank
 
-- Script: Copy and paste the Script included in the file [Azure AD / Ebtra ID Loacl Account Discoverey.ps1](./EntraID%20Local%20Account%20Discovery.ps1)
+    - Script: Copy and paste the Script included in the file [Entra ID Local Account Discovery](./EntraID%20Local%20Account%20Discovery.ps1)
 
 - Click Save
 
@@ -103,7 +97,7 @@
 
   
 
-### Create Axure AD / Entra ID Tenant Scanner
+### Create Azure AD / Entra ID Tenant Scanner
 
   
 
@@ -117,17 +111,17 @@
 
 - Fill out the required fields with the information
 
--  **Name:** > Azure AD /Entra ID Tenant Scanner
+    -  **Name:** > Azure AD /Entra ID Tenant Scanner
 
--  **Description:** (Example - Base scanner used to discover Azure AD / Entra ID Accounts)
+    -  **Description:** (Example - Base scanner used to discover Azure AD / Entra ID Accounts)
 
--  **Discovery Type:** Host
+    -  **Discovery Type:** Host
 
--  **Base Scanner:** Host
+    -  **Base Scanner:** Host
 
--  **Input Template**: Manual Input Discovery
+    -  **Input Template**: Manual Input Discovery
 
--  **Output Template:**: Sass Tenant (Use Temaplte that Was Created in the [Azure AD / Entra ID Tenant Scan Template Section](#create-entra-id-tenant-scan-template)
+    -  **Output Template:**: Sass Tenant (Use Template that Was Created in the [Entra ID Tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
 - Click Save
 
@@ -149,21 +143,21 @@
 
 - Fill out the required fields with the information
 
--  **Name:** (Example - Azure AD / Entra ID Local Account Scanner)
+    -  **Name:** (Example - Azure AD / Entra ID Local Account Scanner)
 
--  **Description:** (Example - Discovers Azure AD / Entra ID local accounts according to configured privileged account template )
+    -  **Description:** (Example - Discovers Azure AD / Entra ID local accounts according to configured privileged account template )
 
--  **Discovery Type:** Account
+    -  **Discovery Type:** Account
 
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
+    -  **Base Scanner:** PowerShell Discovery Create Discovery Script
 
--  **Input Template**: Azure AD /Entra ID Tenant (Use Temaplte that Was Created in the [Azure AD /Entra ID tenant Scan Template Section](#create-entra-id-tenant-scan-template))
+    -  **Input Template**: Azure AD /Entra ID Tenant (Use Template that Was Created in the [Azure AD /Entra ID tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
--  **Output Template:**: ServiceNow Account (Use Temaplte that Was Created in the [Create Account Scan Template Section](#create-account-scan-template)
+    -  **Output Template:**: ServiceNow Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template)
 
--  **Script:** Azure AD / Entra ID Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+    -  **Script:** Azure AD / Entra ID Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
-- **Script Arguments:
+    - **Script Arguments:**
 
 ```powershell
 
@@ -189,13 +183,13 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click **Empty Discovery Source**
 
--Enter the Values below
+- Enter the Values below
 
-- **Name:** (example: ServiceNow Test Tenant)
+  - **Name:** (example: ServiceNow Test Tenant)
 
-- **Site** (Select Site Where Discovery will run)
+  - **Site** (Select Site Where Discovery will run)
 
-- **Source Type** Empty
+  - **Source Type** Empty
 
 - Click Save
 
@@ -203,11 +197,11 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click **Add Scanner**
 
-- Find the Saas Tenant Scanner or the Scanner Creatted in the [Create Azure AD / Entra ID Tenant Scanner Section](#create-axure-ad--entra-id-tenant-scanner) and Click **Add Scanner**
+- Find the Saas Tenant Scanner or the Scanner created in the [Entra ID Tenant Scanner Section](#create-axure-ad--entra-id-tenant-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just created and Click **Edit Scanner**
 
-- In the **lines Parse Format** Section Enter the Source Name (example: Azure AD / Entra ID Tenant)
+- In the **Lines Parse Format** Section Enter the Source Name (example: Azure AD / Entra ID Tenant)
 
 - Click **Save**
 
@@ -215,19 +209,19 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Local Account Scanner or the Scanner Creatted in the [Create ServiceNow Account Scanner Section](#create-servicenow-account-scanner) and Click **Add Scanner**
+- Find the ServiceNow Local Account Scanner or the Scanner created in the [Create ServiceNow Account Scanner Section](#create-servicenow-account-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just created and Click **Edit Scanner**
 
 - Click **Edit Scanner**
 
 - Click the **Add Secret** Link
 
-- Search for the Privoleged Account Secret created in the [Overview.md file](../Overview.md)
+- Search for the Privileged Account Secret created in the [Overview file](../Overview.md)
 
 - Check the Use Site Run As Secret Check box to enable it
 
-**Note Default Site run as Secret had to ne setup in the Site configuration.
+**Note Default Site run as Secret had to ne setup in the Site configuration.**
 
 See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
 

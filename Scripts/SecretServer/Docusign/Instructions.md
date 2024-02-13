@@ -1,8 +1,8 @@
 # Docusign Connector Overview
 
-This connectore provides the following functions  
+This connector provides the following functions  
 
-- Discovery of Docusign User Accounts in a given Site
+- Discovery of Docusign User Accounts in a given site
 
 ## Not currently available in Docusign Cloud
 
@@ -32,14 +32,14 @@ More information can be found [here](https://developers.docusign.com/docs/esign-
 - Create an OAuth application registry using the following method:
   - Create an endpoint for external clients that want to access your instance. This creates an OAuth client application record and generates a client ID and integration key that the client needs to access the restricted resources on the instance.
 
-*** For more information and directions, click [here](https://developers.docusign.com/platform/auth/jwt/jwt-get-token/).
+***For more information and directions, click*** [here](https://developers.docusign.com/platform/auth/jwt/jwt-get-token/).
 
 - Document the following values as they will be needed in the upcoming sections
   - clientId/integration key, subject user id, audience uri, PEM private key, tenant account id
 > [!NOTE]
 > Field descriptions and details can be found at [Docusign JWT structure and properties](https://developers.docusign.com/platform/auth/jwt/jwt-get-token/#see-details-jwt-structure-and-properties).
 
-## Creating secret template for Docusign Accounts 
+## Creating Secret Template for Docusign Accounts 
 
 ### Docusign User Account Template
 
@@ -49,7 +49,7 @@ The following steps are required to create the Secret Template for Docusign User
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Docusign User Template.xml File](./Templates/Docusign%20User%20Account.xml)
+- Copy and Paste the XML in the [Docusign User Template File](./Templates/Docusign%20User%20Account.xml)
 - Click on Save
 - This completes the creation of the User Account template
 
@@ -61,7 +61,7 @@ The following steps are required to create the Secret Template for Docusign Disc
 - Navigate to Admin / Secret Templates
 - Click on Create / Import Template
 - Click on Import.
-- Copy and Paste the XML in the [Docusign Discovery Account Template.xml File](./Templates/Docusign%20Discovery%20Account.xml)
+- Copy and Paste the XML in the [Docusign Discovery Account Template File](./Templates/Docusign%20Discovery%20Account.xml)
 - Click on Save
 - This completes the creation of the Discovery Account template
 
@@ -71,7 +71,7 @@ The following steps are required to create the Secret Template for Docusign Disc
 - Log in to the Delinea Secret Server (If you have not already done so)
 - Navigate to Secrets
 - Click on Create Secret
-- Select the template created in the earlier step [Above](#docusign-discovery-account-template).
+- Select the template created in the earlier step [above](#docusign-discovery-account-template).
 - Fill out the required fields with the information from the application registration
     - Secret Name (for example Docusign Discovery Account)
     - tenant-url (base Docusign url with no trailing slash)
