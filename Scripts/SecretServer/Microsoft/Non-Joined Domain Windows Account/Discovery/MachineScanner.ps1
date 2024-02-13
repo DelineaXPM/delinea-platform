@@ -171,14 +171,11 @@ foreach ($target in $targetMachines) {
             try {
                 $isDomainController = $false
                 if ($addresses.Contains($target)) {
-                    $osInfo = Get-WmiObject Win32_OperatingSystem -ComputerName $target
                     $comp = Get-WmiObject Win32_ComputerSystem -ComputerName $target
                 }
                 else {
                     $machineCred = New-Object System.Management.Automation.PSCredential ("$target\$username", $Spassword)
-                    $osInfo = Get-WmiObject Win32_OperatingSystem -ComputerName $target -Credential $machineCred -ErrorAction SilentlyContinue
                     $comp = Get-WmiObject Win32_ComputerSystem -ComputerName $target -Credential $Machinecred -ErrorAction SilentlyContinue
-                    $GUID = Get-WmiObject Win32_ComputerSystemProduct -ComputerName $target -Credential $Machinecred -ErrorAction SilentlyContinue
                     $isDomainController = (($comp).domainrole -in 4, 5)
                 }
                 if (($isDomainController)) {
@@ -204,39 +201,16 @@ foreach ($target in $targetMachines) {
             $adComputer = $target
         }
     }
-    if ($adComputer -ne $null) {  
+    if ($null -ne $adComputer) {  
         Write-Debug "Ad Computer: $adComputer" 
         $object = New-Object –TypeName PSObject;
         $object | Add-Member -MemberType NoteProperty -Name Machine -Value $adComputer.Name;
-        #$object | Add-Member -MemberType NoteProperty -Name DNSHostName -Value $adComputer.DNSHostName;
-        #$object | Add-Member -MemberType NoteProperty -Name ADGUID -Value $adComputer.ObjectGuid
-        #$object | Add-Member -MemberType NoteProperty -Name OperatingSystem -Value $adComputer.OperatingSystem;
-        #if ($isContainerIpAddress) {
-        #    $object | Add-Member -MemberType NoteProperty -Name DistinguishedName -Value "CN=$($adComputer.Name),$container"
-        #}
-        #else {
-        #    $object | Add-Member -MemberType NoteProperty -Name DistinguishedName -Value $adComputer.DistinguishedName.Replace(",$distinguisheddomain", '');
-        #}
         $FoundComputers += $object
         $object = $null
     }
     else {
         $object = New-Object –TypeName PSObject;
         $object | Add-Member -MemberType NoteProperty -Name Machine -Value $comp.Name;
-        #$object | Add-Member -MemberType NoteProperty -Name OperatingSystem -Value $osInfo.Caption;
-        #$object | Add-Member -MemberType NoteProperty -Name DNSHostName -Value $comp.DNSHostName;
-        #$object | Add-Member -MemberType NoteProperty -Name ADGUID -Value $GUID.UUID;
-
-
-        # Modified to append IP ADDRESS, not IP address RANGE
-        #            if ($isContainerIpAddress) {
-        #               $object | Add-Member -MemberType NoteProperty -Name DistinguishedName -Value "CN=$($comp.Name),$container"
-        #                $object | Add-Member -MemberType NoteProperty -Name DistinguishedName -Value "CN=$($comp.Name),$target"
-        #            }
-        #            else {
-        #                $object | Add-Member -MemberType NoteProperty -Name DistinguishedName -Value $comp.DistinguishedName.Replace(",$distinguisheddomain", '');
-        #            }
-
         # Modified to return machine details only if it is not part of a domain
         if ($comp.PartOfDomain) {
             Write-Debug "Machine is part of a domain"
@@ -256,7 +230,7 @@ Write-Debug "Finished.."
 $SanitizedFoundComputers = @()
 
 foreach ($computer in $FoundComputers) {
-    if (($computer.Machine -ne $null)) {
+    if (($null -ne $computer.Machine )) {
         $SanitizedFoundComputers += $computer
     }
 }
