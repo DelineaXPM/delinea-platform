@@ -160,7 +160,7 @@ This scanner can help perform a Discovery of Okta Users.
 
   
 
-- Name: ( example - Okta Local Account Scaner)
+- Name: ( example - Okta Account Scanner)
 
   
 
@@ -184,7 +184,7 @@ This scanner can help perform a Discovery of Okta Users.
 
   
 
-- Script: Copy and paste the Script included in the file [Okta Loacl Account Discoverey.ps1](./Okta%20Local%20Account%20Discovery.ps1)
+- Script: Copy and paste the Script included in the file [Okta Account Discovery.ps1](./Okta%20Account%20Discovery.ps1)
 
   
 
@@ -225,7 +225,7 @@ This scanner can help perform a Discovery of Okta Users.
 
 -  **Name:** > Okta Tenant Scanner
 
-  
+  - Active - Checked
 
 -  **Description:** (Example - Base scanner used to discover Okta Tenant)
 
@@ -235,15 +235,15 @@ This scanner can help perform a Discovery of Okta Users.
 
   
 
--  **Base Scanner:** Host
+-  **Base Scanner:** Manual Input Discovery
 
   
 
--  **Input Template**: Manual Input Discovery
+-  **Input Template**: Discovery Source
 
   
 
--  **Output Template:**: Okta Tenant (Use Template that Was Created in the [Okta Scan Template Section](#create-saas-scan-template))
+-  **Output Template:**: Okta Tenant (Use Template that Was Created in the [Okta Scan Template Section](#create-okta-tenant-scan-template))
 
   
 
@@ -289,17 +289,17 @@ This scanner can help perform a Discovery of Okta Users.
 
 -  **Description:** (Example - Discovers Okta local accounts according to configured privileged account template )
 
-  
+- Active - Checked
 
 -  **Discovery Type:** Account
 
   
 
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
+-  **Base Scanner:** PowerShell Discovery 
 
-  
+- Allow OU Input - Checked
 
--  **Input Template**: Okta Tenant (Use Template that Was Created in the [Okta Scan Template Section](#create-saas-scan-template))
+-  **Input Template**: Okta Tenant (Use Template that Was Created in the [Okta Scan Template Section](#create-okta-tenant-scan-template))
 
   
 
@@ -311,8 +311,11 @@ This scanner can help perform a Discovery of Okta Users.
 
   
 
--  **Script Arguments: **Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$sac-groupids $[1]$local-acct-grpids**
+-  **Script Arguments: 
+``` powershell
+$[1]$Tenant-url $[1]$client-id $[1]$Key-ID  $[1]$Private-Key $[1]$Service-Account-Attributes $[1]$Admin-Roles
 
+```
   
 
 - Click Save

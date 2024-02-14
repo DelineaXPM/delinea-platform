@@ -106,11 +106,11 @@ Basic understanding of OAuth 2.0 and Okta administration.
 
   
 
-- Click Add Key and The Genearte New Key
+- Click Add Key and The Generate New Key
 
   
 
-- Select PEM from the Prive Key
+- Select PEM from the Private Key
 
   
 
@@ -192,7 +192,7 @@ The following steps are required to create the Secret Template for Okta Users:
 
   
 
-- Cpoy and Paste the XML in the [Okta User.xml File](./Templates/Okta%20User.xml)
+- Copy and Paste the XML in the [Okta User.xml File](./Templates/Okta%20User.xml)
 
   
 
@@ -234,7 +234,7 @@ The following steps are required to create the Secret Template for Okta Privileg
 
   
 
-- Cpoy and Paste the XML in the [Okta Privileged Account.xml File](./Templates/Okta%20Privileged%20Acount.xml)
+- Copy and Paste the XML in the [Okta Privileged Account.xml File](./Templates/Okta%20Privileged%20Acount.xml)
 
   
 
@@ -296,19 +296,20 @@ The following steps are required to create the Secret Template for Okta Privileg
 
   
 
-- Admin-Roles add a comma separated list of all roles that are considered to be an ministrative user in the format of - role Name=role_sys_id Example admin=2831a114c611228501d4ea6c309d626d
+- Admin-Roles add a comma separated list of all roles that are considered to be an ministrative user in the format of - role Name=role_sys_id 
+
+    **Example:** 
+    
+        admin=2831a114c611228501d4ea6c309d626d
 
   
 
-- Service-Account-Attributes add a comma separated list of all User Attribute-Value pair that are considered to be a Service Account.t (Example)
+- Service-Account-Attributes add a comma separated list of all User Attribute-Value pair that are considered to be a Service Account 
 
-  
-
-employed=Null,
-
-  
-
-CustomAttribute=Service
+    **Example:**
+        
+        employed=Null,
+        CustomAttribute=Service
 
   
 

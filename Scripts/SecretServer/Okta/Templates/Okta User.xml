@@ -4,10 +4,10 @@
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
-      <displayname>Tenant-url</displayname>
-      <description>Thic isthe base URL of the Okta Tenant.  The URL should not have  a trailing /
-i.e.  https://MyTenant.Okta.com</description>
-      <name>Tenant-url</name>
+      <displayname>Domain</displayname>
+      <description>
+</description>
+      <name>Domain</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -20,12 +20,12 @@ i.e.  https://MyTenant.Okta.com</description>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>true</required>
-      <fieldslugname>Tenant-url</fieldslugname>
+      <fieldslugname>domain</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>The name assocated with the password.</description>
+      <description />
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -44,7 +44,7 @@ i.e.  https://MyTenant.Okta.com</description>
     </field>
     <field isexpirationfield="true">
       <displayname>Password</displayname>
-      <description>The password used to access information.</description>
+      <description />
       <name>Password</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>

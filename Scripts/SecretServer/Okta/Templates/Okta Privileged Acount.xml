@@ -7,7 +7,7 @@
       <displayname>Tenant-url</displayname>
       <description>This is the base URL for the Okta instance. There should be no trailing / in the address
 
-Example: https://MyInstance.Okta.com </description>
+Example: https://MyInstance.okta.com </description>
       <name>Tenant-url</name>
       <mustencrypt>true</mustencrypt>
       <isurl>true</isurl>
@@ -25,46 +25,8 @@ Example: https://MyInstance.Okta.com </description>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Username</displayname>
-      <description>This is the username that will be used to make the Oauth autehentication to the Okta API application</description>
-      <name>Username</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>true</required>
-      <fieldslugname>username</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>Password</displayname>
-      <description>Password for the user name, entered above</description>
-      <name>Password</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>true</required>
-      <fieldslugname>password</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
       <displayname>client-id</displayname>
-      <description>Okta API Application ClientUD</description>
+      <description>Okta API Application ClientID</description>
       <name>client-id</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -83,7 +45,7 @@ Example: https://MyInstance.Okta.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Key-ID</displayname>
-      <description>KID is the Key Identifier found in Okta	</description>
+      <description>Key-ID is the Key Identifier found in Okta	</description>
       <name>Key-ID</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -121,7 +83,7 @@ Example: https://MyInstance.Okta.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Admin-Roles</displayname>
-      <description>Enter a Comma Seperted list of Roles to check for Of left Blank any role of type_ADMIN will be included	</description>
+      <description>Enter a Comma Seperted list of Roles to check for if left Blank any role of type_ADMIN will be included	</description>
       <name>Admin-Roles</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -139,9 +101,13 @@ Example: https://MyInstance.Okta.com </description>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Service-Account-Group-Ids</displayname>
-      <description>Accounts that are part of these groups will be identified as service accounts</description>
-      <name>Service-Account-Group-Ids</name>
+      <displayname>Service-Account-Attributes</displayname>
+      <description>Okta user attrinute valie pair,
+Examples
+EmplyeeID=Null
+EmployeeID=525485
+ </description>
+      <name>Service-Account-Attributes</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -154,26 +120,7 @@ Example: https://MyInstance.Okta.com </description>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>service-account-group-ids</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>Local-Account-Groud-Ids</displayname>
-      <description />
-      <name>Local-Account-Groud-Ids</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>true</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>false</required>
-      <fieldslugname>local-account-groud-ids</fieldslugname>
+      <fieldslugname>service-account-attributes</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>
