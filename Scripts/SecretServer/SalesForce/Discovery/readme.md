@@ -166,7 +166,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 -  **Output Template:**: Salesforce User (Use Template that Was Created in the [Salesforce User Scan Template Section](#create-account-scan-template))
 
--  **Script:** ServiceNow Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+-  **Script:** Salesforce Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
 -  **Script Arguments:**
 
@@ -178,7 +178,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Click Save
 
-- This completes the creation of the ServiceNow Account Scanner
+- This completes the creation of the Salesforce Account Scanner
 
   
 
@@ -218,7 +218,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Local Account Scanner or the Scanner Created in the [Create Salesforce User Scanner Section](#create-salesforce-user-scanner) and Click **Add Scanner**
+- Find the Salesforce Local Account Scanner or the Scanner Created in the [Create Salesforce User Scanner Section](#create-salesforce-user-scanner) and Click **Add Scanner**
 
 - Select the Scanner just Created and Click **Edit Scanner**
 
@@ -258,7 +258,7 @@ The Salesforce configuration is now complete. The next step is to run a manual d
 - Find the newly created discovery source and Users
   
 
-This package is designed to discover and Manage ServiceNow User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [Here](./Instructions.md)
+This package is designed to discover and Manage Salesforce User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [here](./Instructions.md)
 
   
   

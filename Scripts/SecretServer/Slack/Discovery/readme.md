@@ -51,7 +51,7 @@ If this Script has already been created in another Delinea Integration package p
     - Script Type: Powershell
     - Category: Discovery Scanner
     - Merge Fields: Leave Blank
-    - Script: Copy and paste the Script included in the file [Slack User Account Discoverey.ps1](./Slack-Discovery.ps1)
+    - Script: Copy and paste the Script included in the file [Slack User Account Discovery](./Slack-Discovery.ps1)
     - Click Save
     - This completes the creation of the Account Discovery Script
 
@@ -69,7 +69,7 @@ If this Script has already been created in another Delinea Integration package p
         - **Discovery Type:**  Host
     - **Base Scanner:**  Host
     - **Input Template**: Manual Input Discovery
-    - **Output Template:**: Saas Tenant (Use Temaplte that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
+    - **Output Template:**: Saas Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
     - Click Save
     - This completes the creation of the Saas Tenant Scanner
 
@@ -84,12 +84,12 @@ If this Script has already been created in another Delinea Integration package p
         - **Description:** (Example - Discovers Slack User accounts according to configured privileged account template )
         - **Discovery Type:**  Account
         - **Base Scanner:** PowerShell Discovery
-        - **Input Template**: SaaS Tenant (Use Temaplte that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
+        - **Input Template**: SaaS Tenant (Use Template that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
         - **Output Template:**: Slack Account  (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
         - **Script:** Slack User Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
         - **Script Arguments: ``` Advanced $[1]$OAuthToken $[1]$admin-roles $[1]$svcacct-roles ```
         - Click Save
-        - This completes the creation of the ServiceNow Account Scanner
+        - This completes the creation of the Slack Account Scanner
 
 ### Create Discovery Source
 

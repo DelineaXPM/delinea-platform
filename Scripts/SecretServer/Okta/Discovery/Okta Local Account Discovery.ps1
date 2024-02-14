@@ -42,9 +42,9 @@ Add-Content -Path "c:\temp\snoq.txt" -Value $value
 #>
 
 #Script Constants
-[string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Discovery.log"
+[string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Okta-Discovery.log"
 [int32]$LogLevel = 2
-[string]$logApplicationHeader = "ServiceNow Discovery"
+[string]$logApplicationHeader = "Okta Discovery"
 [string]$scope = "useraccount"
 #endregion
 
@@ -97,12 +97,12 @@ try {
     # Extract the access token from the response
     $accessToken = $response.access_token
     
-    Write-Log -Errorlevel 0 -Message "Access Tiken Successfuly Obtailed "
+    Write-Log -Errorlevel 0 -Message "Access Token Successfuly Obtailed "
 
 }
 catch {
     $Err = $_
-    Write-Log -ErrorLevel 0 -Message "Obtaining ServiceNow Access Token failed"
+    Write-Log -ErrorLevel 0 -Message "Obtaining Okta Access Token failed"
     Write-Log -ErrorLevel 2 -Message $Err.Exception
     throw $Err.Exception
 }
@@ -409,7 +409,7 @@ Try {
                 }
             else 
                 {
-                    <#ServiceNow note Check if Federated Id has a Value.  Typical value is something 
+                    <#Okta note Check if Federated Id has a Value.  Typical value is something 
                     Like YCqviKocof/+7pmCk6IXdayQzerT2v5t1NozqEV2l+I= . If Federated there would be a Value afte rth = sign #>
                   
                     if (!$user.federated_id.Split("=")[1] )

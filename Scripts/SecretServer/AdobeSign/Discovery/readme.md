@@ -128,7 +128,7 @@
 
 -  **Input Template**: Discovery Source
 
--  **Output Template:**: Adobe Sign Tenant (Use Temaplte that Was Created in the [Adobe Sign Scan Template Section](#create-adobe-sign-scan-template))
+-  **Output Template:**: Adobe Sign Tenant (Use the template that Was Created in the [Adobe Sign Scan Template Section](#create-adobe-sign-scan-template))
 
 - Click Save
 
@@ -160,7 +160,7 @@
 
 -  **Allow OU Import**: Yes
 
--  **Input Template**: Adobe Sign Tenant (Use Temaplte that Was Created in the [Adobe Sign Scan Template Section](#create-saas-scan-template))
+-  **Input Template**: Adobe Sign Tenant (Use the template that Was Created in the [Adobe Sign Scan Template Section](#create-saas-scan-template))
 
 -  **Output Template:**: Adobe Sign Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
 
@@ -206,7 +206,7 @@ $[1]$search-mode $[1]$tenant-url $[1]$access-token $[1]$saml-enabled $[1]$servic
 
 - Find the SaaS Tenant Scanner or the Scanner Created in the [Create Adobe Sign Tenant Scanner Section](#create-abode-sign-tenant-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just created and Click **Edit Scanner**
 
 - In the **lines Parse Format** Section Enter the Source Name (example: Adobe Sign Test Tenant)
 
@@ -216,15 +216,15 @@ $[1]$search-mode $[1]$tenant-url $[1]$access-token $[1]$saml-enabled $[1]$servic
 
 - Click **Add Scanner**
 
-- Find the Adobe Sign Account Scanner or the Scanner Creatted in the [Create ServiceNow Account Scanner Section](#create-adobe-sign-account-scanner) and Click **Add Scanner**
+- Find the Adobe Sign Account Scanner or the Scanner created in the [Create Adobe Sign Account Scanner Section](#create-adobe-sign-account-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just created and Click **Edit Scanner**
 
 - Click **Edit Scanner**
 
 - Click the **Add Secret** Link
 
-- Search for the Privoleged Account Secret created in the [Overview.md file](../Overview.md)
+- Search for the Privileged Account Secret created in the [Overview.md file](../Overview.md)
 
 - Check the Use Site Run As Secret Check box to enable it
 
@@ -245,11 +245,11 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
   
 
-The ServiceNow configuration is now complete. The next step is to run a manual discovery scan.
+The Adobe Sign configuration is now complete. The next step is to run a manual discovery scan.
 
 - Navigate to **Admin | Discovery**
 
-- Click the **Run Discovery Noe** (Dropdon) and select **Run Discovery Now**
+- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Now**
 
 - Click on the **Network view** Button in the upper right corner
 
