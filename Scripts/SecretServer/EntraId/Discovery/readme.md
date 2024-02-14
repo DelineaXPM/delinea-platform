@@ -242,7 +242,7 @@ The Azure AD / Entra ID configuration is now complete. The next step is to run a
 
 - Navigate to **Admin | Discovery**
 
-- Click the **Run Discovery Noe** (Dropdown) and select **Run Discovery Now**
+- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Now**
 
 - Click on the **Network view** Button in the upper right corner
 
