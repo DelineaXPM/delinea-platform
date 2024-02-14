@@ -122,18 +122,8 @@ function Get-JWT {
         "jti" = [Guid]::NewGuid().ToString()
     }
     if ($null -ne $scope -and $scope -ne "") { $payload.scope = $scope }
-    $encodedPayload = ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($payload | ConvertTo-Json -Compress))).
-        Trim()).
-    Replace('+', '-').
-    Replace('/', '_').
-    TrimEnd('=').
-    Trim()
-    $encodedHeader = ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($header | ConvertTo-Json -Compress))).
-        Trim()).
-    Replace('+', '-').
-    Replace('/', '_').
-    TrimEnd('=').
-    Trim()
+    $encodedPayload = ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($payload | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim()
+    $encodedHeader = ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($header | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim()
     $encodedToken = "$encodedHeader.$encodedPayload"
     $dataToSign = [System.Text.Encoding]::UTF8.GetBytes($encodedToken)
     try {
