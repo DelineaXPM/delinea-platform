@@ -94,7 +94,7 @@ Perform Requests at Anytime
 
   
 
-For more information on Connected Apps you can click [Here](https://salesforce.stackexchange.com/questions/40346/where-do-i-find-the-client-id-and-client-secret-of-an-existing-connected-app) or contact your SalesFore Supprt Team
+For more information on Connected Apps you can click [Here](https://salesforce.stackexchange.com/questions/40346/where-do-i-find-the-client-id-and-client-secret-of-an-existing-connected-app) or contact your SalesFore Support Team
 
   
   
@@ -108,7 +108,7 @@ For more information on Connected Apps you can click [Here](https://salesforce.s
 
   
 
-The following steps are required to create the Secret Template for ServiceNow Users:
+The following steps are required to create the Secret Template for Salesforce Users:
 
   
 
@@ -132,7 +132,7 @@ The following steps are required to create the Secret Template for ServiceNow Us
 
   
 
-The following steps are required to create the Secret Template for ServiceNow Privileged Account:
+The following steps are required to create the Secret Template for Salesforce Privileged Account:
 
   
 
@@ -153,7 +153,7 @@ The following steps are required to create the Secret Template for ServiceNow Pr
   
   
 
-## Create secret in Secret Server for the SalesForce Priviled Account
+## Create secret in Secret Server for the SalesForce Privileged Account
 
 - Log in to the Delinea Secret Server (If you have not already done so)
 
@@ -161,7 +161,7 @@ The following steps are required to create the Secret Template for ServiceNow Pr
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#servicenow-privileged-account-template).
+- Select the template created in the earlier step [above](#salesforce-privileged-account-template).
 
 - Fill out the required fields with the information from the application registration
 
@@ -185,7 +185,7 @@ The following steps are required to create the Secret Template for ServiceNow Pr
 
 - Click Create Secret
 
-- This completes the creation of a secret in Secret Server for the ServiceNow Priviled Account
+- This completes the creation of a secret in Secret Server for the Salesforce Privileged Account
 
   
 
