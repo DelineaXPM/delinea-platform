@@ -12,7 +12,8 @@ Some connectors and integrations will require additional functions provided in t
 
 >[!NOTE]
 >If an error stating that Copy-Item : Could not find a part of the path ```C:\Program Files\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\```
->The Issue is Caused Because the Path Does Not Exist, Run This Command in an Admin Powershell Terminal:
+>The issue is because the path does not exist.
+>To resolve run this command in an Admin Powershell Terminal:
 ```powershell 
 if (-not (Test-Path -Path "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers" -PathType Container)) {
     New-Item -Path "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers" -ItemType Directory
