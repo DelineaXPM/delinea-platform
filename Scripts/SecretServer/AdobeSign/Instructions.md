@@ -14,7 +14,7 @@ Follow the instruction to create and Integration Key [here](https://helpx.adobe.
   
 ## Creating secret template for Adobe Sign Accounts
 ### Adobe Sign User Account Template
-The following steps are required to create the Secret Template for ServiceNow Users:
+The following steps are required to create the Secret Template for Adobe Sign Users:
 
 - Log in to the Delinea Secret Server (If you have not already done so)
 

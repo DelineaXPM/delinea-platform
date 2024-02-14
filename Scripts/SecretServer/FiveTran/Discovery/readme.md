@@ -178,7 +178,7 @@ $[1]$Discovery-Mode $[1]$tenant-url $[1]$API-Key $[1]$API-Secret $[1]$Admin-Acco
 
 - Click Save
 
-- This completes the creation of the ServiceNow Account Scanner
+- This completes the creation of the FiveTran Account Scanner
 
   
 

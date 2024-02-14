@@ -153,7 +153,7 @@
 
     -  **Input Template**: Azure AD /Entra ID Tenant (Use Template that Was Created in the [Azure AD /Entra ID tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
-    -  **Output Template:**: ServiceNow Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template)
+    -  **Output Template:**: Azure AD / Entra ID Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
 
     -  **Script:** Azure AD / Entra ID Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
@@ -169,7 +169,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click Save
 
-- This completes the creation of the ServiceNow Account Scanner
+- This completes the creation of the Azure AD / Entra ID Account Scanner
 
   
 
@@ -185,7 +185,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Enter the Values below
 
-  - **Name:** (example: ServiceNow Test Tenant)
+  - **Name:** (example: Azure AD / Entra ID Test Tenant)
 
   - **Site** (Select Site Where Discovery will run)
 
@@ -209,7 +209,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Local Account Scanner or the Scanner created in the [Create ServiceNow Account Scanner Section](#create-servicenow-account-scanner) and Click **Add Scanner**
+- Find the Azure AD / Entra ID Local Account Scanner or the Scanner created in the [Create Azure AD / Entra ID Account Scanner Section](#create-Azure AD / Entra ID-account-scanner) and Click **Add Scanner**
 
 - Select the Scanner just created and Click **Edit Scanner**
 
@@ -238,14 +238,14 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
   
 
-The ServiceNow configuration is now complete. The next step is to run a manual discovery scan.
+The Azure AD / Entra ID configuration is now complete. The next step is to run a manual discovery scan.
 
 - Navigate to **Admin | Discovery**
 
-- Click the **Run Discovery Noe** (Dropdon) and select **Run Discovery Now**
+- Click the **Run Discovery Noe** (Dropdown) and select **Run Discovery Now**
 
 - Click on the **Network view** Button in the upper right corner
 
-- Click on the newly cretaed discocvery source
+- Click on the newly created discovery source
 
 - Click the **Domain \ Cloud Accounts** yab to view the discovered accounts

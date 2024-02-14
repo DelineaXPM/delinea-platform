@@ -19,7 +19,7 @@ $global:results = @()
 
 #Script Constants
 
-[string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Password_Rotate.log"
+[string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Salesforce-Password_Rotate.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Salesforce Password Change"
 $foundAccounts = @()
