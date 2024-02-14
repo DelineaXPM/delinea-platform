@@ -18,7 +18,9 @@ This connector provides the following functions
 
 - Heartbeats to verify that user credentials are still valid
 
-  
+# Pre-Requisites   
+This connector uses the Delinea.PoSH.Helper module. Follow the [installation instructions](../../Helper/readme.md) to add this module to all Distributed Engines or Web Servers that will be executing the scripts for this connector. 
+
 
 Follow the Steps below to complete the base setup for the Connector
 

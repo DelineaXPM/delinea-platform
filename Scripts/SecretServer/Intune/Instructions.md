@@ -4,6 +4,12 @@ This connector provides the following functions
 
 - Discovery of Intune User Accounts in a given tenant
 
+
+# Pre-Requisites   
+This connector uses the Delinea.PoSH.Helper module. Follow the [installation instructions](../../Helper/readme.md) to add this module to all Distributed Engines or Web Servers that will be executing the scripts for this connector. 
+
+
+
 ## Intune User Account Management
 - User management utilizes EntraID for the following functions
   - Remote Password Changing Intune users
