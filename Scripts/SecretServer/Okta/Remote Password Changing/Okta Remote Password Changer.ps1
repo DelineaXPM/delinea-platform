@@ -1,7 +1,6 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # Expected Args @("Okta base URL","Key ID KID","ClientID","Private Key", "Okta User Name", "New Password")
 
-
 $oktaDomain = $args[0]
 $clientId = $args[1]
 $Kid = $args[2] 
@@ -12,7 +11,7 @@ $newPassword = $args[5]
 #Script Constants
 [string]$scope = "useraccount"
 [string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Okta-Integration.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Okta Password Change"
 #endregikon
 
