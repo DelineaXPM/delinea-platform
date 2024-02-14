@@ -54,7 +54,6 @@ function CheckModuleExist{
     param(
         [string]$ModuleName
     )
-    #plz forgive me for this is really ugly, but its needed for us
     try {
         try{Import-Module $ModuleName -ErrorAction Stop -Scope CurrentUser}catch{Install-Module $ModuleName -ErrorAction Stop -Scope CurrentUser -Force -WarningAction Stop}
     }
@@ -72,7 +71,6 @@ function Set-RSASignatureFromPEMString {
     $pemContent = $RSAKey -replace '^-----[^-]+-----', '' -replace '-----[^-]+-----$', ''
     $pemContent = $pemContent -replace '\n', '' -replace '\r', ''
     $decodedBytes = [Convert]::FromBase64String($pemContent)
-    # possbily axe
     if ($Type.ToUpper() -eq "CERT"){
         try{
             $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList ($decodedBytes, $null)
@@ -94,7 +92,6 @@ function Set-RSASignatureFromPEMString {
     }
 }
 
-# Fix this so that it passes custom standard and non standard claims like the C# project
 function Get-JWT {
     param (
         [Parameter(Mandatory=$false, HelpMessage="Kid of app.")]
