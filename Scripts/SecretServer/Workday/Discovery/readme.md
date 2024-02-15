@@ -13,9 +13,8 @@
     - **Scan Type:** Host
     - **Parent Scan Template:** Host Range
     - **Fields**
-        - Change HostRange to **tenant-url**
+        - Change HostRange to tenant-url
     - Click Save
-    - This completes the creation of the Workday Scan Template Creation
  
 
 ### Create Workday Account Scan Template
@@ -35,7 +34,7 @@
         - Add field: Admin-Account (Leave Parent and Include in Match Blank)
         - Add field: Service-Account (Leave Parent and Include in Match Blank)
     - Click Save
-    - This completes the creation of the Workday Account Scan Template Creation
+ 
  
 ### Create Local Account Discovery Script
 
@@ -49,9 +48,9 @@
     - Script Type: Powershell
     - Category: Discovery Scanner
     - Merge Fields: Leave Blank
-    - Script: Copy and paste the Script included in the file [Workday-Discovery.ps1](./Workday-Discovery.ps1)
+    - Script: Copy and paste the Script included in the file [Workday-Discovery](./Workday-Discovery.ps1)
     - Click Save
-    - This completes the creation of the Local Account Discovery Script
+  
 
 ### Create Workday Tenant Scanner
 
@@ -63,12 +62,11 @@
         - **Name:** > Workday Tenant Scanner 
         - **Description:** (Example - Base scanner used to discover Workday)
         - **Discovery Type:**  Host
-    - **Base Scanner:**  Manual Input Discovery
-    - **Input Template**: Discovery Source
-    - **Output Template:**: Workday Tenant (Use Template that Was Created in the [Workday Scan Template Section](#create-workday-tenant-scan-template))
+        - **Base Scanner:**  Manual Input Discovery
+        - **Input Template**: Discovery Source
+        - **Output Template:**: Workday Tenant (Use Template that Was Created in the [Workday Scan Template Section](#create-workday-tenant-scan-template))
     - Click Save
-    - This completes the creation of the Workday Tenant Scanner
-
+   
 ### Create Workday Account Scanner
 
 - Log in to Secret Server Tenant
@@ -84,13 +82,12 @@
         - **Input Template**: Workday Tenant (Use Template that Was Created in the [Workday Tenant Scan Template Section](#create-workday-tenant-scan-template))
         - **Output Template:**: Workday Account  (Use Template that Was Created in the [Create Workday Account Scan Template Section](#create-workday-account-scan-template))
         - **Script:** Workday Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-local-account-discovery-script))
-       
         - **Script Arguments:**
         ```PowerShell
         $[1]$Admin-Groups $[1]$ClientId $[1]$username $[1]$raas-endpoint $[1]$token-url $[1]$$pk
         ```
-        - Click Save
-        - This completes the creation of the Workday Account Scanner
+    - Click Save
+  
 
 ### Create Discovery Source
 
@@ -120,29 +117,17 @@
     See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
 - Click Save
 - Click on the Discovery Source tab and Click the Active check box
-- This completes the creation of the Discovery Source
+
 
 
 ## Optional Report
 
-  
-
-  
-
 In this section, There are instructions on creating an optional report to display user information found in the discovery.
 
-  
-
-  
 
 - Login to Secret Server Tenant (If you have not already done so)
-
-  
-
 - Navigate to the Reports module
-
 - click on the New Report Button
-
 - Fill in the following values:
 
 - Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
