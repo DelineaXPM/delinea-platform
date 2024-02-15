@@ -21,6 +21,12 @@ This connector provides the following functions
 
 Follow the Steps below to complete the base setup for the Connector
 
+
+
+# Pre-Requisites 
+
+This connector uses the Delinea.PoSH.Helper module. Follow the [installation instructions](../../Helper/readme.md) to add this module to all Distributed Engines or Web Servers that will be executing the scripts for this connector. 
+
 For a detailed information on setting up your Workday tenant for use with this integration go [here](./Delinea%20Workday%20Integration%20-%20Setup%20Guide%20-%2020240215%20-%20v2.pdf)   
 
 # Prepare JSON Web Token (JWT) Authentication

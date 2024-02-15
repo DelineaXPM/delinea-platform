@@ -1,6 +1,6 @@
 ### 🛠 Changes being made
 
-Give an overview of the submission and the use cases that you are addressing. Include and itemized list if you can
+Give an overview of the submission and the use cases that you are addressing. Include an itemized list if you can
 
 
 ### 🏎 Quality check

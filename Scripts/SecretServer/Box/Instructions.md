@@ -22,7 +22,10 @@ This connector provides the following functions:
 
 Follow the Steps below to complete the base setup for the Connector
 
-  
+
+# Pre-Requisites   
+This connector uses the Delinea.PoSH.Helper module. Follow the [installation instructions](../../Helper/readme.md) to add this module to all Distributed Engines or Web Servers that will be executing the scripts for this connector. 
+
 
 # Prepare Oauth Authentication
 
