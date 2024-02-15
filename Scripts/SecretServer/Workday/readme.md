@@ -1,6 +1,6 @@
 # Workday Delinea Secret Server Integration
 
-This package is designed to discover Workday and Rotate the passwords of User Accounts. It will also provide a method of determining Administrative and Service accounts based on a configurable criteria as well as local accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions document which can be found  [Here](./instructions.md)
+This package is designed to discover Workday and Rotate the passwords of User Accounts. It will also provide a method of determining Administrative and Service accounts based on a configurable criteria as well as local accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions document which can be found  [here](./instructions.md)
 
 ## Functionality
 
