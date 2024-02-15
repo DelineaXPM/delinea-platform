@@ -21,7 +21,7 @@ This connector provides the following functions
 
 Follow the Steps below to complete the base setup for the Connector
 
-  
+For a detailed information on setting up your Workday tenant for use with this integration go [here](./Delinea%20Workday%20Integration%20-%20Setup%20Guide%20-%2020240215%20-%20v2.pdf)   
 
 # Prepare JSON Web Token (JWT) Authentication
 
@@ -53,7 +53,12 @@ This connector utilizes a JSON Web Token authentication by using a decrypted RSA
 
 - Assign the public key cert to both the account credentials and to the OAUTH2 app
 
-- Creation of the Report as a Service (RaaS) REST Endpoint (found [here](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html).). They need to have the fields Security_Groups_group.Reference_ID, Email, User_Name, Employee_ID.
+- Creation of the Report as a Service (RaaS) REST Endpoint (more information found [here](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html).). The report needs to have the following fields: 
+
+- **Security_Groups_group.Reference_ID**
+- **Email** 
+- **User_Name** 
+- **Employee_ID**
   
 
 ## Follow and Understand the JWT Process
@@ -64,9 +69,12 @@ This connector utilizes a JSON Web Token authentication by using a decrypted RSA
 
   
 
-*** For more information on setup look at these links: 
-[here](https://community.workday.com/node/628676).
-[here](https://community.workday.com/node/752269).
+*** For more information on setup, look at these links: 
+
+[Community Document 628676](https://community.workday.com/node/628676).
+
+[Community Document 752269](https://community.workday.com/node/752269).
+
 They can help provide understanding on how to create the necessary correct key files to be assigned
   
 
@@ -86,7 +94,7 @@ They can help provide understanding on how to create the necessary correct key f
   
  
 
-## Creating secret template for Workday Accounts
+## Creating Secret Templates for Workday Accounts
 
   
 
@@ -104,19 +112,15 @@ The following steps are required to create the Secret Template for Workday Users
 
 - Click on Create / Import Template
 
-- Click on Import.
+- Click on Import
 
-- Copy and Paste the XML in the [Workday Account](./Templates/Workday%20Account.xml)
+- Copy and Paste the XML in the [Workday Account Template file](./Templates/Workday%20Account.xml)
 
 - Click on Save
-
-- This completes the creation of the User Account template
 
   
 
 ### Workday Privileged Account Template
-
-  
 
 The following steps are required to create the Secret Template for Workday Privileged Account:
 
@@ -130,7 +134,7 @@ The following steps are required to create the Secret Template for Workday Privi
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Workday Privileged Template.xml File](./Templates/Workday%20Privileged%20Account%20JWT.xml)
+- Copy and Paste the XML in the [Workday Privileged Template File](./Templates/Workday%20Privileged%20Account%20JWT.xml)
 
 - Click on Save
 
@@ -151,24 +155,22 @@ The following steps are required to create the Secret Template for Workday Privi
 
 - Fill out the required fields
 
-- Secret Name (for example Workday Privileged Account )
+    - **Secret Name** (for example Workday Privileged Account )
 
-- token-url (The token uri that is for OAUTH2 authentication)
+    - **token-url** (The token uri that is for OAUTH2 authentication)
 
 
-- Username (The issuer of the token; in a non UPN Format)
+    - **Username** (The issuer of the token; in a non UPN Format)
 
-- Client-id (Client ID of the OAUTH2 service account)
+    - **Client-id**  (Client ID of the OAUTH2 service account)
 
-- RaaSEndpoint (Report as a Service REST endpoint) 
+    - **RaaSEndpoint** (Report as a Service REST endpoint) 
+    
+    - **SOAP-Endpoint  (SOAP endpoint Root)
 
-- Admin-Groups (Target Admin account group membership String, but can be null and will pull all groups that have the phrase "admin" in them)
+    - **Admin-Groups** (Target Admin account group membership String, but can be null and will pull all groups that have the phrase "admin" in them)
 
 - Click Create Secret
-
-- This completes the creation of a secret in Secret Server for the ServiceNow Priviled Account
-
-  
 
 ## Next Steps
 

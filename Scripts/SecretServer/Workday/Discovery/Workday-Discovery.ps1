@@ -1,5 +1,4 @@
-Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"
-  <#
+<#
   .SYNOPSIS
   Discover Workday Service Accounts and Admins
   
@@ -22,6 +21,8 @@ Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\
   6. TokenUri: The token uri that is for OAUTH2 authentication
   #>
 
+Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"  
+
 [string[]]$WorkdayDefinedGroups = $args[0]
 [string]$clientid = $args[1]
 [string]$username =  $args[2]
@@ -30,12 +31,9 @@ Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\
 $privateKeyPEM = $args[5]
 #Logging vars
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Workday-Discovery.log"
-
-
-#####
 [int32]$LogLevel = 2
 [string]$logApplicationHeader = "Workday Discovery"
-[bool]$LogFileCheck = $true
+
 
 
 
@@ -59,133 +57,140 @@ $headers = @{
 function Get-AllWorkdayUsers {
     try{
         $users = $(Invoke-RestMethod -Method GET -Uri $RaaSEndpoint -Headers $headers -ErrorAction Stop).Report_Entry 
-        Write-Log -ErrorLevel 0 -Message "Got this many users from Workday: $($users.User_name.Count)" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile -LogFileCheck $LogFileCheck
         return $users
       }
       catch {
-        $exception = New-Object System.Exception "Caught some general error When doing user search: `nMessage: $($_.Exception.Message)."
-        Write-Log -Errorlevel 2 -Message "Caught some general error When doing user search: `nMessage: $($_.Exception.Message)." -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-        throw $exception
+        $Err = $_
+        Write-Log -ErrorLevel 0 -Message "iGet All Users failed"
+        Write-Log -ErrorLevel 2 -Message $Err.Exception
+        throw $Err.Exception
       }
 }
 
-function Get-WorkdayServiceAccounts{
+function IsServiceAccount{
     param (
-        [System.Object]$Users
+        [System.Object]$User
     )
-    $foundAccounts = @()
-    foreach($user in $users){
-        $AccountList = $(New-Object -TypeName psobject)
+  
+    try {
+        
+
+       
         if($user.Integration_User = 1){
-            if($null -eq $user.email -or $user.email -eq ""){
-                Write-Log -ErrorLevel 1 -Message "Workday User ID: $($user.Employee_ID) does NOT have an email; this would be considered a local account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                continue
+            $isServiceAccount = $true
+                
             }
-            Write-Log -ErrorLevel 0 -Message "Workday User ID: $($user.User_Name) was found as a Service account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-            $AccountList | Add-Member -MemberType NoteProperty -Name Domain -Value $($user.email.split("@")[1]) 
-            $AccountList | Add-Member -MemberType NoteProperty -Name username -Value $user.User_Name 
-            $AccountList | Add-Member -MemberType NoteProperty -Name Email -Value $user.email
-            $AccountList | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $false 
-            $AccountList | Add-Member -MemberType NoteProperty -Name Service-Account -Value $true
-            $AccountList | Add-Member -MemberType NoteProperty -Name Local-Account -Value $false 
-            $foundAccounts += $AccountList
+        else {
+            $isServiceAccount = $false
         }   
+          
     }
-    Write-Log -ErrorLevel 0 -Message "Found this many service accounts: $($foundAccounts.Count)" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-    return $foundAccounts
+    catch {
+        $Err = $_
+        Write-Log -ErrorLevel 0 -Message "isServiceAccount function Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+        Write-Log -ErrorLevel 2 -Message $Err.Exception -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+        throw $Err.Exception
+    }    
+    
+    return $isServiceAccount
 }
 
-function Get-WorkdayAdminAccounts{
+function isAdminAccount{
     param (
-        [System.Object]$Users,
-        [string[]]$WorkdayDefinedGroups=$null
+        [System.Object]$User
+       
     )
-    $foundAccounts = @()
+    try {
+        
+   
+    $isAdmin = $false
     if($null -ne $WorkdayDefinedGroups -or $WorkdayDefinedGroups -eq ""){
         foreach($wdaygroup in $WorkdayDefinedGroups){
-            foreach($user in $users){
+            
                 foreach($group in $user.Security_Groups_group.Reference_ID){
                     if($wdaygroup -match $group){
-                        $AccountList = $(New-Object -TypeName psobject)
-                        Write-Log -ErrorLevel 0 -Message "Found an admin group; the group list for the user is $($user.Security_Groups_group.Reference_ID)"-logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                        if($null -eq $user.email -or $user.email -eq ""){
-                            Write-Log -ErrorLevel 1 -Message "Workday User ID: $($user.Employee_ID) does NOT have an email; this would be considered a local account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                            continue
-                        }
-                        Write-Log -ErrorLevel 0 -Message "Workday User ID: $($user.User_Name) was found as an admin account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                        $AccountList | Add-Member -MemberType NoteProperty -Name Domain -Value $($user.email.split("@")[1]) 
-                        $AccountList | Add-Member -MemberType NoteProperty -Name username -Value $user.User_Name
-                        $AccountList | Add-Member -MemberType NoteProperty -Name Email -Value $user.email
-                        $AccountList | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $true 
-                        $AccountList | Add-Member -MemberType NoteProperty -Name Service-Account -Value $false 
-                        $AccountList | Add-Member -MemberType NoteProperty -Name Local-Account -Value $false
-                        $foundAccounts += $AccountList
+
+                        $isAdmin = $true
+                        Break
                     }
                 }
 
-            }
+            if($isadmin -eq $true){break}
         }
     }        
     else{
-        Write-Log -ErrorLevel 0 -Message "Default Search is on; looking for all accounts that have the groups that have admin in the name" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-        foreach($user in $users){
-            $AccountList = $(New-Object -TypeName psobject) 
+    
             if($user.Security_Groups_group.Reference_ID -ilike "*admin*"){
-                Write-Log -ErrorLevel 0 -Message "Found an admin group; the group list for the user is $($user.Security_Groups_group.Reference_ID)"-logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                if($null -eq $user.email -or $user.email -eq ""){
-                    Write-Log -ErrorLevel 1 -Message "Workday User ID: $($user.Employee_ID) does NOT have an email; this would be considered a local account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                    continue
-                }
-                Write-Log -ErrorLevel 0 -Message "Workday User ID: $($user.User_Name) was found as an admin account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-                $AccountList | Add-Member -MemberType NoteProperty -Name Domain -Value $($user.email.split("@")[1]) 
-                $AccountList | Add-Member -MemberType NoteProperty -Name username -Value $user.User_Name
-                $AccountList | Add-Member -MemberType NoteProperty -Name Email -Value  $user.email
-                $AccountList | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $true 
-                $AccountList | Add-Member -MemberType NoteProperty -Name Service-Account -Value $false 
-                $AccountList | Add-Member -MemberType NoteProperty -Name Local-Account -Value $false
-                $foundAccounts += $AccountList
+                
+                $isAdmin = $true
+
+                
             }
-        }
+        
     }
-    Write-Log -ErrorLevel 0 -Message "Found this many admin accounts: $($foundAccounts.Count)" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-    return $foundAccounts
+}
+catch {
+    $Err = $_
+    Write-Log -ErrorLevel 0 -Message "isServiceAccount function Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+    Write-Log -ErrorLevel 2 -Message $Err.Exception  -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+    throw $Err.Exception
+}
+   return $isAdmin
 }
 
-function Get-WorkdayLocalAccounts{
+function isLocalAccount{
     param(
-        [System.Object]$Users
+        [System.Object]$User
     )
-    $foundAccounts = @()
-    foreach($user in $users){
-        $AccountList = $(New-Object -TypeName psobject) 
+
+  try {
+    
+ 
+       
         if($null -eq $user.email -or $user.email -eq ""){
-            Write-Log -ErrorLevel 0 -Message "Workday User ID: $($user.User_Name) was found as a local account. Continuing" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-            $AccountList | Add-Member -MemberType NoteProperty -Name Domain -Value "N/A" 
-            $AccountList | Add-Member -MemberType NoteProperty -Name username -Value $user.User_Name
-            $AccountList | Add-Member -MemberType NoteProperty -Name Email -Value "N/A"
-            $AccountList | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $false 
-            $AccountList | Add-Member -MemberType NoteProperty -Name Service-Account -Value $false 
-            $AccountList | Add-Member -MemberType NoteProperty -Name Local-Account -Value $true
-            $foundAccounts += $AccountList
+            $isLocal = $true
+        }
+        else {
+            $isLocal = $false
         }
     }
-    Write-Log -ErrorLevel 0 -Message "Found this many local accounts: $($foundAccounts.Count)" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile    
-    return $foundAccounts
+    catch {
+      $Err = $_
+      Write-Log -ErrorLevel 0 -Message "isLocalAccount function Failed" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+      Write-Log -ErrorLevel 2 -Message $Err.Exception -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+      throw $Err.Exception
+    }
+  return $isLocal
 }
 
+$users = Get-AllWorkdayUsers
+$foundAccounts = @()
+foreach($user in $users)  
+    {
+        if($user.Account_Disabled -eq 1 ){continue}
+        $isAdmin = isAdminAccount -User $user
+        $isServiceAccount = IsServiceAccount -User $user
+        $isLocal = isLocalAccount -User $user
 
-    
-        Write-Log -ErrorLevel 0 -Message "Going to look for service Accounts" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-        Get-WorkdayServiceAccounts -Users $(Get-AllWorkdayUsers)
-   
-        Write-Log -ErrorLevel 0 -Message "Going to look for admin accounts" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-        Get-WorkdayAdminAccounts -Users $(Get-AllWorkdayUsers) -WorkdayDefinedGroups $WorkdayDefinedGroups
-   
-        Write-Log -ErrorLevel 0 -Message "Going to look for local accounts" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
-        Get-WorkdayLocalAccounts -Users $(Get-AllWorkdayUsers)
-    
-  
+        $Account = $(New-Object -TypeName psobject)
+        if ($user.email)
+        {
+            $domain = $user.email.split("@")[1]
+            $email =  $user.email
+        }
+        else {
+            $domain = "Local"
+            $email =  "not Avalable"
+        }
+        $Account | Add-Member -MemberType NoteProperty -Name Domain -Value $domain
+        $Account | Add-Member -MemberType NoteProperty -Name username -Value $user.User_Name
+        $Account | Add-Member -MemberType NoteProperty -Name Email -Value $email
+        $Account | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isAdmin
+        $Account | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
+        $Account | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
+        $foundAccounts += $Account
+    }
 
-
-
-  
+$users_found = $foundAccounts.Count
+Write-Log -ErrorLevel 0 -Message "Discovery found $users_found  accounts" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile 
+Return $foundAccounts
