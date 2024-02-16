@@ -69,7 +69,7 @@ catch {
     throw $Err.Exception
 }
 #endregion Get Access Token
-region Discovery Filtering Functions
+#region Discovery Filtering Functions
 function isadmin {
     param(
         $adminUsers,
@@ -195,133 +195,133 @@ function get-AdminUsers {
         throw $Err.Exception  
     }
     return $adminUsers
+}
+#endregion Get Admin Users
+#region get Service Accounts
 
-    #endregion Get Admin Users
-    #region get Service Accounts
-
-    #fetching Accounts associated with the group(s)
-    function get-SvcAccounts {
-        try {
-            Write-Log -Errorlevel 0 -Message "Retrieving  List of Service Accounts"       
-            #create roles array
-            If ($svcAcctGroupId) { 
-                #create array of SvcAccount roles
-                $svcActGroupIdArray = $svcAcctGroupId.split(",") 
-                foreach ($group in $svcActGroupIdArray) {
-                    $svcAccts += $users | Where-Object groupIds -Contains $group
-                }
-                Write-Log -ErrorLevel 0 -Message "Successfully found $($svcAccountIds.result.Count) Service Accounts"  
+#fetching Accounts associated with the group(s)
+function get-SvcAccounts {
+    try {
+        Write-Log -Errorlevel 0 -Message "Retrieving  List of Service Accounts"       
+        #create roles array
+        If ($svcAcctGroupId) { 
+            #create array of SvcAccount roles
+            $svcActGroupIdArray = $svcAcctGroupId.split(",") 
+            foreach ($group in $svcActGroupIdArray) {
+                $svcAccts += $users | Where-Object groupIds -Contains $group
             }
-        }
-        catch {
-            $Err = $_    
-            Write-Log -ErrorLevel 0 -Message "Failed to retrieve Service Accounts List"
-            Write-Log -ErrorLevel 2 -Message $Err.Exception
-            throw $Err.Exception  
-        }
-        return $svcAccountIds
-    }
-    #endregion Get Service Accounts
-    #region Get Local Users
-    function get-LocalUsers {
-        try { 
-            #leverage the classic API to distinguish between Directory_Users and Local users. 
-            $headers = @{
-                "Authorization" = "Bearer $accessToken"     
-                "Accept"        = "application/json, application/json"
-                "Content-Type"  = "application/json, application/json"
-            }
-            Write-Log -Errorlevel 0 -Message "Obtaining List of Local Users"    
-            #specify Classic API endpoint uri for users (Labeled as Accounts in these endpoints)
-            $uri = "$classicapi/accounts"
-            $method = "get"
-
-            #send HTTP request
-            $LocalusersIds = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri
-            #create array for each user's information
-            $localusers = @(foreach ($localuser in $localusersIds.accounts.users.id) {
-                    Invoke-RestMethod -Uri "$uri/userid/$localuser" -Headers $headers
-                })
-        }
-        catch {
-            $Err = $_    
-            Write-Log -ErrorLevel 0 -Message "Failed to retrieve User List"
-            Write-Log -ErrorLevel 2 -Message $Err.Exception
-            throw $Err.Exception
-        }
-        Write-Log -ErrorLevel 0 -Message "Successfully found $($LocalUsers.result.Count) Local Accounts"       
-        return $LocalUsers
-    }
-    #endregion Get Local Users
-
-    #region Main Process
-
-    #Region Get Advanced User Data
-    #if $discoveryMode Mode is set to default, only the get-LocalAccounts will be run
-    if ($DiscoveryMode = "Advanced") {
-        $adminUsers = get-AdminUsers  
-        $svcAccountIds = get-SvcAccounts
-    }
-    $LocalUsers = get-LocalUsers
-    #endregion
-
-    #define Output Array
-    $foundAccounts = @()
-    Try {
-        #Process Users
-        Write-Log -Errorlevel 0 -Message "Filtering Discovered Users"  
-        if ($DiscoveryMode -eq "Default") {
-            foreach ($user in $users) {
-                $userId = $user.id
-                #check is Local
-                $isLocal = isLocal -localUsers $LocalUsers -userId $userId
-                if ($isLocal -eq $true) {   
-                    $Username = $user.username
-                    $object = New-Object -TypeName PSObject
-                    $object | Add-Member -MemberType NoteProperty -Name tenanturl -Value $baseURL
-                    $object | Add-Member -MemberType NoteProperty -Name username -Value $username
-                    $foundAccounts += $object
-                }
-            }
-        }
-        else {
-            foreach ($user in $users) { 
-                #check if is admin
-                if ($adminRole) {
-                    $isadmin = isadmin -adminUsers $adminUsers -userId $user.id
-                }
-                else {
-                    $isadmin = "N\A"
-                }
-                #check service account
-                if ($svcAcctGroupId) {
-                    $isServiceAccount = isSvcAcct -svcAccts $svcAccountIds -userId $user.Id
-                }   
-                else {
-                    $isServiceAccount = $false
-                }                  
-                #check is Local
-                $isLocal = isLocal -localUsers $LocalUsers -userId $user.Id
-                if (($isAdmin -eq $true -or $isServiceAccount -eq $true ) -and $isLocal -eq $true ) {   
-                    $Username = $user.username
-                    $object = New-Object -TypeName PSObject
-                    $object | Add-Member -MemberType NoteProperty -Name tenant-url -Value $baseURL
-                    $object | Add-Member -MemberType NoteProperty -Name username -Value $username
-                    $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
-                    $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
-                    $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
-                    
-                    $foundAccounts += $object
-                }
-            }
+            Write-Log -ErrorLevel 0 -Message "Successfully found $($svcAccountIds.result.Count) Service Accounts"  
         }
     }
     catch {
-        $Err = $_
-        Write-Log -ErrorLevel 0 -Message "Account Discovery-Filtering failed"
+        $Err = $_    
+        Write-Log -ErrorLevel 0 -Message "Failed to retrieve Service Accounts List"
+        Write-Log -ErrorLevel 2 -Message $Err.Exception
+        throw $Err.Exception  
+    }
+    return $svcAccountIds
+}
+#endregion Get Service Accounts
+#region Get Local Users
+function get-LocalUsers {
+    try { 
+        #leverage the classic API to distinguish between Directory_Users and Local users. 
+        $headers = @{
+            "Authorization" = "Bearer $accessToken"     
+            "Accept"        = "application/json, application/json"
+            "Content-Type"  = "application/json, application/json"
+        }
+        Write-Log -Errorlevel 0 -Message "Obtaining List of Local Users"    
+        #specify Classic API endpoint uri for users (Labeled as Accounts in these endpoints)
+        $uri = "$classicapi/accounts"
+        $method = "get"
+
+        #send HTTP request
+        $LocalusersIds = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri
+        #create array for each user's information
+        $localusers = @(foreach ($localuser in $localusersIds.accounts.users.id) {
+                Invoke-RestMethod -Uri "$uri/userid/$localuser" -Headers $headers
+            })
+    }
+    catch {
+        $Err = $_    
+        Write-Log -ErrorLevel 0 -Message "Failed to retrieve User List"
         Write-Log -ErrorLevel 2 -Message $Err.Exception
         throw $Err.Exception
     }
-    #endregion Main Process
-    Write-Log -ErrorLevel 0 -Message "Successfully Filtered $($foundAccounts.Count) total users."
-    return $foundAccounts
+    Write-Log -ErrorLevel 0 -Message "Successfully found $($LocalUsers.result.Count) Local Accounts"       
+    return $LocalUsers
+}
+#endregion Get Local Users
+
+#region Main Process
+
+#Region Get Advanced User Data
+#if $discoveryMode Mode is set to default, only the get-LocalAccounts will be run
+if ($DiscoveryMode = "Advanced") {
+    $adminUsers = get-AdminUsers  
+    $svcAccountIds = get-SvcAccounts
+}
+$LocalUsers = get-LocalUsers
+#endregion
+
+#define Output Array
+$foundAccounts = @()
+Try {
+    #Process Users
+    Write-Log -Errorlevel 0 -Message "Filtering Discovered Users"  
+    if ($DiscoveryMode -eq "Default") {
+        foreach ($user in $users) {
+            $userId = $user.id
+            #check is Local
+            $isLocal = isLocal -localUsers $LocalUsers -userId $userId
+            if ($isLocal -eq $true) {   
+                $Username = $user.username
+                $object = New-Object -TypeName PSObject
+                $object | Add-Member -MemberType NoteProperty -Name tenanturl -Value $baseURL
+                $object | Add-Member -MemberType NoteProperty -Name username -Value $username
+                $foundAccounts += $object
+            }
+        }
+    }
+    else {
+        foreach ($user in $users) { 
+            #check if is admin
+            if ($adminRole) {
+                $isadmin = isadmin -adminUsers $adminUsers -userId $user.id
+            }
+            else {
+                $isadmin = "N\A"
+            }
+            #check service account
+            if ($svcAcctGroupId) {
+                $isServiceAccount = isSvcAcct -svcAccts $svcAccountIds -userId $user.Id
+            }   
+            else {
+                $isServiceAccount = $false
+            }                  
+            #check is Local
+            $isLocal = isLocal -localUsers $LocalUsers -userId $user.Id
+            if (($isAdmin -eq $true -or $isServiceAccount -eq $true ) -and $isLocal -eq $true ) {   
+                $Username = $user.username
+                $object = New-Object -TypeName PSObject
+                $object | Add-Member -MemberType NoteProperty -Name tenant-url -Value $baseURL
+                $object | Add-Member -MemberType NoteProperty -Name username -Value $username
+                $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
+                $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
+                $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
+                    
+                $foundAccounts += $object
+            }
+        }
+    }
+}
+catch {
+    $Err = $_
+    Write-Log -ErrorLevel 0 -Message "Account Discovery-Filtering failed"
+    Write-Log -ErrorLevel 2 -Message $Err.Exception
+    throw $Err.Exception
+}
+#endregion Main Process
+Write-Log -ErrorLevel 0 -Message "Successfully Filtered $($foundAccounts.Count) total users."
+return $foundAccounts
