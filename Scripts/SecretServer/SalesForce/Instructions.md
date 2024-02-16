@@ -90,7 +90,7 @@ Perform Requests at Anytime
 
 - Generate and Document a New Client-Secret and Client Id
 
-- This concludes teh Creation of the Connected App for Oauth
+- This concludes the Creation of the Connected App for Oauth
 
   
 

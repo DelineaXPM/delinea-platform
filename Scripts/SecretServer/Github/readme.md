@@ -12,7 +12,7 @@ This package is designed to discover Github User Accounts. It will also provide 
 
 # Authentication and Authorization Disclaimer
 
-The provided configurations are developed by using a static  [user OAuth Access Token](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization#restricting-access-by-personal-access-tokens-classic)  for Authentication and Authorization. This the only current method to authentcate and provide teh bneccessary access to complete this process. Due to a user challenge requirement with redirect URI, we have opted to use a static token for this automation integration.
+The provided configurations are developed by using a static  [user OAuth Access Token](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization#restricting-access-by-personal-access-tokens-classic)  for Authentication and Authorization. This the only current method to authentcate and provide the bneccessary access to complete this process. Due to a user challenge requirement with redirect URI, we have opted to use a static token for this automation integration.
 
 # Disclaimer
 
