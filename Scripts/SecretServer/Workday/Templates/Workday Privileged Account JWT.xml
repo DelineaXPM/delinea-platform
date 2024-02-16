@@ -43,7 +43,7 @@
     </field>
     <field isexpirationfield="true">
       <displayname>ClientId</displayname>
-      <description />
+      <description>Client ID of the OAUTH2 service account</description>
       <name>ClientId</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -96,6 +96,25 @@
       <editablepermission>3</editablepermission>
       <required>false</required>
       <fieldslugname>pk</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
+      <displayname>SOAP-Endpoint</displayname>
+      <description>SOAP endpoint Root</description>
+      <name>SOAP-Endpoint</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>false</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>false</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>soap-endpoint</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">

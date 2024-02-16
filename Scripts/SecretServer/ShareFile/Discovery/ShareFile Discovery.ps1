@@ -1,6 +1,7 @@
 
 #region define variables
 #Define Argument Variables
+
 try {
 
     [string]$DiscoveryMode = $args[0]
@@ -58,7 +59,7 @@ function Write-Log {
     }
 }
 #endregion Error Handling Functions
-
+Write-Log -ErrorLevel 0 -Message "Discovery found $users_found  Accounts"
 
 #region Get All Users
  #Create Headers
