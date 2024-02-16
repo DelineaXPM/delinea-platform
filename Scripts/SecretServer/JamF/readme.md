@@ -2,7 +2,7 @@
 
 This package is designed to discover and Manage Jamf User Accounts.  It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the [instructions document](./Instructions.md)
 
-## Functionally
+## Functionality
 
 - Discovery of Jamf accounts
 - Remote Password Changing of Local Accounts

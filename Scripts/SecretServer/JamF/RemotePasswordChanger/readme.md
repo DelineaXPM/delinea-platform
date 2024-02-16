@@ -77,7 +77,7 @@ If you have not already done so, please follow the steps in the [Instructions do
 - Select the ***Jamf Remote Password Changer*** or the password changer created in the [create password changer](#create-password-changer) section
 - Click ***Configure Scan Template at the bottom of the page***
 - Click ***Edit***
-- Click the ***Scan Template to use*** (Dropdown List) Select the ***Jamf User template*** created in the [Instructions.md Document](../Instructions.md)
+- Click the ***Scan Template to use*** (Dropdown List) Select the ***Jamf User template*** created in the [instructions document](../Instructions.md)
 - Map the following fields that appear after the selection
   - ***tenant-url*** -> Domain
   - ***Username*** -> username

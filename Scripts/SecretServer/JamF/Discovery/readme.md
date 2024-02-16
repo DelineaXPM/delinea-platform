@@ -55,12 +55,12 @@ If this Script has already been created in another Delinea Integration package p
 - Click ***Discovery Configuration Options*** -> ***Scanner Definitions*** -> ***Scanners***
 - Click ***Create Scanner***
 - Fill out the required fields with the information
-  - ***Name:*** -> SaaS Tenant Scanner
-  - ***Description:*** (Example - Base scanner used to discover SaaS applications)
+  - ***Name:*** SaaS Tenant Scanner
+  - ***Description:*** Base scanner used to discover SaaS applications
   - ***Discovery Type:*** Host
   - ***Base Scanner:*** Host
   - ***Input Template:*** Manual Input Discovery
-  - ***Output Template:***: SaaS Tenant or the template name that was created in the [SaaS scan template section](#create-saas-scan-template))
+  - ***Output Template:***: SaaS Tenant or the template name that was created in the [SaaS scan template section](#create-saas-scan-template)
 - Click ***Save***
 
 ### Create Jamf Account Scanner
@@ -101,11 +101,10 @@ If this Script has already been created in another Delinea Integration package p
 - Click the ***Add Secret*** Link
 - Search for the Client Credential Secret created in the [instructions file](../Instructions.md)
 - Check the ***Use Site Run As Secret*** Check box to enable it
-> [!NOTE]
-> Default Site run as Secret had to be setup in the Site configuration.
-> 
-> See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
-
+  > [!NOTE]
+  > Default Site run as Secret has to be setup in the Site configuration.
+  > 
+  > See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
 - Click ***Save***
 - Click on the ***Discovery Source*** tab 
 - For the ***State*** option click the check box to set the source to active
