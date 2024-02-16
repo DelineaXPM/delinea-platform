@@ -77,9 +77,8 @@ The following steps are required to create the Secret Template for Jamf Users:
 ### Admin Roles and Service Account Group Ids
 - The **admin-roles** field will contain a comma-separated list of roles you designate as **adminstrators**. 
 - Example: ```ADMINISTRATOR,CUSTOM```
-  > [!INFO]
-  > [For more information on Jamf designated application Roles](https://learn.jamf.com/bundle/jamf-pro-documentation-current/page/Jamf_Pro_User_Accounts_and_Groups.html).
-  
+> [!INFO]
+> [For more information on Jamf designated application Roles](https://learn.jamf.com/bundle/jamf-pro-documentation-current/page/Jamf_Pro_User_Accounts_and_Groups.html).
 - The **Service-Account-Group-Ids** field will contain a comma-separated list of GroupIds you designate as **service accounts**. This assumes you have allocated and assigned groups specifically for service accounts. 
   Example: ```5,17,23```
 > [!IMPORTANT]

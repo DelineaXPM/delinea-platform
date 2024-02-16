@@ -101,9 +101,9 @@ If this Script has already been created in another Delinea Integration package p
 - Click the ***Add Secret*** Link
 - Search for the Client Credential Secret created in the [instructions file](../Instructions.md)
 - Check the ***Use Site Run As Secret*** Check box to enable it
-  > [!NOTE]
-  > Default Site run as Secret has to be setup in the Site configuration. 
-  > See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
+> [!NOTE]
+> Default Site run as Secret has to be setup in the Site configuration. 
+> See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm) Section in the Delinea Documentation
 - Click ***Save***
 - Click on the ***Discovery Source*** tab 
 - For the ***State*** option click the check box to set the source to active
