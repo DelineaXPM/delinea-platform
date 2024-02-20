@@ -26,7 +26,7 @@ Example: https://MyInstance.Servicenow.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>This is the username that will be used to make the Oauth autheentication to the ServiceNow API application</description>
+      <description>This is the username that will be used to make the Oauth authentication to the ServiceNow API application</description>
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
