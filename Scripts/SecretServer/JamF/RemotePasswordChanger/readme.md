@@ -56,7 +56,7 @@ If you have not already done so, please follow the steps in the [Instructions do
 ## Update Jamf User template
 - Log in to Secret Server Tenant 
 - Navigate to ***Administration*** -> ***Secret Templates***
-- Find and Select the Jamf User Template created in the [Instructions.md Document](../Instructions.md)
+- Find and Select the Jamf User Template created in the [Instructions Document](../Instructions.md)
 - Select the ***Mapping*** Tab
 - In the ***Password Changing*** section, click edit and fill out the following
   - ***Enable RPC*** Checked
@@ -74,10 +74,10 @@ If you have not already done so, please follow the steps in the [Instructions do
 ## Update Remote Password Changer
 - Navigate to ***Administration*** -> ***Remote Password Changing***
 - Click on ***Options*** (Dropdown List) and select ***Configure Password Changers***
-- Select the ***Jamf Remote Password Changer*** or the password changer created in the [create password changer](#create-password-changer) section
+- Select the ***Jamf Remote Password Changer*** or the password changer created in the [Create Password Changer](#create-password-changer) section
 - Click ***Configure Scan Template at the bottom of the page***
 - Click ***Edit***
-- Click the ***Scan Template to use*** (Dropdown List) Select the ***Jamf User template*** created in the [instructions document](../Instructions.md)
+- Click the ***Scan Template to use*** (Dropdown List) Select the ***Jamf User template*** created in the [Instructions Document](../Instructions.md)
 - Map the following fields that appear after the selection
   - ***tenant-url*** -> Domain
   - ***Username*** -> username
