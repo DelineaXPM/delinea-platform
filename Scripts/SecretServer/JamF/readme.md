@@ -1,10 +1,10 @@
 # Jamf Delinea Secret Server Integration
 
-This package is designed to discover and Manage Jamf User Accounts.  It will provide detailed instructions and the neccessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions.md document which can be found [Here](./Instructions.md)
+This package is designed to discover and Manage Jamf User Accounts.  It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the [instructions document](./Instructions.md)
 
-## Functionalty
+## Functionality
 
-- Discovery of jamf accounts
+- Discovery of Jamf accounts
 - Remote Password Changing of Local Accounts
 - heartbeat of Local Accounts
 
