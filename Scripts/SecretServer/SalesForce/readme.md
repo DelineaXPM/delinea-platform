@@ -1,7 +1,7 @@
 
 # Salesforce Delinea Secret Server Integration
 
-This package is designed to discover and Manage Salesforce User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions document which can be found [here](./Instructions.md)
+This package is designed to discover and manage SalesForce User Accounts. It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions document which can be found [here](./Instructions.md)
 
 
 # Disclaimer

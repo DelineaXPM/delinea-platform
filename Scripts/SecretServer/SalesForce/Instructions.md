@@ -10,7 +10,7 @@ This connector provides the following functions
 
 ## Not currently available
 
-- Heartbeats Coming by end of 1st quarter) to verify that user credentials are still valid
+- Heartbeats coming by end of 1st quarter) to verify that user credentials are still valid
 
 For a temporary simulated Heartbeat process Please contact Delinea Account Manager to possibly engage Professional Services
 
