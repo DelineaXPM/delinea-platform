@@ -5,7 +5,7 @@
   <fields>
     <field isexpirationfield="false">
       <displayname>Domain</displayname>
-      <description>Domain of teh Email UPN</description>
+      <description>Domain of the Email UPN</description>
       <name>Domain</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -24,7 +24,7 @@
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>Workday username, usually an id or guid not neccessarily the UPN of teh user</description>
+      <description>Workday username, usually an ID or GUID, not neccessarily the UPN of the user</description>
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>

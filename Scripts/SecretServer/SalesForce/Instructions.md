@@ -75,7 +75,7 @@ This connector utilizes an OAuth 2.0 application in SalesForce using the client 
 
 - Generate and Document a New Client-Secret and Client Id
 
-- This concludes teh Creation of the Connected App for Oauth
+- This concludes the Creation of the Connected App for Oauth
 
   
 

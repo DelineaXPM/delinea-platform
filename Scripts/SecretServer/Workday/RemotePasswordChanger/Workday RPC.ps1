@@ -41,12 +41,12 @@ function Get-WorkdayJWTToken{
         return $(Invoke-RestMethod -Method Post -Uri $TokenUri  -Headers @{"Content-Type" = "application/x-www-form-urlencoded"} -Body "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=$($jwttoken)").access_token
       }
       catch {
-        $exception = New-Object System.Exception "Caught some general error When doing The JWT auth: `nMessage: $($_.Exception.Message)."
-        Write-Log -Errorlevel 2 -Message "Caught some general error When doing the JWT auth: `nMessage: $($_.Exception.Message)." -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
+        $exception = New-Object System.Exception "General error encountered while doing the JWT auth: `nMessage: $($_.Exception.Message)."
+        Write-Log -Errorlevel 2 -Message "CGeneral error encountered while doing the JWT auth: `nMessage: $($_.Exception.Message)." -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
         throw $exception
       }
 }
-Write-Log -ErrorLevel 0 -Message "Going to rotate the Workday PW of: $($TargetUserName). A SOAP request will be made to do this" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile -LogFileCheck $LogFileCheck
+Write-Log -ErrorLevel 0 -Message "Rotating the Workday passowrd of: $($TargetUserName) via a SOAP request" -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile -LogFileCheck $LogFileCheck
 $token = Get-WorkdayJWTToken
 $headers = @{
     "Authorization" = "Bearer $token"

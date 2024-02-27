@@ -6,7 +6,7 @@ This connectore provides the following functions
 - Remote Password Changing ServiceNow uiusers
 - Heartbeats to verify that user credentials are still valid
 
-Follow the Steps below to complete the base setup for teh Connector
+Follow the Steps below to complete the base setup for the Connector
 
 ## Prepare Oauth Authentication
 

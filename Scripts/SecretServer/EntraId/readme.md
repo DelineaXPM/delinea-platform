@@ -2,11 +2,11 @@
 
   
 
-This package is designed to discover and Manage Azure AD / EntraID User Accounts. It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [here](./Instructions.md)
+This package is designed to discover and Manage Azure AD / EntraID User Accounts. It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions document which can be found [here](./Instructions.md)
 
   
 
-This integrations uses the New Microsoft Graph API which is needed as After march Microsoft EntraID/Azure will no longer support the current REST API
+This integration uses the new Microsoft Graph API which is needed as After March 2024. Microsoft EntraID/Azure will no longer support the current REST API
 
   
 
@@ -14,7 +14,7 @@ This integrations uses the New Microsoft Graph API which is needed as After marc
 
   
 
-- Local Account Discovery
+- Account Discovery
 
 - Local Account Remote Password Changing
 
