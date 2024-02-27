@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-16"?>
 <secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <name>Azure AD / Entra ID User</name>
+  <name>Entra ID User</name>
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
-      <displayname>Tenant-url</displayname>
-      <description>Generic description</description>
-      <name>Tenant-url</name>
+      <displayname>Domain</displayname>
+      <description>This is the Domain that the EntraID Belongs to.</description>
+      <name>Domain</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -19,7 +19,7 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>true</required>
-      <fieldslugname>Tenant-url</fieldslugname>
+      <fieldslugname>Domain</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
@@ -100,7 +100,7 @@
     </field>
     <field isexpirationfield="false">
       <displayname>Local-Account</displayname>
-      <description>This field indicates if the user is a Local account to the Application</description>
+      <description>This field indicates if the user is a Local account or and External (Guest) user account</description>
       <name>Local-Account</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>

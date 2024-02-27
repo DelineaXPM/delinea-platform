@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-16"?>
 <secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <name>AzureAD/EntraID Privileged Account</name>
+  <name>EntraID Privileged Account</name>
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
@@ -43,7 +43,7 @@
     </field>
     <field isexpirationfield="false">
       <displayname>Client-Secret</displayname>
-      <description>Client Secret for The Azure AD / Entra ID API Application</description>
+      <description>Client Secret for The ServiceNow API Application</description>
       <name>Client-Secret</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -80,9 +80,9 @@
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Service-Account-Group-Ids</displayname>
-      <description>Accounts that are part of these groups will be identified as service accounts</description>
-      <name>Service-Account-Group-Ids</name>
+      <displayname>Service-Account-Groups</displayname>
+      <description>Accounts that are part of these groups will be identified as service accounts. Should be a single or comma seperated Group list</description>
+      <name>Service-Account-Groups</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -95,26 +95,7 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>service-account-group-ids</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>Local-Account-Group-Ids</displayname>
-      <description />
-      <name>Local-Account-Group-Ids</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>true</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>false</required>
-      <fieldslugname>local-account-group-ids</fieldslugname>
+      <fieldslugname>service-account-groups</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>
