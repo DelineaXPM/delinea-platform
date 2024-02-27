@@ -6,7 +6,7 @@ This package is designed to discover and Manage Azure AD / EntraID User Accounts
 
   
 
-This integration uses the New Microsoft Graph API which is needed as After March 2024. Microsoft EntraID/Azure will no longer support the current REST API
+This integration uses the new Microsoft Graph API which is needed as After March 2024. Microsoft EntraID/Azure will no longer support the current REST API
 
   
 
