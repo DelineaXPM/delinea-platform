@@ -10,7 +10,7 @@ This folder contains the XML templates used in this connector.
 
 
 ## Installation
-Jamf specific template installation instructions can be found in the [instructions document](../Instructions.md#creating-secret-template-for-jamf-accounts)
+Jamf specific template installation instructions can be found in the [Instructions Document](../Instructions.md#creating-secret-template-for-jamf-accounts)
 
 Generic instructions for managing custom templates are can be found on the Delinea documentation site.
 
