@@ -5,7 +5,7 @@
   <fields>
     <field isexpirationfield="false">
       <displayname>Domain</displayname>
-      <description>This is the Domain that the EntraID Belongs to.</description>
+      <description>This is the Domain that the EntraID belongs to.</description>
       <name>Domain</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
