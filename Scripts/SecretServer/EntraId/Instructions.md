@@ -44,9 +44,9 @@ The provided functions leverage the Microsoft Graph functionality in Azure AD / 
 
 - Valid Azure AD subscription with Azure AD / EntraID
 
-- Dedicated App Registration to be used by the password changer.
+- Dedicated App Registration to be used by the password changer
 
-- See [this](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) for more information on how to create an App Registration.
+- See [here](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) for more information on how to create an App Registration.
 
 - Detailed steps details provided [below](#creating-an-app-registration).
 
@@ -86,8 +86,6 @@ The following steps are required to create the Secret Template for EntraID Users
 
 - Click on Save
 
-- This completes the creation of the User Account template
-
   
 
 ## Creating Secret Template for Privileged Account
@@ -105,9 +103,6 @@ The following steps are required to create the secret template for the applicati
 - Copy and Paste the XML in the [EntraID Privileged Account File](./Templates/EntraID%20Privileged%20Account.xml)
 
 - Click on Save
-
-- This completes the creation of the secret template
-
   
 
 ## Creating an App Registration
@@ -142,7 +137,7 @@ The application registration is used to provide the password changer with the ne
 
 - Click on Add
 
-- Copy the client secret value and store it in Secret Server using the template created in the previous step
+- Copy the client secret value and store it as it will be needed when creating the Privileged Account Secret
 
 - Navigate to API Permissions
 
@@ -160,13 +155,10 @@ The application registration is used to provide the password changer with the ne
 
 - For the Directory.AccessAsUser.All permission, click on the Grant admin consent for the respective tenant button
 
-- This completes the creation of the application registration
-
   
-
 ## Providing Password Changer Application with Permissions to Manage Users
 
-- Log in to the Azure / Entra ID Portal
+- Log in to the Azure / EntraID Portal
 
 - Navigate to Azure Active Directory / Entra ID
 
@@ -174,21 +166,15 @@ The application registration is used to provide the password changer with the ne
 
 - Click on Add a role assignment
 
-- Select the appropriate role (e.g. Global Administrator)
+- Select the appropriate role (e.g. Privileged Authentication Administrator)
 
-- Note: The role selected must have the ability to manage users
-
-- The Password Administrator role is likely insufficient due to the fact that it does not have the ability to change passwords on Administrative Users.
-
-- To change the password of a global administrator, the global administrator role must be selected.
+   **Note:** The role selected must have the ability to manage users
+    The Password Administrator role is likely insufficient due to the fact that it does not have the ability to change passwords on Administrative Users.
 
 - Search for and select the application registration created in the previous step
 
 - Click on Add
 
-- This completes the permission assignment of the application registration
-
-  
 
 ## Create Secret in Secret Server for the EntraID Privileged Account
 
@@ -222,10 +208,8 @@ The application registration is used to provide the password changer with the ne
 
 - Run the following command to install the Microsoft Graph PowerShell SDK:
 
-```powershell
+  ```powershell
 
-install-module  -name Microsoft.Graph -scope allusers
+  install-module  -name Microsoft.Graph -scope allusers
 
-```
-
-- This completes the installation of the Microsoft Graph PowerShell SDK
+  ```
