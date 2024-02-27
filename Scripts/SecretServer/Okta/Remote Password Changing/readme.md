@@ -2,7 +2,7 @@
 
 The steps below show how to Setup and configure an Okta Remote Password Changer in Delinea Secret Server server. 
 
-If you have not already done so, please follow the steps in the **instructions Document** found [here](../instructions.md)
+If you have not already done so, please follow the steps in the **instructions document** found [here](../instructions.md)
 
 ## Create Scripts
 

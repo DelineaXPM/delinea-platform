@@ -1,6 +1,6 @@
 # Okta Delinea Secret Server Integration
 
-This package is designed to discover and Manage Okta User Accounts. It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes, it is a requirement to perform the tasks contained in the instructions document which can be found [here](./instructions.md)
+This package is designed to discover and manage Okta User Accounts. It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes, it is a requirement to perform the tasks contained in the instructions document which can be found [here](./instructions.md)
 
 ## Functions Included
 
