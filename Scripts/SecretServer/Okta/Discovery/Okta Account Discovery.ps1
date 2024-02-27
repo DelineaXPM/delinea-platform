@@ -3,24 +3,17 @@
     Okta Local Account Discovery.
     
     .DESCRIPTION
-    This script will Discover local accounts as determind by the parameters send from the Privileged Account Secret.
+    This script will Discover local accounts as determind by the parameters sent from the Privileged Account Secret.
 
-    
-    
-    .NOTES
-    There are there aparameters that control the accounts that are returned 
-     - $Admin-roles
-     - Service-Acct-attributes
-     - 
-    
 #>
-### 
 
-# Expected Arguments @("Okta Instance 0" , "clientId 1", "kid 2" , "Scope 3" , "privateKeyPEM 4","Service-Acct-attributes  5", "Admin-roles 5")
 
-#Define Argument Variables
+# Expected Arguments @( $[1]$Tenant-url $[1]$client-id $[1]$Key-ID  $[1]$Private-Key $[1]$Service-Account-Attributes $[1]$Admin-Roles)
+
+
 #region Define Script Arguments
 
+#Define Argument Variables
 $oktaDomain = $args[0]
 $clientId = $args[1]
 $Kid = $args[2] 
@@ -33,7 +26,7 @@ $rolesAray = $roles.split(",")
 
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Okta-Discovery.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Okta Discovery"
 [string]$scope = "okta.roles.read"
   $foundAccounts = @()
@@ -70,18 +63,16 @@ function Write-Log {
 #endregion Error Handling Functions
 
 
-
+#region Script Functions
 function Set-RSASignatureFromPEMString {
     param (
         [Parameter(Mandatory=$true, HelpMessage="RSA String from client in okta tenant is needed.")]
         [System.String]$RSAKey
     )
-    #RSA key stuff cuz we dont need no 3rd party lib :)
-    # I think i know whats happening
-    # We are holding onto data in a session
+
     $pemContent = $privateKeyPEM -replace '^-----[^-]+-----', '' -replace '-----[^-]+-----$', ''
     $pemContent = $pemContent -replace '\n', '' -replace '\r', ''
-    #Write-Host $pemContent
+  
     $decodedBytes = [Convert]::FromBase64String($pemContent)
     $cngKey = [System.Security.Cryptography.CngKey]::Import($decodedBytes, [System.Security.Cryptography.CngKeyBlobFormat]::Pkcs8PrivateBlob)
     return [System.Security.Cryptography.RSACng]::new($cngKey)
@@ -111,8 +102,6 @@ function Get-OktaJWT {
     TrimEnd('=').Trim()
     $encodedHeader = ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($header | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim()
     $encodedToken = "$encodedHeader.$encodedPayload"
-    #$encodedToken = "$(([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($payload | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim())`
-    #.$(([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($header | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim())"
     $dataToSign = [System.Text.Encoding]::UTF8.GetBytes($encodedToken)
     $rsaSignature = $(Set-RSASignatureFromPEMString -RSAKey $privateKeyPEM).SignData($dataToSign, [System.Security.Cryptography.HashAlgorithmName]::SHA256, [System.Security.Cryptography.RSASignaturePadding]::Pkcs1)
     $encodedSignature = [Convert]::ToBase64String($rsaSignature)
@@ -296,8 +285,8 @@ function  Get-Token {
     )
     return (Get-OktaBearerToken -JWT (Get-OktaJWT -oktaDomain $oktaDomain -clientId $clientId -Kid $Kid) -Scope $scope)
 }
-#$token = (Get-OktaBearerToken -JWT (Get-OktaJWT -oktaDomain $oktaDomain -clientId $clientId -Kid $Kid) -Scope $scope)
-###Begin Main Process
+
+#Begin Main Process
 try{
     $users = Invoke-WebRequest -Uri "$oktaDomain/api/v1/users" -Headers @{"Authorization" = "Bearer $(Get-Token -scope "okta.users.read")";"Accept" = "application/json"} -Method Get -UseBasicParsing
     Scan_Users -users $users
