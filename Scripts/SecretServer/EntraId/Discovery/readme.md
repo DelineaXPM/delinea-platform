@@ -1,61 +1,58 @@
 # Entra ID Local Account Discovery
 
-  
-
+This Scanner will discover accounts as well as optionally qualify accounts as Admin, Service and Local Accounts.  It will also provide an option of including or excluding External (Guest) Accounts.
+ 
 ## Create Discovery Source
 
-  
-  
+
 
 ### Create Entra ID Tenant Scan Template
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
 - Click **Create Scan Template**
 
-- Fill out the required fields with the information
+- Fill out the required fields:
 
-    -  **Name:** (Example: Entra ID Tenant)
+    - **Name:** (Example: Entra ID Tenant)
 
-    -  **Active:** (Checked)
+    - **Active:** (Checked)
 
-    -  **Scan Type:** Host
+    - **Scan Type:** Host
 
-    -  **Parent Scan Template:** Host Range
+    - **Parent Scan Template:** Host Range
 
-    -  **Fields:** Change HostRange to **tenant-Name**
+    - **Fields:** Change HostRange to **tenant-Name**
 
 - Click Save
 
-- This completes the creation of the Saas Scan Template Creation
-
-  
 
 ### Create Account Scan Template
 
-  
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
 - Click **Create Scan Template**
 
 - Fill out the required fields with the information
 
-    -  **Name:** (Example: Entra ID Account)
+    - **Name:** (Example: Entra ID Account)
 
-    -  **Active:** (Checked)
+    - **Active:** (Checked)
 
-    -  **Scan Type:** Account
+    - **Scan Type:** Account
 
-    -  **Parent Scan Template:** Account(Basic)
+    - **Parent Scan Template:** Account(Basic)
 
-    -  **Fields:** Change Resource to **tenant-id**
+    - **Fields:** 
+    
+    - Change Resource to Domain
 
     - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
@@ -65,45 +62,38 @@
 
 - Click Save
 
-- This completes the creation of the Account Scan Template Creation
-
 ### Create Discovery Script
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Scripts**
+- Navigate to **Admin** > **Scripts**
 
 - Click on **Create Script**
 
-- Fill out the required fields with the information from the application registration
+- Fill out the required fields:
 
-    - Name: ( example -Azure AD / Entra ID Local Account Scanner)
+    - **Name:** ( example: Entra ID Local Account Scanner)
 
-    - Description: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
-    - Active: (Checked)
+    - **Active:** (Checked)
 
-    - Script Type: Powershell
+    - **Script Type:** Powershell
 
-    - Category: Discovery Scanner
+    - **Category:** Discovery Scanner
 
-    - Merge Fields: Leave Blank
+    - **Merge Fields:** Leave Blank
 
-    - Script: Copy and paste the Script included in the file [Entra ID Local Account Discovery](./EntraID%20Local%20Account%20Discovery.ps1)
+    - **Script:** Copy and paste the Script included in the file [Entra ID Local Account Discovery](./Entra ID%20Local%20Account%20Discovery.ps1)
 
 - Click Save
-
-- This completes the creation of the Local Account Discovery Script
-
   
 
-### Create Azure AD / Entra ID Tenant Scanner
+### Create Entra ID Tenant Scanner
 
-  
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** >
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
@@ -111,67 +101,67 @@
 
 - Fill out the required fields with the information
 
-    -  **Name:** > Azure AD /Entra ID Tenant Scanner
+    - **Name:** > Entra ID Tenant Scanner
 
-    -  **Description:** (Example - Base scanner used to discover Azure AD / Entra ID Accounts)
+    - **Description:** (Example - Base scanner used to discover Entra ID Accounts)
 
-    -  **Discovery Type:** Host
+    - **Discovery Type:** Host
 
-    -  **Base Scanner:** Host
+    - **Base Scanner:** Host
 
-    -  **Input Template**: Manual Input Discovery
+    - **Input Template**: Manual Input Discovery
 
-    -  **Output Template:**: Sass Tenant (Use Template that Was Created in the [Entra ID Tenant Scan Template Section](#create-entra-id-tenant-scan-template))
+    - **Output Template:**: Entra ID Tenant (Use Template that Was Created in the [Entra ID Tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
 - Click Save
 
-- This completes the creation of the Saas Tenant Scanner
+
+### Create Entra ID Account Scanner
 
   
 
-### Create Azure AD / Entra ID Account Scanner
+- Log in to Secret Server Tenant (If you have not already done so)
 
-  
-
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** >
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
 - Click **Create Scanner**
 
-- Fill out the required fields with the information
+- Fill out the required fields:
 
-    -  **Name:** (Example - Azure AD / Entra ID Local Account Scanner)
+    - **Name:** (Example: Entra ID Local Account Scanner)
 
-    -  **Description:** (Example - Discovers Azure AD / Entra ID local accounts according to configured privileged account template )
+    - **Description:** (Example: Discovers Entra ID local accounts according to configured privileged account template )
+:
+    - **Discovery Type:** Account
 
-    -  **Discovery Type:** Account
+    - **Base Scanner:** PowerShell Discovery Create Discovery Script
 
-    -  **Base Scanner:** PowerShell Discovery Create Discovery Script
+    - **Input Template:**Entra ID Tenant (Use Template that Was Created in the [Entra ID tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
-    -  **Input Template**: Azure AD /Entra ID Tenant (Use Template that Was Created in the [Azure AD /Entra ID tenant Scan Template Section](#create-entra-id-tenant-scan-template))
+    - **Output Template:** Entra ID Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
 
-    -  **Output Template:**: Azure AD / Entra ID Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
-
-    -  **Script:** Azure AD / Entra ID Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+    -  **Script:** Entra ID Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
     - **Script Arguments:**
+        **Note:** in the following arguments you must choose between the values enclosed in the <>
 
-```powershell
+        - Detailed or Basic
 
-$[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-groupids
+            - **Detailed** will qualify wether accounts are considered Admin or Service Accounts based on the arguments provided. **Basic** wil only returned the Domain and Username of teh account
+            - **True** will return all accounts including External (Guest) Accounts. **False** will only return users within the Tenant Entra ID Domain
 
-```
+    ```powershell
 
-  
+    $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$Service-Account-Groups "<Detailed or Basic> <true or false>
+
+
+    ```
+
 
 - Click Save
 
-- This completes the creation of the Azure AD / Entra ID Account Scanner
-
-  
 
 ### Create Discovery Source
 
@@ -185,7 +175,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Enter the Values below
 
-  - **Name:** (example: Azure AD / Entra ID Test Tenant)
+  - **Name:** (example: Entra ID Tenant)
 
   - **Site** (Select Site Where Discovery will run)
 
@@ -201,7 +191,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Select the Scanner just created and Click **Edit Scanner**
 
-- In the **Lines Parse Format** Section Enter the Source Name (example: Azure AD / Entra ID Tenant)
+- In the **Lines Parse Format** Section Enter the Source Name (example: Entra ID Tenant)
 
 - Click **Save**
 
@@ -209,7 +199,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click **Add Scanner**
 
-- Find the Azure AD / Entra ID Local Account Scanner or the Scanner created in the [Create Azure AD / Entra ID Account Scanner Section](#create-Azure AD / Entra ID-account-scanner) and Click **Add Scanner**
+- Find the Entra ID Local Account Scanner or the Scanner created in the [Create Azure AD / Entra ID Account Scanner Section](#create-Azure AD / Entra ID-account-scanner) and Click **Add Scanner**
 
 - Select the Scanner just created and Click **Edit Scanner**
 
@@ -217,7 +207,7 @@ $[1]$tenant-id $[1]$Application-Id $[1]$Client-Secret $[1]$admin-roles $[1]$sac-
 
 - Click the **Add Secret** Link
 
-- Search for the Privileged Account Secret created in the [Overview file](../Overview.md)
+- Search for the Privileged Account Secret created in the [instructions file](../Instructions.md)
 
 - Check the Use Site Run As Secret Check box to enable it
 
@@ -229,16 +219,58 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
 - Click on the Discovery Source yab and Click the Active check box
 
-- This completes the creation of theDiscovery Source
+## Optional Report
+
+In this section, there are instructions on creating an optional report to display user information found in the discovery.
+
+
+- Login to Secret Server Tenant (if you have not already done so)
+- Navigate to the Reports module
+- Click on the New Report Button
+- Fill in the following values:
+  - **Name:** The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
+  - **Description:** (Enter something meaningful to your organization)
+  - **Category:** Select the Section where you would like the report to appear (ex. Discovery Scan)
+  - **Report SQL:** Copy and Paste the SQL Query below
+  
+***Note** " You must replace the WHERE d.DiscoverySourceId = 32 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL
+
+
+
+``` SQL
+SELECT
+d.[ComputerAccountId]
+,d.[CreatedDate]
+,d.[AccountName] AS [Username]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
+
+FROM tbComputerAccount AS d
+
+CROSS  APPLY  OPENJSON (d.AdditionalData) AS adata
+
+INNER JOIN tbScanItemTemplate AS s ON s.ScanItemTemplateId = d.ScanItemTemplateId
+
+WHERE d.DiscoverySourceId =  32
+
+GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
+```
+
+- Click Save
 
   
-  
+
+You will now find this report under the section you chose in the Category field.
+
+
 
 ### Next Steps
 
   
 
-The Azure AD / Entra ID configuration is now complete. The next step is to run a manual discovery scan.
+The Entra ID configuration is now complete. The next step is to run a manual discovery scan.
 
 - Navigate to **Admin | Discovery**
 

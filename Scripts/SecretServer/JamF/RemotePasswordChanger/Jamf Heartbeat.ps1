@@ -1,29 +1,28 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 #region Set Paramaters and Variables
 [string]$baseURL = $args[0]
-[string]$tokenUrl = "$baseURL/api/v1/auth/token"
 [string]$Username = $args[1]
 [string]$Password = $args[2]
-
-#Script Constants
+[string]$tokenUrl = "$baseURL/api/v1/auth/token"
+#script Constants
+[string]$logApplicationHeader = "Jamf Heartbeat"
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Jamf-Password_Rotate.log"
 [int32]$LogLevel = 3
-[string]$logApplicationHeader = "Jamf Heartbeat"
-#endregion
 
+#endregion
 #region Error Handling Functions
 function Write-Log {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory)]
-        [ValidateSet(0,1,2,3)]
+        [ValidateSet(0, 1, 2, 3)]
         [Int32]$ErrorLevel,
-        [Parameter(Mandatory,ValueFromPipeline)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [string]$Message
     )
-    # Evaluate Log Level based on global configuration
+    #evaluate Log Level based on global configuration
     if ($ErrorLevel -le $LogLevel) {
-        # Format message
+        #format message
         [string]$Timestamp = Get-Date -Format "yyyy-MM-ddThh:mm:sszzz"
         switch ($ErrorLevel) {
             "0" { [string]$MessageLevel = "INF0 " }
@@ -31,11 +30,9 @@ function Write-Log {
             "2" { [string]$MessageLevel = "ERROR" }
             "3" { [string]$MessageLevel = "DEBUG" }
         }
-        # Write Log data
-        $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
+        #write log data
+        $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel, $logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
 }
 #endregion Error Handling Functions
@@ -43,16 +40,16 @@ function Write-Log {
 #region Get Token
 function Get-BearerToken {
     param (
-        [Parameter(Mandatory=$true, HelpMessage="Heartbeat User Name")]
+        [Parameter(Mandatory = $true, HelpMessage = "Heartbeat User Name")]
         [System.String]$Username,
-        [Parameter(Mandatory=$true, HelpMessage="Heartbeat User Password")]
+        [Parameter(Mandatory = $true, HelpMessage = "Heartbeat User Password")]
         [System.String]$password,
-        [Parameter(Mandatory=$true, HelpMessage="Root Url to hit to get bearer token")]
+        [Parameter(Mandatory = $true, HelpMessage = "Root Url to hit to get bearer token")]
         [System.String]$Url
       
     )
-    #Convert Heartbeat credentials to Basic Auth Base64 String
-        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $username,$password)))
+    #convert Heartbeat credentials to Basic Auth Base64 String
+    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $username, $password)))
     $headers = @{
         Authorization = "Basic $base64AuthInfo"
         Accept        = "application/json"

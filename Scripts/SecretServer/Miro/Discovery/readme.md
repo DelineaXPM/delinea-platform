@@ -1,6 +1,6 @@
 # Miro Account Discovery
 
-**Note: This application does not support teh identifying of Service Accounts; therefor only Local and Admin account classification is returned.
+**Note: This application does not support the identifying of Service Accounts; therefor only Local and Admin account classification is returned.
 
 ## Create Discovery Source
 
