@@ -39,8 +39,6 @@ For a detailed information on setting up your Workday tenant for use with this i
 
 This connector utilizes a JSON Web Token authentication by using a decrypted RSA 256 bit private key to sign the JWT.
 
-​
-
 ### Prerequisites
 
   
@@ -61,42 +59,42 @@ This connector utilizes a JSON Web Token authentication by using a decrypted RSA
 
 - Creation of the Report as a Service (RaaS) REST Endpoint (more information found [here](https://community.workday.com/sites/default/files/file-hosting/restapi/index.html).). The report needs to have the following fields: 
 
-- **Security_Groups_group.Reference_ID**
-- **Email** 
-- **User_Name** 
-- **Employee_ID**
+  - **Security_Groups_group.Reference_ID**
+  - **Email** 
+  - **User_Name** 
+  - **Employee_ID**
   
 
 ## Follow and Understand the JWT Process
 
   
 
-- Explanation of the various Auth processes in Workday found [here](https://community.workday.com/auth).
+- Explanation of the various authorization processes in Workday found [here](https://community.workday.com/auth).
 
   
 
-*** For more information on setup, look at these links: 
+For more information on setup, look at these links: 
 
-[Community Document 628676](https://community.workday.com/node/628676).
+- [Community Document 628676](https://community.workday.com/node/628676).
 
-[Community Document 752269](https://community.workday.com/node/752269).
+- [Community Document 752269](https://community.workday.com/node/752269).
 
 They can help provide understanding on how to create the necessary correct key files to be assigned
   
 
-- Document the following values as they will be needed in the upcoming sections
+  - Document the following values as they will be needed in the upcoming sections
 
-- Client ID
+  - Client ID
 
-- Integrated Service Username (NOT the UPN)
+  - Integrated Service Username (NOT the UPN)
 
-- Public Key Cert file assigned to BOTH the OAUTH2 app and Integrated Service User
+  - Public Key Cert file assigned to BOTH the OAUTH2 app and Integrated Service User
 
-- Decrypted Private PEM Key
+  - Decrypted Private PEM Key
 
-- SOAP and OAUTH2 endpoints
+  - SOAP and OAUTH2 endpoints
 
-- RaaS Endpoint configured with the necessary fields to be pulled from
+  - RaaS Endpoint configured with the necessary fields to be pulled from
   
  
 
@@ -112,15 +110,15 @@ The following steps are required to create the Secret Template for Workday Users
 
   
 
-- Log in to the Delinea Secret Server (If you have not already done so)
+  - Log in to the Delinea Secret Server (If you have not already done so)
 
-- Navigate to Admin / Secret Templates
+  - Navigate to Admin / Secret Templates
 
-- Click on Create / Import Template
+  - Click on Create / Import Template
 
-- Click on Import
+  - Click on Import
 
-- Copy and Paste the XML in the [Workday Account Template file](./Templates/Workday%20Account.xml)
+  - Copy and Paste the XML in the [Workday Account Template file](./Templates/Workday%20Account.xml)
 
 - Click on Save
 
@@ -144,37 +142,28 @@ The following steps are required to create the Secret Template for Workday Privi
 
 - Click on Save
 
-- This completes the creation of the Privileged Account template
-
   
   
 
 ## Create secret in Secret Server for the Workday Privileged Account
 
-- Log in to the Delinea Secret Server (If you have not already done so)
+- Log in to the Delinea Secret Server (if you have not already done so)
 
 - Navigate to Secrets
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#creating-secret-template-for-workday-accounts).
+- Select the template created in the earlier step [above](#creating-secret-template-for-workday-accounts).
 
 - Fill out the required fields
 
-    - **Secret Name** (for example Workday Privileged Account )
-
-    - **token-url** (The token uri that is for OAUTH2 authentication)
-
-
-    - **Username** (The issuer of the token; in a non UPN Format)
-
-    - **Client-id**  (Client ID of the OAUTH2 service account)
-
-    - **RaaSEndpoint** (Report as a Service REST endpoint) 
-    
-    - **SOAP-Endpoint  (SOAP endpoint Root)
-
-    - **Admin-Groups** (Target Admin account group membership String, but can be null and will pull all groups that have the phrase "admin" in them)
+    - **Secret Name:** (for example Workday Privileged Account )
+    - **token-url:** (The token uri that is for OAUTH2 authentication)
+    - **Username:** (The issuer of the token; in a non UPN Format)
+    - **Client-id:**  (Client ID of the OAUTH2 service account)
+    - **RaaSEndpoint:** (Report as a service REST endpoint) 
+    - **SOAP-Endpoint:**  (SOAP endpoint root)
+    - **Admin-Groups:** (Target Admin account group membership String, but can be null and will pull all groups that have the phrase "admin" in them)
 
 - Click Create Secret
 
