@@ -3,7 +3,7 @@
   Discover Workday Service Accounts and Admins
   
   .DESCRIPTION
-  This script will discover Service and Admin Accounts and Local Accounts. It will authenticate leveraging an unencrpyted RSA 256 bit alg key
+  This script will discover Service, Admin, and Local Accounts. It will authenticate leveraging an unencrpyted RSA 256 bit alg key.
   Admins are defined by either A: being in the accounts that have the name admin in them or B: defined in the job.  
   Service Accounts are determined by being an Integration Service User.
   Local Accounts are defined as accounts that do not have email 
@@ -13,12 +13,11 @@
   $args = @("TypeOfAccountDiscovery","WorkdayDefinedGroups","clientid", "Username", "RaaSEndpoint", "TokenUri", "privateKeyPEM")
   .NOTES
   General notes
- 1. Depricated
-  2. WorkdayDefinedGroups: Target Admin account group membership String, but can be null and will pull all groups that have the phrase "admin" in them
-  3. ClientID: Client ID of the OAUTH2 service account
-  4. Username: The issuer of the token; in a non UPN Format
-  5. RaaSEndpoint: Report as a Service REST endpoint. 
-  6. TokenUri: The token uri that is for OAUTH2 authentication
+  1. WorkdayDefinedGroups: Target Admin account group membership String, but can be null and will pull all groups that have the phrase "admin" in them
+  2. ClientID: Client ID of the OAUTH2 service account
+  3. Username: The issuer of the token; in a non UPN Format
+  4. RaaSEndpoint: Report as a Service REST endpoint. 
+  5. TokenUri: The token uri that is for OAUTH2 authentication
   #>
 
 Import-Module -Name "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\Delinea.PoSH.Helpers\Utils.psm1"  
@@ -43,8 +42,8 @@ function Get-WorkdayJWTToken{
         return $(Invoke-RestMethod -Method Post -Uri $TokenUri  -Headers @{"Content-Type" = "application/x-www-form-urlencoded"} -Body "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=$($jwttoken)").access_token
       }
       catch {
-        $exception = New-Object System.Exception "Caught some general error When doing The JWT auth: `nMessage: $($_.Exception.Message)."
-        Write-Log -Errorlevel 2 -Message "Caught some general error When doing the JWT auth: `nMessage: $($_.Exception.Message)." -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
+        $exception = New-Object System.Exception "General error encountered while doing the JWT auth: `nMessage: $($_.Exception.Message)."
+        Write-Log -Errorlevel 2 -Message "General error encountered while doing the JWT auth: `nMessage: $($_.Exception.Message)." -logApplicationHeader $logApplicationHeader -LogLevel $LogLevel -LogFile $LogFile
         throw $exception
       }
 }
