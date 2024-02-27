@@ -4,15 +4,13 @@ SalesForce Connector Base Configuration
 
 This connector provides the following functions
 
-  
-
 - Discovery of Local Accounts
 
 - Remote Password Changing Salesforce users
 
-- Heartbeats Coming by end of 1st quarter) to verify that user credentials are still valid
+## Not currently available
 
-A heartbeat place holder has been provided so that the process is complete
+- Heartbeats coming by end of 1st quarter) to verify that user credentials are still valid
 
 For a temporary simulated Heartbeat process Please contact Delinea Account Manager to possibly engage Professional Services
 
@@ -24,29 +22,18 @@ Follow the Steps below to complete the base setup for the Connector
 
 ## Prepare Oauth Authentication
 
-  
-
 ## OAuth Client Credentials Flow in SalesForce
-
-  
 
 This connector utilizes an OAuth 2.0 application in SalesForce using the client credentials grant type. This flow is typically used for server-to-server API requests where the application itself needs to authenticate and interact with SalesForce APIs.
 
-​
 
 ### Prerequisites
 
-  
 
-- Access to a SalesForce instance with administrative privileges.
-
-Basic understanding of OAuth 2.0 and SalesForce administration.
-
-  
+- Access to a SalesForce instance with administrative privileges
+- Basic understanding of OAuth 2.0 and SalesForce administration
 
 ## Create a Connected App with Oath enabled
-
-  
 
 ***Note these directions may be different in Lightning UI**
 
@@ -54,39 +41,37 @@ Basic understanding of OAuth 2.0 and SalesForce administration.
 
 - From the setup menu go Apps > App Manager
 
-- Click on New Connected app and Set the following settings - Any settings not Lister here should be left blanck unless your organization has advance knowledge
+- Click on New Connected app and Set the following settings - Any settings not listed here should be left blank unless your organization has advanced knowledge of Connected Apps
 
-- Connected App Name - Example Secret Server API Access
+- **Connected App Name:** - Example Secret Server API Access
 
-- API Name - Make the same as the Connected App Name
+- **API Name:** Make the same as the Connected App Name
 
-- Connected App Name - Enter The appropriate Contact or Distribution list
+- **Contact Email:** Enter The appropriate Contact or Distribution list
 
-- Enable OAuth Settings - Checked
+- **Enable OAuth Settings:** Checked
 
-- Enable for Device Flow - Checked
+- **Enable for Device Flow:** Checked
 
-- Callback URL - <Your  Instance  Base  URL>/oauth2/callback
+- **Callback URL:** <Your  Instance  Base  URL>/oauth2/callback
 
-- Selected OAuth Scopes
+- **Selected OAuth Scopes:**
+     
+    - Manage User Data Via APIs
 
-  
+    - Perform Requests at Anytime
 
-Manage User Data Via APIs
+- **Require Secret for Web Server Flow"** Checked
 
-Perform Requests at Anytime
+- **Require Secret for Refresh Token Flow:** Checked
 
-- Require Secret for Web Server Flow - Checked
+- **Enable Client Credentials Flow - Checked
 
-- Require Secret for Refresh Token Flo - Checked
-
-- Enable Client Credentials Flow - Checked
-
-- Enable Authorization Code and Credentials Flow - Checked
+- **Enable Authorization Code and Credentials Flow:** Checked
 
 - Save the Application
 
-- in the Enable Authorization Code and Credentials Flow. Click **Mange Consumer Details**
+- in the **Enable Authorization Code and Credentials Flow,** Click **Mange Consumer Details**
 
 - Generate and Document a New Client-Secret and Client Id
 
@@ -94,7 +79,7 @@ Perform Requests at Anytime
 
   
 
-For more information on Connected Apps you can click [Here](https://salesforce.stackexchange.com/questions/40346/where-do-i-find-the-client-id-and-client-secret-of-an-existing-connected-app) or contact your SalesFore Support Team
+For more information on Connected Apps you can click [here](https://salesforce.stackexchange.com/questions/40346/where-do-i-find-the-client-id-and-client-secret-of-an-existing-connected-app) or contact your SalesFore Support Team
 
   
   
@@ -120,12 +105,9 @@ The following steps are required to create the Secret Template for Salesforce Us
 
 - Click on Import.
 
-- Copy and Paste the XML in the [SalesForce User Template.xml File](./Templates/SalesForce%20User%20Template.xml)
+- Copy and Paste the XML in the [SalesForce User Template File](./Templates/SalesForce%20User%20Template.xml)
 
 - Click on Save
-
-- This completes the creation of the User Account template
-
   
 
 ### Salesforce Privileged Account Template
@@ -144,11 +126,10 @@ The following steps are required to create the Secret Template for Salesforce Pr
 
 - Click on Import.
 
-- Copy and Paste the XML in the [SalesForce Privileged Template.xml File](./Templates/SalesForce%20Privileged%20Account%20Template.xml)
+- Copy and Paste the XML in the [SalesForce Privileged Template File](./Templates/SalesForce%20Privileged%20Account%20Template.xml)
 
 - Click on Save
 
-- This completes the creation of the Privileged Account template
 
   
   
@@ -159,34 +140,26 @@ The following steps are required to create the Secret Template for Salesforce Pr
 
 - Navigate to Secrets
 
-- Click on Create Secret
+- Click on **Create Secret**
 
 - Select the template created in the earlier step [above](#salesforce-privileged-account-template).
 
-- Fill out the required fields with the information from the application registration
+- Fill out the required fields:
 
-- Secret Name (for example SalesForce API Account )
+    - **Secret Name:** (for example SalesForce API Account )
 
-- SFDC-URL (SalesForce base url with no training slash)
+    - **SFDC-URL:** (SalesForce base url with no training slash)
 
-- The following field values are as created in the [Create an OAuth Application Registry](#create-an-oauth-application-registry) Section
+    - **Client-id:** (Client-id created [above](#oauth-client-credentials-flow-in-salesforce))
 
-`- Username (User assigned profile Salesforce API Only System Integrations
+    - **Client-Secret:** (Client=Secret created [above](#oauth-client-credentials-flow-in-salesforce))
 
-`- Password Enter the password for the user account
+    - **Admin-Account-Criteria:** add a comma separated list of all profiles that are considered to be an ministrative user.
 
-- Client-id
+    - **Service-Account-Criteria:** add a comma separated list of all profiles that are considered to be a Service Account )
 
-- client-secret
-
-- Admin-Roles add a comma separated list of all roles that are considered to be an ministrative user in the format of - role Name=role_sys_id Example admin=2831a114c611228501d4ea6c309d626d
-
-- Service-Account-Group-Ids add a comma seperted list of all groups that are considered to be a SZervice Account in the Service-Account (Example) Engine Admins=c38f00f4530360100999ddeeff7b1298)
-
+    - **Domain-Acct-Criteria:** A comma separated list of domains that are considered to be federated
 - Click Create Secret
-
-- This completes the creation of a secret in Secret Server for the Salesforce Privileged Account
-
   
 
 ## Next Steps

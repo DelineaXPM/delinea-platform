@@ -1,27 +1,27 @@
-#Expected Argumnts @("Privileged User Name","Privileged User Password", "Instance URL", "SF Client iD","clientSecret" , "admin Role Profiles","Service account Profiles"  )
+#Expected Argumnts @("Instance URL", "SF Client iD","clientSecret" , "admin Role Profiles","Service account Profiles", "Federated Domains"  )
 [Net.ServicePointManager]::SecurityProtocol =[Net.SecurityProtocolType]::Tls12
 
 
 #region Set Paramaters and Vaeiables
-$baseUrl = $args[2]
+$baseUrl = $args[0]
 $tokenUrl = "$baseUrl/services/oauth2/token"
 $api = "$baseUrl/services"
-$clientId = $args[3]
-$clientSecret = $args[4]
-$username = $args[0]
-$password = $args[1]
-$adminCriterea = $args[5]
+$clientId = $args[1]
+$clientSecret = $args[2]
+$adminCriterea = $args[3]
 $adminProfileArray = $adminCriterea.split(",")
-$svcactCriterea = $args[6]
+$svcactCriterea = $args[4]
 $svcActProfileArray = $svcactCriterea.split(",")
+$federatedDomains = $args[5]
+$federatedDomainsArray = $federatedDomains.Split(",")
 $global:results = @()
 
 
 #Script Constants
 
-[string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Salesforce-Password_Rotate.log"
+[string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Salesforce Connector.log"
 [int32]$LogLevel = 3
-[string]$logApplicationHeader = "Salesforce Password Change"
+[string]$logApplicationHeader = "Salesforce Discovery"
 $foundAccounts = @()
 #endregion
 
@@ -48,9 +48,7 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
-    }
+
 }
 #endregion Error Handling Functions
 
@@ -60,8 +58,6 @@ $tokenParams = @{
     grant_type = "client_credentials"
     client_id = $clientId
     client_secret = $clientSecret
-    username = $username
-    password = $password
 }
 
 # Send a POST request to obtain an access token
@@ -89,24 +85,25 @@ try
         $foundAccounts = @()
         foreach ($user in $users.records)
         {
-            #for Demo Only
+            
             $UserName = $user.name
-            #$profile = $user.profile.name
-            #$role = $user.UserRole.name
-             
-            #$value = "User: $UserName Profile: $profile Role : $role" 
-            #Write-Host $value
-            #end Demo Code
+
+
             if($user.profile -ne $null)
             {
+            $username =$user.username
             $isAdmin = Check_Admin_Profiles -user $user
             $isServiceAccount = Check_SvcAct_Profiles -user $user
-            
+            $domain =  $username.split("@")[1]
+            if ($domain -in $federatedDomainsArray)       
+                  {
+                    $isLocal = $false
+                  }     
+                  else {
+                    $isLocal = $true
+                  } 
+              
                    
-                        
-               if($isAdmin -eq $true -or $isServiceAccount -eq $true)
-                { 
-                    $username =$user.username
 
 
                        
@@ -115,10 +112,10 @@ try
                         $object | Add-Member -MemberType NoteProperty -Name username -Value $username
                         $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
                         $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
-                        $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $true
+                        $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
                         
                         $foundAccounts += $object
-                }
+              
             }
         }
     }

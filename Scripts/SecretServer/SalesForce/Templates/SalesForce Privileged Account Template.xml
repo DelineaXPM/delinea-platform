@@ -4,9 +4,9 @@
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
-      <displayname>SFDC-URI</displayname>
-      <description>The URL of the salesforce base instance</description>
-      <name>SFDC-URI</name>
+      <displayname>SFDC-URL</displayname>
+      <description>The URL of the SalesForce base instance</description>
+      <name>SFDC-URL</name>
       <mustencrypt>true</mustencrypt>
       <isurl>true</isurl>
       <ispassword>false</ispassword>
@@ -19,50 +19,12 @@
       <isindexable>true</isindexable>
       <editablepermission>2</editablepermission>
       <required>true</required>
-      <fieldslugname>SFDCURI</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>Username</displayname>
-      <description>Username for privileged account</description>
-      <name>Username</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>true</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>true</required>
-      <fieldslugname>username</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>Password</displayname>
-      <description>Password for Prvileged SAccount</description>
-      <name>Password</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>true</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>true</required>
-      <fieldslugname>password</fieldslugname>
+      <fieldslugname>sfdc-url</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
       <displayname>client-Id</displayname>
-      <description>This is the client ID for the connected app in salesforce</description>
+      <description>This is the client ID for the connected app in SalesForce</description>
       <name>client-Id</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -99,9 +61,9 @@
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Admin-Criteria</displayname>
-      <description>These are the roles that will be used to identify an admin user in salesforce. These roles need to be comma separated.</description>
-      <name>Admin-Criteria</name>
+      <displayname>Admin-Account-Criteria</displayname>
+      <description>These are the profiles that will be used to identify an admin user in SalesForce. These roles need to be comma separated.</description>
+      <name>Admin-Account-Criteria</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -114,13 +76,13 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>admin-criteria</fieldslugname>
+      <fieldslugname>admin-account-criteria</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>SVC-Account-Criteria</displayname>
-      <description>These are the roles that will be used to identify  a Services Account user in salesforce. These roles need to be Comma separated.</description>
-      <name>SVC-Account-Criteria</name>
+      <displayname>Service-Account-Criteria</displayname>
+      <description>These are the policies that will be used to identify  a Services Account user in SalesForce. These policies need to be Comma separated.</description>
+      <name>Service-Account-Criteria</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -133,12 +95,12 @@
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>svc-account-criteria</fieldslugname>
+      <fieldslugname>service-account-criteria</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
       <displayname>Domain-Acct-Criteria</displayname>
-      <description>This field contains the attributes that will identify a domain user versus a local user, This list must be comma seperated</description>
+      <description>This field contains the domains that will identify a domain user versus a local user, This list must be comma seperated in the form of mydomain.com</description>
       <name>Domain-Acct-Criteria</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -153,25 +115,6 @@
       <editablepermission>2</editablepermission>
       <required>false</required>
       <fieldslugname>domain-acct-criteria</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>SRI</displayname>
-      <description>Secret Server Base url</description>
-      <name>SRI</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>false</required>
-      <fieldslugname>SRI</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>
