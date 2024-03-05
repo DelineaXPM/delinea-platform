@@ -1,7 +1,6 @@
 # Entra ID Remote Password Changer
-
   
-  
+If you have not already done so, please click[here](../Instructions.md) to perform the basic configuration for interacting with Entra ID.
 
 ## Create the Azure AD / Entra ID Remote Password Changer Script in Secret Server
 
@@ -11,17 +10,19 @@
 
 - Click on Create Script
 
+- Enter the Following Field Values:
+
   - **Name:** Provide a name for the script (for example Azure AD / Entra ID Remote Password Changer)
 
   - **Description:** Provide a description for the script (for example Azure AD / Entra ID Remote Password Changer)
 
-  - Select Active
+  - **Active:** Checked
 
   - **Script Type:** PowerShell
 
   - **Category:** Password Changing
 
-  - **Script:** Copy the contents of the [Entra ID RPC](../Remote%20Password%20Changer/EbtraID%20RPC.ps1) script into the script field
+  - **Script:** Copy the contents of the [Entra ID RPC file](../Remote%20Password%20Changer/EbtraID%20RPC.ps1) script into the script field
 
 - Click on Save
 
@@ -43,7 +44,7 @@
 
   - **Category:** Heartbeat
 
-  - **Script:** Copy the contents of the [Entra ID Heartbeat](./Entra%20ID%20Heartbeat.ps1) script into the script field
+  - **Script:** Copy the contents of the [Entra ID Heartbeat file](./Entra%20ID%20Heartbeat.ps1) script into the script field
 
 - Click on Save
 
@@ -61,6 +62,7 @@
 - Click on Configure Password Changers
 
 - Click on Create Password Changer
+- Enter the following field values:
 
   - **Base Password Changer:** PowerShell Script
 
@@ -72,33 +74,45 @@
 
 - In the Verify Password changed Commands section, provide the following:
 
-- PowerShell Script: Select the script you created in the previous step [Azure AD / Entra ID Heartbeat](./Entra%20ID%20Heartbeat.ps1)
+  - **PowerShell Script:** Select the script you created in the previous step [Azure AD / Entra ID Heartbeat](#create-the-azure-ad--entra-id-heartbeat-script-in-secret-server)
 
-- Script Args:
+  - **Script Args:**
 
-```powershell
+  ```powershell
 
-$[1]$TenantID $[1]$applicationid $[1]$ClientSecret  $username  $password
+  $[1]$TenantID $[1]$application-id $[1]$ClientSecret  $username  $password
 
-```
+  ```
+- Click Save
 
 - In the Password Change Commands section provide the following:
 
-- PowerShell Script: Select the script you created in the previous step [Azure AD / Entra ID Remote Password Changer]
+  - **PowerShell Script:** Select the script you created in the previous step [Azure AD / Entra ID Remote Password Changer]
 
-- Script Args:
+  - **Script Args:**
 
-```powershell
+  ```powershell
 
-$[1]$Tenant-ID $[1]$application-id $[1]$Client-Secret $username  $newpassword
+  $[1]$Tenant-ID $[1]$application-id $[1]$Client-Secret $username  $newpassword
 
-```
-
+  ```
 - Click on Save
 
-  
+- Click on **Configure Scan Template** and then **Edit**
 
-## Associate the Azure AD / Entra ID Remote Password Changer Secret with the AzureAD template
+- Click on the **Scan Template to use** dropdown and select the Entra ID Account Scan Template
+
+- Map the following fields:
+
+  - **Domain:** Domain
+
+  - **Username:** Username
+
+  - **Password:** Password
+
+  - Click Save
+
+## Associate the Azure AD / Entra ID Remote Password Changer with the Entra ID Account Template
 
 - Log in to the Delinea Secret Server
 
@@ -114,6 +128,13 @@ $[1]$Tenant-ID $[1]$application-id $[1]$Client-Secret $username  $newpassword
 
   - **Password Type to use:** Select the password changer you created in the previous step
 
+- Map the following fields:
+
+  - **Domain:** Domain
+
+  - **Username:** Username
+
+  - **Password:** Password
 - Click on Save
   
 

@@ -1,19 +1,19 @@
 # Script usage
-# Use powershell script for both hearthbeat and password changing.
+# Use powershell script for hearthbeat 
 # Parameters to provide in each case are:
-# Heartbeat: hb $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password 
-# Password Change: rpc $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password $newpassword
+# $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password 
 
-[string]$action = $args[0]
-[string]$tenantid = $args[1]
-[string]$clientid = $args[2]
-[string]$clientsecret = $args[3]
-[string]$thy_username = $args[4]
+
+
+[string]$tenantid = $args[0]
+[string]$clientid = $args[1]
+[string]$clientsecret = $args[2]
+[string]$thy_username = $args[3]
+[string]$thy_password = $args[4]
+
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\EntraID_rpc.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 
-# Uncomment the line below to enable TLS 1.2 if needed
-#[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 function Write-Log {
     [CmdletBinding()]
@@ -147,63 +147,5 @@ function Invoke-HB {
     }
 }
 
-#RPC
-# Function to rotate password of managed account user application account
-# The function will connect to Microsoft Graph using the application client id and client secret
-# It will then set the password of the managed account without the requirement to know the current password
-# It will also remove the requirement to set a new password on login
-function Invoke-RPC {
-    try {
-        Write-Log -Errorlevel 0 -Message "Start Authentication towards TenantId: $TenantId for applicationID: $clientid"
-        # create client credentials and stored in creds variable using the clientid and clientsecret variables
-        $creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $clientid, (ConvertTo-SecureString -String $clientsecret -AsPlainText -Force)
-        # Connect to Microsoft Graph using the client credentials
-        Connect-MgGraph -ClientSecretCredential $creds -TenantId $tenantid -NoWelcome -ErrorAction Stop
-        Write-Log -Errorlevel 0 -Message "Connected to: $TenantId with applicationID: $clientid"
-    }
-    catch {
-        Write-Log -ErrorLevel 0 -Message "Failed to authenticated with provided application id / application secret"
-        Write-Log -ErrorLevel 2 -Message $_.Exception
-        throw "Failed to authenticated with provided application id / application secret"
-    }
-    
-    # Get specific user from Azure AD
-    $targetuser = Get-MgUser -Filter "userPrincipalName eq '$thy_username'"
-    # If the user is not found. targetuser will be empty and the script should stop
-    if (!$targetuser) {
-        Write-Host "User not found"
-        Write-Log -ErrorLevel 0 -Message "User not found"
-        throw "User not found"
-    }
 
-    # Define parameters for password change
-    $params = @{
-        passwordProfile = @{
-            forceChangePasswordNextSignIn = $false
-            password = "$thy_newpassword"
-        }
-    }
-
-    try {
-        update-mguser -Userid $targetuser.Id -BodyParameter $params
-    }
-    catch {
-        Write-Host "Password change failed for user: $thy_username"
-        Write-Log -ErrorLevel 0 -Message "Password change failed for user: $thy_username"
-        Write-Log -ErrorLevel 2 -Message $_.Exception
-        throw "Password change failed"
-    }
-    Write-Log -ErrorLevel 0 -Message "Password change successful for user: $thy_username"
-    write-host "Password change successful for user: $thy_username"
-
-    # Disconnect from Microsoft Graph
-    Disconnect-MgGraph
-    Write-Log -ErrorLevel 0 -Message "Disconnected from Microsoft Graph"
-}
-
-if ($action -eq 'hb') {
     Invoke-HB
-}
-elseif ($action -eq 'rpc') {
-    Invoke-RPC
-}
