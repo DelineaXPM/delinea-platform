@@ -6,7 +6,7 @@ The steps below show how to Setup and configure a Salesforce Remote Password Cha
 
   
 
-If you have not already done, so, please follow the steps in the **Instructions.md Document** found [Here](../Instructions.md)
+If you have not already done, so, please follow the steps in the **Instructions Document** found [here](../Instructions.md)
 
   
 
@@ -18,33 +18,31 @@ If you have not already done, so, please follow the steps in the **Instructions.
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Scripts**
+- Navigate to **Admin** > **Scripts**
 
 - Click on **Create Script**
 
-- Fill out the required fields
+- Fill out the required fields:
 
--  **Name**: ( example Salesforce Remote Password Changer)
+    - **Name*:* ( example Salesforce Remote Password Changer)
 
--  **Description**: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
--  **Active** (Checked)
+    - **Active:** (Checked)
 
--  **Script Type**: Powershell
+    - **Script Type:** Powershell
 
--  **Category**: Password Changing
+    - **Category**: Password Changing
 
--  **Merge Fields**: Leave Blank
+    - **Merge Fields:** Leave Blank
 
--  **Script**: Copy and paste the Script included in the file [Salesforce Remote Password Changer](./Salesforce%20Remote%20Password%20Changer.ps1)
+    - **Script:** Copy and paste the Script included in the file [Salesforce Remote Password Changer](./Salesforce%20Remote%20Password%20Changer.ps1)
 
 - Click Save
 
-- This completes the creation of the Remote Password Script
 
-  
 
 ### Heartbeat Script
 
@@ -58,25 +56,23 @@ If you have not already done, so, please follow the steps in the **Instructions.
 
 - Fill out the required fields
 
--  **Name**: ( example Salesforce Heartbeat)
+    - **Name:** ( example Salesforce Heartbeat)
 
--  **Description**: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
--  **Active** (Checked)
+    - **Active:** (Checked)
 
--  **Script Type**: Powershell
+    - **Script Type:** Powershell
 
--  **Category**: Heartbeat
+    - **Category:** Heartbeat
 
--  **Merge Fields**: Leave Blank
+    - *Merge Fields:** Leave Blank
 
--  **Script**: Copy and paste the Script included in the file [Salesforce Heartbeat](./Salesforce%20Heartbeat.ps1)
+    - **Script:** Copy and paste the Script included in the file [Salesforce Heartbeat](./Salesforce%20Heartbeat.ps1)
 
 - Click Save
 
-- This completes the creation of the Salesforce Heartbeat Script
 
-  
 
 ## Create Password Changer
 
@@ -112,15 +108,14 @@ If you have not already done, so, please follow the steps in the **Instructions.
 
 -  **Script Args**:
 
-```powershell
+    ```powershell
 
-$[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $username  $newpassword
+    $[1]$tenant-ur $[1]$client-id $[1]$client-secret $username  $newpassword
 
-```
+    ```
 
 - Click **Save**
 
-- This completes the creation of the RemotePassword Changer
 
   
 
@@ -130,7 +125,7 @@ $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $u
 
 - Log in to Secret Server Tenant (if not already logged in)
 
-- Navigate to **ADMIN** > **Secret Templates**
+- Navigate to **Admin** > **Secret Templates**
 
 - Find and Select the Salesforce User Template created in the [instructions Document](../Instructions.md)
 
@@ -160,9 +155,6 @@ $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $u
 
 - Click Save
 
-- This completes the Update Salesforce User template section
-
-  
 
 ## Update Remote Password Changer
 
@@ -180,18 +172,16 @@ $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $u
 
 - Click Edit
 
-- Click the **Scan Template to use** (Dropdown List) Select the Salesforce User template created in the [Discovery/readme.md Document](../Discovery/readme.md)
+- Click the **Scan Template to use** (Dropdown List) Select the Salesforce User template created in the [Discovery/readme Document](../Discovery/readme.md)
 
 - Map the following fields that appear after the selection
 
 -  **tenant-url** -> Domain
 
-- **Username -> username
+- **Username** -> username
 
 -  **Password** -> password
 
 - Leave all other fields blank
 
 - Click Save
-
-- This completes the Update Remote Password Changer section
