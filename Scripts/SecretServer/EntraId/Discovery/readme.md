@@ -4,7 +4,7 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
  
 ## Create Discovery Source
 
-If you have not already done so, please click[here](../Instructions.md) to perform the basic configuration for interacting with Entra ID.
+If you have not already done so, please click [here](../Instructions.md) to perform the basic configuration for interacting with Entra ID.
 
 ### Create Entra ID Tenant Scan Template
 
@@ -193,9 +193,9 @@ If you have not already done so, please click[here](../Instructions.md) to perfo
 
   - **Name:** (example: Entra ID Tenant)
 
-  - **Site** (Select Site Where Discovery will run)
+  - **Site:** (Select Site Where Discovery will run)
 
-  - **Source Type** Empty
+  - **Source Type:** Empty
 
 - Click Save
 
@@ -203,7 +203,7 @@ If you have not already done so, please click[here](../Instructions.md) to perfo
 
 - Click **Add Scanner**
 
-- Find the Entra ID Tenant Scanner or the Scanner created in the [Entra ID Tenant Scanner Section](#create-axure-ad--entra-id-tenant-scanner) and Click **Add Scanner**
+- Find the Entra ID Tenant Scanner or the Scanner created in the [Entra ID Tenant Scanner Section](#Create Entra ID Tenant Scan) and Click **Add Scanner**
 
 - Select the Scanner just created and Click **Edit Scanner**
 

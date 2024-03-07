@@ -14,7 +14,7 @@ This connector provides the following functions
 
   
 
-Follow the Steps below to complete the base setup for this integration. These steps are required to run any o fthe processes.
+Follow the steps below to complete the base setup for this integration. These steps are required to run any of the processes.
 
   
 
@@ -46,13 +46,13 @@ The provided functions leverage the Microsoft Graph functionality in Azure AD / 
 
 - Dedicated App Registration to be used by the password changer
 
-- See [here](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) for more information on how to create an App Registration.
+- See [here](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) for more information on creating an App Registration.
 
-- Detailed steps provided [below](#creating-an-app-registration).
+- Detailed steps are provided [below](#creating-an-app-registration).
 
 - Custom template to store application registration information in Delinea Secret Server
 
-- Detailed steps provided [below](#creating-secret-template-for-application-registration).
+- Detailed steps are provided [below](#creating-a-secret-template-for-the-application-registration).
 
 - Installation of the [Microsoft Graph PowerShell SDK](https://docs.microsoft.com/en-us/graph/powershell/installation) on the Delinea Distributed Engine
 
@@ -88,7 +88,7 @@ The following steps are required to create the Secret Template for EntraID Users
 
   
 
-## Creating Secret Template for the Application Registration
+## Creating a Secret Template for the Application Registration
 
   
 
@@ -100,7 +100,7 @@ The following steps are required to create the secret template for the Applicati
 
 - Click on Create / Import Template
 
-- Copy and Paste the XML in the [EntraID Application Registration File](./Templates/EntraID%20Privileged%20Account.xml)
+- Copy and Paste the XML in the [EntraID Application Registration File](./Templates/EntraID%20Application%20Registration.xml)
 
 - Click on the Mappings Tab
 
@@ -118,13 +118,13 @@ The following steps are required to create the secret template for the Applicati
   
 - Click on Save
 
-**Note:** This is a Generic Password Changer that does not actually perform a Password Change, but is required in order to use the Secret that will be created in the Discovery Source later in this configuration
+**Note:** This is a Generic Password Changer that does not perform a Password Change, but is required to use the Secret that will be created in the Discovery Source later in this configuration
 
 ## Creating an App Registration
 
   
 
-The application registration is used to provide the password changer with the necessary permissions to perform the password change. The following steps are required to create the application registration:
+The application registration gives the password changer the necessary permissions to perform the password change. The following steps are required to create the application registration:
 
 - Log in to the Azure / EntraID Portal
 
@@ -164,11 +164,11 @@ The application registration is used to provide the password changer with the ne
 
 - Select the following permissions:
 
-- Directory.AccessAsUser.All (required to interact with Graph API on behalf of the user)
+  - `Directory.AccessAsUser.All` (required to interact with Graph API on behalf of the user)
 
-- User.Read
+  - `User.Read`
 
-- For the Directory.AccessAsUser.All permission, click on the Grant admin consent for the respective tenant button
+- For the `Directory.AccessAsUser.All` permission, click on the Grant admin consent for the respective tenant button
 
   
 ## Providing Password Changer Application with Permissions to Manage Users
@@ -184,14 +184,14 @@ The application registration is used to provide the password changer with the ne
 - Select the appropriate role (e.g. Privileged Authentication Administrator)
 
    **Note:** The role selected must have the ability to manage users
-    The Password Administrator role is likely insufficient due to the fact that it does not have the ability to change passwords on Administrative Users.
+    The Password Administrator role is likely insufficient because it cannot change passwords on Administrative Users.
 
 - Search for and select the application registration created in the previous step
 
 - Click on Add
 
 
-## Create Secret in Secret Server for the EntraID Application Registration
+## Create a Secret in Secret Server for the EntraID Application Registration
 
 - Log in to the Delinea Secret Server
 
@@ -199,7 +199,7 @@ The application registration is used to provide the password changer with the ne
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Creating Secret Template for Application Registration](#creating-secret-template-for-the-application-registration) 
+- Select the template created in the earlier step [Creating a Secret Template for Application Registration](#creating-a-secret-template-for-the-application-registration) 
 
 - Fill out the required fields with the information from the application registration
 
@@ -211,7 +211,7 @@ The application registration is used to provide the password changer with the ne
 
   - **Client Secret:** (This was generated in the [earlier step](#creating-an-app-registration))
 
-  - **Admin-Roles:** (Comma separated list of roles that atr considered to be Administrative Roles)
+  - **Admin-Roles:** (Comma-separated list of roles that are considered to be Administrative Roles)
 
   - **service-account-groups:**	(Comma separated list of groups considered to be Service Accounts)
 
@@ -233,4 +233,4 @@ The application registration is used to provide the password changer with the ne
 
   ```
 
-  This completes the basic configuration.  You may to proceed to configure Discovery by clicking [here](./Discovery/readme.md) and/or Remote Password Changer [here](./Remote%20Password%20Changer/readme.md)
+  This completes the basic configuration.  You may proceed to configure Discovery by clicking [here](./Discovery/readme.md) and/or Remote Password Changer [here](./Remote%20Password%20Changer/readme.md)
