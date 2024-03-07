@@ -1,6 +1,6 @@
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-# Expected Args = @("Instance URL", "Okta Username","Okta User Password") 
+# Expected Args = @($[1]$tenant-url $username $newpassword ) 
 
 
 #region define variables
@@ -14,7 +14,7 @@
 #Script Constants
 
 [string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Okta-Integration.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Okta Heartbeat"
 #endregion
 
@@ -41,8 +41,7 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
+
     }
 }
 #endregion Error Handling Functions

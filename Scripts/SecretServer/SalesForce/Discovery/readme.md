@@ -15,7 +15,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
 - Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
@@ -23,29 +23,23 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Fill out the required fields with the information
 
--  **Name:** (Example: Salesforce Tenant)
+- **Name:** (Example: Salesforce Tenant)
 
--  **Active:** (Checked)
+- **Active:** (Checked)
 
--  **Scan Type:** Host
+- **Scan Type:** Host
 
--  **Parent Scan Template:** Host Range
+- **Parent Scan Template:** Host Range
 
--  **Fields**
-
-- Change HostRange to **tenant-url**
+- **Fields:** Change HostRange to **tenant-url**
 
 - Click Save
-
-- This completes the creation of the Salesforce Scan Template Creation
-
-  
 
 ### Create Account Scan Template
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
 - Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
@@ -63,58 +57,54 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 -  **Fields**
 
-- Change Resource to **tenant-url**
+    - Change Resource to tenant-url
 
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
+    - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
+    - Add field: Service-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
+    - Add field: Local-Account (Leave Parent and Include in Match Blank)
 
 - Click Save
 
-- This completes the creation of the Account Scan Template Creation
 
 ### Create Discovery Script
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to**ADMIN** > **Scripts**
+- Navigate to**Admin    ** > **Scripts**
 
 - Click on **Create Script**
 
 - Fill out the required fields with the information from the application registration
 
-- Name: ( example -Salesforce User Scanner)
+    - **Name:** ( example -Salesforce User Scanner)
 
-- Description: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
-- Active: (Checked)
+    - **Active:** (Checked)
 
-- Script Type: Powershell
+    - **Script Type:** Powershell
 
-- Category: Discovery Scanner
+    - **Category:** Discovery Scanner
 
-- Merge Fields: Leave Blank
+    - **Merge Fields:** Leave Blank
 
-- Script: Copy and paste the Script included in the file [Salesforce User Discovery.ps1](./Salesforce%20Locaal%20Account%20Discovery.ps1)
+    - **Script:** Copy and paste the Script included in the file [Salesforce User Discovery](./Salesforce%20Locaal%20Account%20Discovery.ps1)
 
 - Click Save
-
-- This completes the creation of the Local Account Discovery Script
-
   
 
-### Create SalesforceTenant Scanner
+### Create Salesforce Tenant Scanner
 
   
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** >
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
@@ -122,21 +112,19 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Fill out the required fields with the information
 
--  **Name:** > Salesforce Tenant Scanner
+    - **Name:** Salesforce Tenant Scanner
 
--  **Description:** (Example - Base scanner used to discover SaaS applications)
+    - **Description:** (Example - Base scanner used to discover Salesforce Tenants)
 
--  **Discovery Type:** Host
+    - **Discovery Type:** Host
 
--  **Base Scanner:** Host
+    -  \**Base Scanner:** Host
 
--  **Input Template**: Manual Input Discovery
+    - **Input Template**: Manual Input Discovery
 
--  **Output Template:**: Salesforce Tenant (Use Template that Was Created in the [Salesforce Scan Template Section](#create-salesforce-tenant-scan-template)
+    - **Output Template:**: Salesforce Tenant (Use Template that Was Created in the [Salesforce Scan Template Section](#create-salesforce-tenant-scan-template)
 
 - Click Save
-
-- This completes the creation of the Salesforce Tenant Scanner
 
   
 
@@ -144,9 +132,9 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** >
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
@@ -154,33 +142,31 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Fill out the required fields with the information
 
--  **Name:** (Example - Salesforce User Scanner)
+    - **Name:** (Example - Salesforce User Scanner)
 
--  **Description:** (Example - Discovers Salesforce Users according to configured privileged account template )
+    - **Description:** (Example - Discovers Salesforce Users according to configured privileged account template )
 
--  **Discovery Type:** Account
+    - **Discovery Type:** Account
 
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
+    - **Base Scanner:** PowerShell Discovery Create Discovery Script
 
--  **Input Template**: Salesforce Tenant (Use Template that Was Created in the [Salesforce Tenant Scan Template Section](#create-salesforce-tenant-scan-template))
+    - **Input Template**: Salesforce Tenant (Use Template that Was Created in the [Salesforce Tenant Scan Template Section](#create-salesforce-tenant-scan-template))
 
--  **Output Template:**: Salesforce User (Use Template that Was Created in the [Salesforce User Scan Template Section](#create-account-scan-template))
+    - **Output Template:**: Salesforce User (Use Template that Was Created in the [Salesforce User Scan Template Section](#create-account-scan-template))
 
--  **Script:** Salesforce Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+    - **Script:** Salesforce Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
--  **Script Arguments:**
+    - **Script Arguments:**
 
-``` powershell
+    ``` powershell
 
-"IAMUser-Advanced" $[1]$AccessKey $[1]$SecretKey $[1]$Admin-Criteria $[1]$SVC-Account-Criteria
+        $[1]$SFDC-URL $[1]$client-id $[1]$client-secret $[1]$Admin-Criteria $[1]$Service-Account-Criteria $[1]$Domain-Acct-Criteria
 
-```
+    ```
 
 - Click Save
 
-- This completes the creation of the Salesforce Account Scanner
 
-  
 
 ### Create Discovery Source
 
@@ -194,11 +180,11 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 -Enter the Values below
 
-- **Name:** (example: Salesforce Tenant)
+    - **Name:** (example: Salesforce Tenant)
 
-- **Site** (Select Site Where Discovery will run)
+    - **Site** (Select Site Where Discovery will run)
 
-- **Source Type** Empty
+    - **Source Type** Empty
 
 - Click Save
 
@@ -226,7 +212,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
 
 - Click the **Add Secret** Link
 
-- Search for the Salesforce Service Account Secret created in the [instructions.md file](../Instructions.md)
+- Search for the Salesforce Service Account Secret created in the [instructions file](../Instructions.md#create-secret-in-secret-server-for-the-salesforce-privileged-account)
 
 - Check the Use Site Run As Secret Check box to enable it
 
@@ -236,12 +222,55 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
 - Click Save
 
-- Click on the Discovery Source yab and Click the Active check box
+- Click on the Discovery Source tab and Click the **Active** check box
 
-- This completes the creation of theDiscovery Source
+## Optional Report
+
+In this section, There are instructions on creating an optional report to display user information found in the discovery.
+
+
+- Login to Secret Server Tenant (If you have not already done so)
+- Navigate to the Reports module
+- click on the New Report Button
+- Fill in the following values:
+
+    - **Name:** The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
+
+    - **Description:** (Enter something meaningful to your organization)
+
+    - **Category:** Select the Section where you would like the report to appear (ex. Discovery Scan)
+
+    - **Report SQL:** Copy and Paste the SQL Query below
+
+***Note** " You must replace the WHERE d.DiscoverySourceId = 32 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL
 
   
+
+``` SQL
+
+
+SELECT
+d.[ComputerAccountId]
+,d.[CreatedDate]
+,d.[AccountName] AS [Username]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Account]
+
+FROM tbComputerAccount AS d
+CROSS  APPLY  OPENJSON (d.AdditionalData) AS adata
+INNER JOIN tbScanItemTemplate AS s ON s.ScanItemTemplateId = d.ScanItemTemplateId
+WHERE d.DiscoverySourceId =  32
+GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
+```
+
+- Click Save
+
   
+
+You will now find this report under the section you chose in the Category field.
+
 
 ### Next Steps
 
@@ -258,13 +287,4 @@ The Salesforce configuration is now complete. The next step is to run a manual d
 - Find the newly created discovery source and Users
   
 
-This package is designed to discover and Manage Salesforce User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [here](./Instructions.md)
-
   
-  
-
-# Disclaimer
-
-  
-
-The provided scripts are for informational purposes only and are not intended to be used for any production or commercial purposes. You are responsible for ensuring that the scripts are compatible with your system and that you have the necessary permissions to run them. The provided scripts are not guaranteed to be error-free or to function as intended. The end user is responsible for testing the scripts thoroughly before using them in any environment. The authors of the scripts are not responsible for any damages or losses that may result from the use of the scripts. The end user agrees to use the provided scripts at their own risk. Please note that the provided scripts may be subject to change without notice.

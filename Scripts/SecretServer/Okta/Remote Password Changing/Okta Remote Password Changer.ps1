@@ -1,6 +1,7 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-# Expected Args @("Okta base URL","Key ID KID","ClientID","Private Key", "Okta User Name", "New Password")
+# Expected Args @($[1]tenant-url $[1]$client-id $[1]$Key-id $[1]$ $[1]Private-Key $username $newpassword )
 
+#region Define Script Variables
 $oktaDomain = $args[0]
 $clientId = $args[1]
 $Kid = $args[2] 
@@ -13,7 +14,7 @@ $newPassword = $args[5]
 [string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Okta-Integration.log"
 [int32]$LogLevel = 2
 [string]$logApplicationHeader = "Okta Password Change"
-#endregikon
+#endregion
 
 #region Error Handling Functions
 function Write-Log {
@@ -38,12 +39,12 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
+
     }
 }
-#endregion Error Handling Functions
+#endregion 
 
+#region Script Function
 function Get-BearerToken {
     param (
         [Parameter(Mandatory=$true, HelpMessage="JWT needed.")]
@@ -88,11 +89,11 @@ catch {
     throw $Err.Exception 
 }
 
+#endregion
+
 $bearerToken = Get-BearerToken -JWT $JWT -Scope "okta.users.manage"  
 
-
-
- 
+#region Main Process
 try {
     Write-Log -Errorlevel 0 -Message "Attenpting Password Change"  
     $body = @{
@@ -111,6 +112,6 @@ Write-Log -Errorlevel 0 -Message "Successfully Chamged Password "
     throw $Err.Exception 
 }
 
-
+#endregion
 
 

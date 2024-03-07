@@ -3,24 +3,17 @@
     Okta Local Account Discovery.
     
     .DESCRIPTION
-    This script will Discover local accounts as determind by the parameters send from the Privileged Account Secret.
+    This script will Discover local accounts as determind by the parameters sent from the Privileged Account Secret.
 
-    
-    
-    .NOTES
-    There are there aparameters that control the accounts that are returned 
-     - $Admin-roles
-     - Service-Acct-attributes
-     - 
-    
 #>
-### 
 
-# Expected Arguments @("Okta Instance 0" , "clientId 1", "kid 2" , "Scope 3" , "privateKeyPEM 4","Service-Acct-attributes  5", "Admin-roles 5")
 
-#Define Argument Variables
+# Expected Arguments @( $[1]$Tenant-url $[1]$client-id $[1]$Key-ID  $[1]$Private-Key $[1]$Service-Account-Attributes $[1]$Admin-Roles)
+
+
 #region Define Script Arguments
 
+#Define Argument Variables
 $oktaDomain = $args[0]
 $clientId = $args[1]
 $Kid = $args[2] 
@@ -30,15 +23,15 @@ $attributeArray = $attributes.Split(",")
 $roles = $args[5]
 $rolesAray = $roles.split(",")
 
-
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Okta-Discovery.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Okta Discovery"
 [string]$scope = "okta.roles.read"
-  $foundAccounts = @()
-
+$global:foundAccounts = @()
+[int32]$rateLimit = 70
 $headers = ""
+
 #endregion
 
 #region Error Handling Functions
@@ -70,18 +63,16 @@ function Write-Log {
 #endregion Error Handling Functions
 
 
-
+#region Script Functions
 function Set-RSASignatureFromPEMString {
     param (
         [Parameter(Mandatory=$true, HelpMessage="RSA String from client in okta tenant is needed.")]
         [System.String]$RSAKey
     )
-    #RSA key stuff cuz we dont need no 3rd party lib :)
-    # I think i know whats happening
-    # We are holding onto data in a session
+
     $pemContent = $privateKeyPEM -replace '^-----[^-]+-----', '' -replace '-----[^-]+-----$', ''
     $pemContent = $pemContent -replace '\n', '' -replace '\r', ''
-    #Write-Host $pemContent
+  
     $decodedBytes = [Convert]::FromBase64String($pemContent)
     $cngKey = [System.Security.Cryptography.CngKey]::Import($decodedBytes, [System.Security.Cryptography.CngKeyBlobFormat]::Pkcs8PrivateBlob)
     return [System.Security.Cryptography.RSACng]::new($cngKey)
@@ -111,8 +102,6 @@ function Get-OktaJWT {
     TrimEnd('=').Trim()
     $encodedHeader = ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($header | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim()
     $encodedToken = "$encodedHeader.$encodedPayload"
-    #$encodedToken = "$(([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($payload | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim())`
-    #.$(([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes(($header | ConvertTo-Json -Compress))).Trim()).Replace('+', '-').Replace('/', '_').TrimEnd('=').Trim())"
     $dataToSign = [System.Text.Encoding]::UTF8.GetBytes($encodedToken)
     $rsaSignature = $(Set-RSASignatureFromPEMString -RSAKey $privateKeyPEM).SignData($dataToSign, [System.Security.Cryptography.HashAlgorithmName]::SHA256, [System.Security.Cryptography.RSASignaturePadding]::Pkcs1)
     $encodedSignature = [Convert]::ToBase64String($rsaSignature)
@@ -209,76 +198,94 @@ function Check-LocalUsers {
     }
     return $isLocal
 }
+
 function Scan_Users
 {
 param(
-$users
+$allusers
 )
     try
         {
         #loop through groups
         Write-Log -Errorlevel 0 -Message "Scanning for Users"
-      
-        $users=$users | ConvertFrom-Json
-        foreach($user in $users)
-            {
-                $id = $user.id   
-                $uri = "$oktadomain/api/v1/users/$id"
-                $userObject  = Invoke-RestMethod -Uri $uri -Method 'get' -Headers  @{"Authorization" = "Bearer $(Get-Token -scope "okta.users.read")";"Accept" = "application/json"}    
-                foreach($item in $attributeArray ){
-                $split = $item.split("=")
-                $attribute= $split[0]   
-                $attribute = $attribute.Trim()
-                $value = $split[1]
-                $value = $value.Trim()
-                if ($value -eq 'null'){$value = $null}
-                    if($userObject.profile."$attribute" -eq $value)
-                        {
-                            $isServiceAccount = $true
-                            break
-                        }
-                        else
-                        {
-                            $isServiceAccount = $false
-                        }
-                    }
-                    
-                $uri = "$oktadomain/api/v1/users/$id/roles"
-                $roles = Invoke-RestMethod -Uri $uri -Method 'get' -Headers @{"Authorization" = "Bearer $(Get-Token -scope "okta.roles.read")";"Accept" = "application/json"} 
-                 $isAdmin =$false
-                if ($roles.count -ge 1)
-                    {
-                        $result = Check_Roles -roles $roles -user $user
-                        if($result -eq $true)
-                        {
-                          $isAdmin =$true
-                        }
-                        else
-                        {
-                            $isAdmin =$false
-                        }
-                    }
-                    
-                    #create Discovery Results
-                    $isLOcal = Check-LocalUsers -user $user
-                    if( ($isAdmin -eq $true -or $isServiceAccount -eq $true) -and $isLocal -eq $true)
-                    {
-                    $split = $user.profile.login.split('@')
-                    $Domain   = $split[1]
-                    $Username = $user.profile.login
-
-                $object = New-Object -TypeName PSObject
-        $object | Add-Member -MemberType NoteProperty -Name username -Value $Username
-        $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
-        $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
-        $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
-        $object | Add-Member -MemberType NoteProperty -Name  Domain -Value $Domain
-        $global:foundAccounts += $object
-
-                    }
-                  
-            }
+        $accessToken = Get-Token -scope "okta.roles.read"
+        $Headers = @{}
+        $Headers.Add('Authorization', ("Bearer {0}" -f $accessToken))
+        $Headers.Add('Content-Type', 'application/json')
+        $count = 0
         
+        foreach($users in $allusers)
+        {
+            $users=$users | ConvertFrom-Json
+        
+            foreach($user in $users)
+                {
+                    if ($count -ge $rateLimit)
+                    {
+                        $count = 0
+                        start-sleep -Seconds 70
+                        $accessToken = Get-Token -scope "okta.roles.read"
+                        $Headers = @{}
+                        $Headers.Add('Authorization', ("Bearer {0}" -f $accessToken))
+                        $Headers.Add('Content-Type', 'application/json')
+                    }
+                    $count++
+                    $id = $user.id   
+                
+                    foreach($item in $attributeArray ){
+                    $split = $item.split("=")
+                    $attribute= $split[0]   
+                    $attribute = $attribute.Trim()
+                    $value = $split[1]
+                    $value = $value.Trim()
+                    if ($value -eq 'null'){$value = $null}
+                        if($user.profile."$attribute" -eq $value)
+                            {
+                                $isServiceAccount = $true
+                                break
+                            }
+                            else
+                            {
+                                $isServiceAccount = $false
+                            }
+                        }
+                    
+                    $uri = "$oktadomain/api/v1/users/$id/roles"
+                    $roles = Invoke-RestMethod -Uri $uri -Method 'get' -Headers $Headers
+                    $isAdmin =$false
+                    if ($roles.count -ge 1)
+                        {
+                            $result = Check_Roles -roles $roles -user $user
+                            if($result -eq $true)
+                            {
+                            $isAdmin =$true
+                            }
+                            else
+                            {
+                                $isAdmin =$false
+                            }
+                        }
+                        
+                        #create Discovery Results
+                        $isLOcal = Check-LocalUsers -user $user
+                        if($isAdmin -eq $true -or $isServiceAccount -eq $true)
+                        {
+                        $split = $user.profile.login.split('@')
+                        $Domain   = $split[1]
+                        $Username = $user.profile.login
+
+                    $object = New-Object -TypeName PSObject
+                    $object | Add-Member -MemberType NoteProperty -Name username -Value $Username
+                    $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
+                    $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
+                    $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
+                    $object | Add-Member -MemberType NoteProperty -Name  Domain -Value $Domain
+                    $global:foundAccounts += $object
+
+                        }
+                    
+                }
+            }
         }
     catch
         {
@@ -296,12 +303,45 @@ function  Get-Token {
     )
     return (Get-OktaBearerToken -JWT (Get-OktaJWT -oktaDomain $oktaDomain -clientId $clientId -Kid $Kid) -Scope $scope)
 }
-#$token = (Get-OktaBearerToken -JWT (Get-OktaJWT -oktaDomain $oktaDomain -clientId $clientId -Kid $Kid) -Scope $scope)
-###Begin Main Process
-try{
-    $users = Invoke-WebRequest -Uri "$oktaDomain/api/v1/users" -Headers @{"Authorization" = "Bearer $(Get-Token -scope "okta.users.read")";"Accept" = "application/json"} -Method Get -UseBasicParsing
-    Scan_Users -users $users
+function Get-TheCursor{
+    param(
+        [object]$respobj
+    )
 
+    if ($respobj.Headers.link -match '(?<=rel="self",<)(.*?)(?=>; rel="next")') {
+       Write-Debug "Captured value: $($matches[0])"
+    } else {
+    
+        return 
+    }
+    return $matches[0]
+}
+#endregion
+
+#Begin Main Process
+try{
+
+   
+    $accessToken = Get-Token -scope "okta.users.read"
+   
+    $Headers = @{}
+    $Headers.Add('Authorization', ("Bearer {0}" -f $accessToken))
+    $Headers.Add('Content-Type', 'application/json')
+    $allUsers = @()
+    $responseforusers = Invoke-WebRequest -Uri "$oktaDomain/api/v1/users" -Headers $headers -UseBasicParsing
+    $allUsers += $responseforusers.Content
+    if ('rel="next"' -match [string]::$responseforusers.Headers.link){
+
+        $new_resp = $(Invoke-WebRequest -Uri $(Get-TheCursor -respobj $responseforusers) -Headers @{"Authorization" = "Bearer $($accessToken)";"Accept" = "application/json"} -Method Get -UseBasicParsing)
+        $allUsers += $responseforusers.Content
+        while('rel="next"' -match [string]::$new_resp.Headers.link){
+          
+            $fin_req = $(Invoke-WebRequest -Uri $(Get-TheCursor -respobj $new_resp) -Headers @{"Authorization" = "Bearer $($accessToken)";"Accept" = "application/json"} -Method Get -UseBasicParsing)
+            $allUsers += $fin_req.Content
+            if (!'rel="next"' -match [string]::$responseforusers.Headers.link){break}
+        }
+        Scan_Users -allusers $allUsers
+    }
 }
 
    
@@ -315,5 +355,6 @@ catch {
 
 $userCount = $global:foundAccounts.Count
 Write-Log -Errorlevel 0 -Message "Discovered $userCount Okta Users"
+
 
 return   $global:foundAccounts 

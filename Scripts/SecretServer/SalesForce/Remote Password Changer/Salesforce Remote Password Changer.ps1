@@ -1,25 +1,23 @@
 
-#Expected Argumnts @("username", "password", "clientId", "clientSecret", "kid", "tenant", "privuseremail", "privateKeyPEM")
+#Expected Argumnts @(""clientId", "clientSecret", "kid", "tenant", "privuseremail", "privateKeyPEM")
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 #Expected Argumnts @("Privileged User Name","Privileged User Password", "Instance URL", "SF Client iD","clientSecret" ,"SFDC UserName","SFDC User Domain" ,"New Password"  )
 
 #region Set Paramaters and Vaeiables
-$Privusername = $args[0]
-$Privpassword = $args[1]
-$baseUrl = $args[2]
+
+$baseUrl = $args[0]
 $tokenUrl = "$baseUrl/services/oauth2/token"
 $api = "$baseUrl/services"
-$clientId = $args[3]
-$clientSecret = $args[4]
-$SFDCUserName = $args[5]
-$newPassword = $args[6]
+$clientId = $args[1]
+$clientSecret = $args[2]
+$SFDCUserName = $args[3]
+$newPassword = $args[4]
 
 
 #Script Constants
 
-[string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Salesforce-Password_Rotate.log"
-[string]$LogFile = "c:\temp\Salesforce.log"
+[string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\Salesforce Connector.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Salesforce Password Change"
 
@@ -48,8 +46,7 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
+
     }
 }
 #endregion Error Handling Functions
@@ -60,8 +57,7 @@ $tokenParams = @{
     grant_type = "client_credentials"
     client_id = $clientId
     client_secret = $clientSecret
-    username = $Privusername
-    password = $Privpassword
+
 }
 <# ********* #for Debug Only************************
 $value = "$Privusername $Privpassword $baseUrl $clientId $clientSecret $SFDCUserName $SFDCUserDomin  $newPassword"  

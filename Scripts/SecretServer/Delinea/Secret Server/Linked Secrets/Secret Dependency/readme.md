@@ -1,8 +1,4 @@
 # Secret Server Linked Secrets
 
-To create a link between 2 secrets so that when 1 secret changes its password, the others also change to match there is a (process documented in the official documentation)[https://docs.delinea.com/secrets/current/remote-password-changing/sync-passwords-during-rpc/index.md].  This document implements the process using the soap API. Many organizations prefer REST APIs for a variety of reasons so this is a REST based replacement. 
-
-# Implementation 
-
-Follow the steps outlined in the official document, but use (LinkedPassword_Change.ps1) instead of the script provided. All functionality is identical to the soap script as documented.
+In some cases it is desirable to create a link between multiple secrets so that when the main secret changes its password, the others change their passwords to match. There is a [documented process](https://docs.delinea.com/secrets/current/remote-password-changing/sync-passwords-during-rpc) that uses the SOAP API. If you want a REST API implentation of the same process follow the steps outlined in the official document, but use [the script above](.\LinkedPassword_Change.ps1) instead of the script provided at the end of the documnet. All functionality is identical to the soap script as documented.
 
