@@ -23,15 +23,15 @@ $attributeArray = $attributes.Split(",")
 $roles = $args[5]
 $rolesAray = $roles.split(",")
 
-
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Okta-Discovery.log"
 [int32]$LogLevel = 2
 [string]$logApplicationHeader = "Okta Discovery"
 [string]$scope = "okta.roles.read"
-  $foundAccounts = @()
-
+$global:foundAccounts = @()
+[int32]$rateLimit = 70
 $headers = ""
+
 #endregion
 
 #region Error Handling Functions
@@ -198,76 +198,94 @@ function Check-LocalUsers {
     }
     return $isLocal
 }
+
 function Scan_Users
 {
 param(
-$users
+$allusers
 )
     try
         {
         #loop through groups
         Write-Log -Errorlevel 0 -Message "Scanning for Users"
-      
-        $users=$users | ConvertFrom-Json
-        foreach($user in $users)
-            {
-                $id = $user.id   
-                $uri = "$oktadomain/api/v1/users/$id"
-                $userObject  = Invoke-RestMethod -Uri $uri -Method 'get' -Headers  @{"Authorization" = "Bearer $(Get-Token -scope "okta.users.read")";"Accept" = "application/json"}    
-                foreach($item in $attributeArray ){
-                $split = $item.split("=")
-                $attribute= $split[0]   
-                $attribute = $attribute.Trim()
-                $value = $split[1]
-                $value = $value.Trim()
-                if ($value -eq 'null'){$value = $null}
-                    if($userObject.profile."$attribute" -eq $value)
-                        {
-                            $isServiceAccount = $true
-                            break
-                        }
-                        else
-                        {
-                            $isServiceAccount = $false
-                        }
-                    }
-                    
-                $uri = "$oktadomain/api/v1/users/$id/roles"
-                $roles = Invoke-RestMethod -Uri $uri -Method 'get' -Headers @{"Authorization" = "Bearer $(Get-Token -scope "okta.roles.read")";"Accept" = "application/json"} 
-                 $isAdmin =$false
-                if ($roles.count -ge 1)
-                    {
-                        $result = Check_Roles -roles $roles -user $user
-                        if($result -eq $true)
-                        {
-                          $isAdmin =$true
-                        }
-                        else
-                        {
-                            $isAdmin =$false
-                        }
-                    }
-                    
-                    #create Discovery Results
-                    $isLOcal = Check-LocalUsers -user $user
-                    if( ($isAdmin -eq $true -or $isServiceAccount -eq $true) -and $isLocal -eq $true)
-                    {
-                    $split = $user.profile.login.split('@')
-                    $Domain   = $split[1]
-                    $Username = $user.profile.login
-
-                $object = New-Object -TypeName PSObject
-        $object | Add-Member -MemberType NoteProperty -Name username -Value $Username
-        $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
-        $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
-        $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
-        $object | Add-Member -MemberType NoteProperty -Name  Domain -Value $Domain
-        $global:foundAccounts += $object
-
-                    }
-                  
-            }
+        $accessToken = Get-Token -scope "okta.roles.read"
+        $Headers = @{}
+        $Headers.Add('Authorization', ("Bearer {0}" -f $accessToken))
+        $Headers.Add('Content-Type', 'application/json')
+        $count = 0
         
+        foreach($users in $allusers)
+        {
+            $users=$users | ConvertFrom-Json
+        
+            foreach($user in $users)
+                {
+                    if ($count -ge $rateLimit)
+                    {
+                        $count = 0
+                        start-sleep -Seconds 70
+                        $accessToken = Get-Token -scope "okta.roles.read"
+                        $Headers = @{}
+                        $Headers.Add('Authorization', ("Bearer {0}" -f $accessToken))
+                        $Headers.Add('Content-Type', 'application/json')
+                    }
+                    $count++
+                    $id = $user.id   
+                
+                    foreach($item in $attributeArray ){
+                    $split = $item.split("=")
+                    $attribute= $split[0]   
+                    $attribute = $attribute.Trim()
+                    $value = $split[1]
+                    $value = $value.Trim()
+                    if ($value -eq 'null'){$value = $null}
+                        if($user.profile."$attribute" -eq $value)
+                            {
+                                $isServiceAccount = $true
+                                break
+                            }
+                            else
+                            {
+                                $isServiceAccount = $false
+                            }
+                        }
+                    
+                    $uri = "$oktadomain/api/v1/users/$id/roles"
+                    $roles = Invoke-RestMethod -Uri $uri -Method 'get' -Headers $Headers
+                    $isAdmin =$false
+                    if ($roles.count -ge 1)
+                        {
+                            $result = Check_Roles -roles $roles -user $user
+                            if($result -eq $true)
+                            {
+                            $isAdmin =$true
+                            }
+                            else
+                            {
+                                $isAdmin =$false
+                            }
+                        }
+                        
+                        #create Discovery Results
+                        $isLOcal = Check-LocalUsers -user $user
+                        if($isAdmin -eq $true -or $isServiceAccount -eq $true)
+                        {
+                        $split = $user.profile.login.split('@')
+                        $Domain   = $split[1]
+                        $Username = $user.profile.login
+
+                    $object = New-Object -TypeName PSObject
+                    $object | Add-Member -MemberType NoteProperty -Name username -Value $Username
+                    $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
+                    $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount
+                    $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $isLocal
+                    $object | Add-Member -MemberType NoteProperty -Name  Domain -Value $Domain
+                    $global:foundAccounts += $object
+
+                        }
+                    
+                }
+            }
         }
     catch
         {
@@ -285,12 +303,45 @@ function  Get-Token {
     )
     return (Get-OktaBearerToken -JWT (Get-OktaJWT -oktaDomain $oktaDomain -clientId $clientId -Kid $Kid) -Scope $scope)
 }
+function Get-TheCursor{
+    param(
+        [object]$respobj
+    )
+
+    if ($respobj.Headers.link -match '(?<=rel="self",<)(.*?)(?=>; rel="next")') {
+       Write-Debug "Captured value: $($matches[0])"
+    } else {
+    
+        return 
+    }
+    return $matches[0]
+}
+#endregion
 
 #Begin Main Process
 try{
-    $users = Invoke-WebRequest -Uri "$oktaDomain/api/v1/users" -Headers @{"Authorization" = "Bearer $(Get-Token -scope "okta.users.read")";"Accept" = "application/json"} -Method Get -UseBasicParsing
-    Scan_Users -users $users
 
+   
+    $accessToken = Get-Token -scope "okta.users.read"
+   
+    $Headers = @{}
+    $Headers.Add('Authorization', ("Bearer {0}" -f $accessToken))
+    $Headers.Add('Content-Type', 'application/json')
+    $allUsers = @()
+    $responseforusers = Invoke-WebRequest -Uri "$oktaDomain/api/v1/users" -Headers $headers -UseBasicParsing
+    $allUsers += $responseforusers.Content
+    if ('rel="next"' -match [string]::$responseforusers.Headers.link){
+
+        $new_resp = $(Invoke-WebRequest -Uri $(Get-TheCursor -respobj $responseforusers) -Headers @{"Authorization" = "Bearer $($accessToken)";"Accept" = "application/json"} -Method Get -UseBasicParsing)
+        $allUsers += $responseforusers.Content
+        while('rel="next"' -match [string]::$new_resp.Headers.link){
+          
+            $fin_req = $(Invoke-WebRequest -Uri $(Get-TheCursor -respobj $new_resp) -Headers @{"Authorization" = "Bearer $($accessToken)";"Accept" = "application/json"} -Method Get -UseBasicParsing)
+            $allUsers += $fin_req.Content
+            if (!'rel="next"' -match [string]::$responseforusers.Headers.link){break}
+        }
+        Scan_Users -allusers $allUsers
+    }
 }
 
    
@@ -304,5 +355,6 @@ catch {
 
 $userCount = $global:foundAccounts.Count
 Write-Log -Errorlevel 0 -Message "Discovered $userCount Okta Users"
+
 
 return   $global:foundAccounts 

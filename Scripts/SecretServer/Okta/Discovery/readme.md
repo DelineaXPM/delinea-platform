@@ -55,6 +55,7 @@ This scanner will perform a Discovery of Okta Users.
   - **Category:** Discovery Scanner
   - **Merge Fields:**Leave Blank
   - **Script:** Copy and paste the Script included in the file [Okta Account Discovery](./Okta%20Account%20Discovery.ps1)
+- Replace the script value for $rateLimit to 3 less than your organizations rate limit for /api/v1/users*  
 - Click Save
 
 ### Create Saas Tenant Scanner
