@@ -4,7 +4,7 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
  
 ## Create Discovery Source
 
-
+If you have not already done so, please click[here](../Instructions.md) to perform the basic configuration for interacting with Entra ID.
 
 ### Create Entra ID Tenant Scan Template
 
@@ -12,7 +12,11 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 - Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **Admin** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** 
+
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
+
+- Click the **Scan Template** tabs 
 
 - Click **Create Scan Template**
 
@@ -33,12 +37,13 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 ### Create Account Scan Template
 
-
 - Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **Admin** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** 
 
-- Click **Create Scan Template**
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
+
+- Click the **Scan Template** tab 
 
 - Fill out the required fields with the information
 
@@ -52,13 +57,11 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
     - **Fields:** 
     
-    - Change Resource to Domain
+        - Change Resource to Domain
 
-    - Add field: Admin-Account (Leave Parent and Include in Match Blank)
+        - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-    - Add field: Service-Account (Leave Parent and Include in Match Blank)
-
-    - Add field: Local-Account (Leave Parent and Include in Match Blank)
+        - Add field: Service-Account (Leave Parent and Include in Match Blank)
 
 - Click Save
 
@@ -72,7 +75,7 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 - Fill out the required fields:
 
-    - **Name:** ( example: Entra ID Local Account Scanner)
+    - **Name:** ( example: Entra ID Account Scanner)
 
     - **Description:** (Enter something meaningful to your Organization)
 
@@ -84,7 +87,7 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
     - **Merge Fields:** Leave Blank
 
-    - **Script:** Copy and paste the Script included in the file [Entra ID Local Account Discovery](./Entra ID%20Local%20Account%20Discovery.ps1)
+    - **Script:** Copy and paste the Script included in the file [Entra ID Account Discovery](./EntraID%20Account%20Discovery.ps1)
 
 - Click Save
   
@@ -93,9 +96,13 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 - Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **Admin** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** 
 
-- Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
+
+- Click the **Scan Template** tabs 
+
+- Click the **Scanners** tab 
 
 - Click **Create Scanner**
 
@@ -105,11 +112,13 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
     - **Description:** (Example - Base scanner used to discover Entra ID Accounts)
 
+    - **Active:** (Checked)
+
     - **Discovery Type:** Host
 
-    - **Base Scanner:** Host
+    - **Base Scanner:**  Manual Input Scanner
 
-    - **Input Template**: Manual Input Discovery
+    - **Input Template**: Discovery Source
 
     - **Output Template:**: Entra ID Tenant (Use Template that Was Created in the [Entra ID Tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
@@ -118,26 +127,33 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 ### Create Entra ID Account Scanner
 
-  
 
 - Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **Admin** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** 
 
-- Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
+
+- Click the **Scan Template** tabs 
+
+- Click the **Scanners** tab 
 
 - Click **Create Scanner**
 
 - Fill out the required fields:
 
-    - **Name:** (Example: Entra ID Local Account Scanner)
+    - **Name:** (Example: Entra ID Account Scanner)
 
-    - **Description:** (Example: Discovers Entra ID local accounts according to configured privileged account template )
+    - **Description:** (Example: Discovers Entra ID accounts according to configured privileged account template )
+
+    - **Active:** (Checked)
 :
     - **Discovery Type:** Account
 
     - **Base Scanner:** PowerShell Discovery Create Discovery Script
-
+    
+    - **Allow OU Input:** (Checked)
+    
     - **Input Template:**Entra ID Tenant (Use Template that Was Created in the [Entra ID tenant Scan Template Section](#create-entra-id-tenant-scan-template))
 
     - **Output Template:** Entra ID Account (Use Template that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
@@ -187,11 +203,11 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 - Click **Add Scanner**
 
-- Find the Saas Tenant Scanner or the Scanner created in the [Entra ID Tenant Scanner Section](#create-axure-ad--entra-id-tenant-scanner) and Click **Add Scanner**
+- Find the Entra ID Tenant Scanner or the Scanner created in the [Entra ID Tenant Scanner Section](#create-axure-ad--entra-id-tenant-scanner) and Click **Add Scanner**
 
 - Select the Scanner just created and Click **Edit Scanner**
 
-- In the **Lines Parse Format** Section Enter the Source Name (example: Entra ID Tenant)
+- In the **Lines Parse Format** Section, enter the **Source Name** (example: Entra ID Tenant). This is only a label and is only used to identify the source. Choose a name that reflects and easily identifies the accounts being discovered by this Discovery Source
 
 - Click **Save**
 
@@ -199,7 +215,7 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 - Click **Add Scanner**
 
-- Find the Entra ID Local Account Scanner or the Scanner created in the [Create Azure AD / Entra ID Account Scanner Section](#create-Azure AD / Entra ID-account-scanner) and Click **Add Scanner**
+- Find the Entra ID Account Scanner or the Scanner created in the [Create Azure AD / Entra ID Account Scanner Section](#create-Azure AD / Entra ID-account-scanner) and Click **Add Scanner**
 
 - Select the Scanner just created and Click **Edit Scanner**
 
@@ -207,7 +223,7 @@ This Scanner will discover accounts as well as optionally qualify accounts as Ad
 
 - Click the **Add Secret** Link
 
-- Search for the Privileged Account Secret created in the [instructions file](../Instructions.md)
+- Search for the Application Registration Secret created in the [instructions file](../Instructions.md)
 
 - Check the Use Site Run As Secret Check box to enable it
 
@@ -217,7 +233,7 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
 - Click Save
 
-- Click on the Discovery Source yab and Click the Active check box
+- Click on the Discovery Source tab and Click the Active check box
 
 ## Optional Report
 
@@ -270,14 +286,4 @@ You will now find this report under the section you chose in the Category field.
 
   
 
-The Entra ID configuration is now complete. The next step is to run a manual discovery scan.
-
-- Navigate to **Admin | Discovery**
-
-- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Now**
-
-- Click on the **Network view** Button in the upper right corner
-
-- Click on the newly created discovery source
-
-- Click the **Domain \ Cloud Accounts** yab to view the discovered accounts
+The Entra ID configuration is now complete. The next step is to run a manual discovery scan and view your discovered accounts in the **Admin | Discovery | Network View ** Panel

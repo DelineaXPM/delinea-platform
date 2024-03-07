@@ -48,7 +48,7 @@ The provided functions leverage the Microsoft Graph functionality in Azure AD / 
 
 - See [here](https://docs.microsoft.com/en-us/graph/auth-register-app-v2) for more information on how to create an App Registration.
 
-- Detailed steps details provided [below](#creating-an-app-registration).
+- Detailed steps provided [below](#creating-an-app-registration).
 
 - Custom template to store application registration information in Delinea Secret Server
 
@@ -88,11 +88,11 @@ The following steps are required to create the Secret Template for EntraID Users
 
   
 
-## Creating Secret Template for Privileged Account
+## Creating Secret Template for the Application Registration
 
   
 
-The following steps are required to create the secret template for the application registration:
+The following steps are required to create the secret template for the Application Registration:
 
 - Log in to the Delinea Secret Server
 
@@ -100,10 +100,25 @@ The following steps are required to create the secret template for the applicati
 
 - Click on Create / Import Template
 
-- Copy and Paste the XML in the [EntraID Privileged Account File](./Templates/EntraID%20Privileged%20Account.xml)
+- Copy and Paste the XML in the [EntraID Application Registration File](./Templates/EntraID%20Privileged%20Account.xml)
 
-- Click on Save
+- Click on the Mappings Tab
+
+- Click **Edit** 
+
+- Select the **Enable RPC** Checkbox
+
+- Click the **Password Type to use** Dropdown and Select the **Generic Discovery-Only Credentials** option
+
+- Under the **Password Type Fields** Section, enter the following Values:
+
+  - **User Name:** Application-Id
+
+  - **Password:** Client-Secret
   
+- Click on Save
+
+**Note:** This is a Generic Password Changer that does not actually perform a Password Change, but is required in order to use the Secret that will be created in the Discovery Source later in this configuration
 
 ## Creating an App Registration
 
@@ -119,7 +134,7 @@ The application registration is used to provide the password changer with the ne
 
 - Click on New Registration
 
-- Provide a name for the application registration
+- Provide a name for the Application Registration
 
 - Select the appropriate account type (single tenant or multi-tenant)
 
@@ -137,7 +152,7 @@ The application registration is used to provide the password changer with the ne
 
 - Click on Add
 
-- Copy the client secret value and store it as it will be needed when creating the Privileged Account Secret
+- Copy the client secret value and store it as it will be needed when creating the Application Registration Secret
 
 - Navigate to API Permissions
 
@@ -176,7 +191,7 @@ The application registration is used to provide the password changer with the ne
 - Click on Add
 
 
-## Create Secret in Secret Server for the EntraID Privileged Account
+## Create Secret in Secret Server for the EntraID Application Registration
 
 - Log in to the Delinea Secret Server
 
@@ -184,7 +199,7 @@ The application registration is used to provide the password changer with the ne
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Creating Secret Template for Privileged Account](#creating-secret-template-for-privileged-account) (in the example Entra ID Application Identity)
+- Select the template created in the earlier step [Creating Secret Template for Application Registration](#creating-secret-template-for-the-application-registration) 
 
 - Fill out the required fields with the information from the application registration
 
@@ -192,9 +207,13 @@ The application registration is used to provide the password changer with the ne
 
   - **Tenant ID:** (which can be retrieved from the Azure AD / Entra ID properties)
 
-  - **Application ID:** (which can be retrieved from the Application Registration - Application (client) ID)
+  - **Application ID:** (which can be retrieved from the Application Registration - Application ID)
 
-  - Client Secret which was generated in the [earlier step](#creating-an-app-registration)
+  - **Client Secret:** (This was generated in the [earlier step](#creating-an-app-registration))
+
+  - **Admin-Roles:** (Comma separated list of roles that atr considered to be Administrative Roles)
+
+  - **service-account-groups:**	(Comma separated list of groups considered to be Service Accounts)
 
 - Click on Create Secret
 
@@ -213,3 +232,5 @@ The application registration is used to provide the password changer with the ne
   install-module  -name Microsoft.Graph -scope allusers
 
   ```
+
+  This completes the basic configuration.  You may to proceed to configure Discovery by clicking [here](./Discovery/readme.md) and/or Remote Password Changer [here](./Remote%20Password%20Changer/readme.md)
