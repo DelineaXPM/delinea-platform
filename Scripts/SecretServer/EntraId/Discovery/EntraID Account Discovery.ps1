@@ -1,7 +1,7 @@
 # Script usage
 # use powershell script for Discovering of EntraID/Azure/Office 365 Local Accounts.
 # parameters to provide in each case are:
-# Discovery $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $username $password 
+# Discovery $[1]$TenantID $[1]$applicationid $[1]$ClientSecret $[1]$admin-roles $[1]$Service-Account-Groups "<Detailed or Basic> <true or false>
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
