@@ -166,6 +166,7 @@ If you have not already done so, please click [here](../Instructions.md) to perf
         - Detailed or Basic
 
             - **Detailed** will qualify wether accounts are considered Admin or Service Accounts based on the arguments provided. **Basic** wil only returned the Domain and Username of teh account
+            
             - **True** will return all accounts including External (Guest) Accounts. **False** will only return users within the Tenant Entra ID Domain
 
     ```powershell
