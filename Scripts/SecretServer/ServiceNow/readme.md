@@ -1,8 +1,8 @@
-# Servicenow Delinea Secret Server Integration
+# ServiceNow Delinea Secret Server Integration
 
   
 
-This package is designed to discover and Manage Servicenow User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [Here](./Instructions.md)
+This package is designed to discover and Manage ServiceNow User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions document which can be found [here](./Instructions.md)
 
   
 
