@@ -5,7 +5,7 @@
   <fields>
     <field isexpirationfield="false">
       <displayname>Tenant-url</displayname>
-      <description>Thic isthe base URL of the SalesForce Tenant.  The URL should not have  a trailing /
+      <description>This is the base URL of the AWS Tenant.  The URL should not have  a trailing /
 i.e.  </description>
       <name>Tenant-url</name>
       <mustencrypt>true</mustencrypt>
@@ -25,7 +25,7 @@ i.e.  </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>The name assocated with the password.</description>
+      <description>The AWS Username.</description>
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -63,7 +63,7 @@ i.e.  </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Admin-Account</displayname>
-      <description>Determines if User is an Administrative user as per the discovery criterea</description>
+      <description>Determines if User is an Administrative user as per the discovery criteria</description>
       <name>Admin-Account</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -82,7 +82,7 @@ i.e.  </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Service-Account</displayname>
-      <description>This indicates if the account is a service account as determined by the Discovery Critera</description>
+      <description>This indicates if the account is a service account as determined by the discovery criteria</description>
       <name>Service-Account</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>

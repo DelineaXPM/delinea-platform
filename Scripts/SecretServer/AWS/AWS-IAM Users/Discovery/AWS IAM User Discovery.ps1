@@ -4,11 +4,6 @@
 # For IAM User-Advancd Discovery "IAMUser-Advanced" $[1]$AccessKey $[1]$SecretKey $[1]$Admin-Criteria $[1]$SVC-Account-Criteria 
 
 
-
-# Uncomment the line below to enable TLS 1.2 if needed
-#[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-
 #region define variables
 #Define Argument Variables
 
@@ -23,8 +18,7 @@ $SecretKey = $args[2]
 
 #Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\AWS-Connector.log"
-#[string]$LogFile = "c:\temp\AWS-Discovery.log"
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "AWS User Discovery"
 
 #endregion
@@ -56,7 +50,7 @@ function Write-Log {
 }
 
 
-###   ###   ###   ###   ###  Log Cleanup  ###   ###   ###   ###   ###
+# Log Cleanup 
 if (( Get-Item -Path $LogFile -ErrorAction SilentlyContinue ).Length -gt 25MB) {    
     Remove-Item -Path $LogFile -Force -ErrorAction SilentlyContinue
     Write-Log -Errorlevel 2 -Message "Old logdata has been purged."
@@ -109,13 +103,12 @@ function get-AdminUsers{
     #>
     try {
         Write-Log -Errorlevel 0 -Message "Retrieving  List of Admin Users"       
-        ##Create Roles Array
+        #Create Roles Array
       
         If ($adminCriteria)
         {
-            ### Create Array of Admin Roles
+            #Clear Parametwr List and create Array of Admin Roles 
             
-            #Clear Parametwr List
            $adminRoleArray = $adminCriteria.split(",").Split("=")[1] 
            $adminUsers = @()
             foreach ($role in $adminRoleArray  ) {
