@@ -86,13 +86,13 @@ This scanner can help perform an Scan for user accounts within a Github Organiza
 
 - Click **Create Scanner**
 - Fill out the required fields with the information
-    - **Name:** (Example - Slack User Account Scanner) 
+    - **Name:** (Example - GitHub User Account Scanner) 
     - **Description:** (Example - Discovers Github User accounts according to the configured Github Integration Key TSecret )
     - **Discovery Type:**  Account
     - **Base Scanner:** PowerShell Discovery
     - **Input Template**: Github Tenant (Use Template that Was Created in the [Github Tenant Scan Template Section](#create-github-tenant-scan-template))
     - **Output Template:**: Github Account  (Use Template that Was Created in the [Create Github Account Scan Template Section](#create-github-account-scan-template))
-    - **Script:** Slack User Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+    - **Script:** GitHub User Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
     - **Script Arguments: 
         ``` PowerShell
         $[1]$Advanced $[1]$OAuthToken $[1]$admin-roles $[1]$svcacct-roles 

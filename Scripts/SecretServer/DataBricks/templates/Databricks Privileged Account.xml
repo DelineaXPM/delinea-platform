@@ -26,7 +26,7 @@ Example: https://db-745722400131.11.azuredatabricks.net.azuredatabricks.net</des
     </field>
     <field isexpirationfield="false">
       <displayname>client-Id</displayname>
-      <description>This is the client ID for the connected app in salesforce</description>
+      <description>This is the client ID for the connected app in Databricks</description>
       <name>client-Id</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -45,7 +45,7 @@ Example: https://db-745722400131.11.azuredatabricks.net.azuredatabricks.net</des
     </field>
     <field isexpirationfield="false">
       <displayname>client-Secret</displayname>
-      <description>This is the client secret for the connected app in Salesforce</description>
+      <description>This is the client secret for the connected app in Databricks</description>
       <name>client-Secret</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -64,7 +64,7 @@ Example: https://db-745722400131.11.azuredatabricks.net.azuredatabricks.net</des
     </field>
     <field isexpirationfield="false">
       <displayname>Admin-Criteria</displayname>
-      <description>These are the froups that will be used to identify an admin user in salesforce. These groups need to be comma separated of the Group Name.
+      <description>These are the froups that will be used to identify an admin user in Databricks. These groups need to be comma separated of the Group Name.
 i
 Examples:
 admin
