@@ -5,7 +5,7 @@
 ## Associate the Amazon IAM Console Password Privileged Account Remote Password Changer with the AWS IAM User Template
 - Log in to the Delinea Secret Server
 - Navigate to Admin / Secret Templates
-- Click on the AWS User Advanced template created in the [instructions.md file](../Instructions.md)
+- Click on the AWS User Advanced template created in the [Instructions file](../Instructions.md)
 - Click on Mapping
 - Click on Edit
 - Change the following field to use the Amazon IAM Console Password Privileged Account password type
@@ -22,7 +22,7 @@ To be able to correctly use the password changer, the AWS Service account must b
 - Go to the Associated Secrets section at the bottom of the page
 - Click on Edit
 - Click on Add Secret
-- Search for the earlier created [AWS Service Account secret](../Instructions.md#create-secret-in-secret-server-for-the-aws-service-account) for the application registration and select that
+- Search for the created in the Instructions file[AWS Service Account secret](../Instructions.md#create-secret-in-secret-server-for-the-aws-service-account) for the application registration and select that
 - Click on Save
 
  This can also be done using a Secret Policy assigned to the Parent Folder or Directly to The Secret

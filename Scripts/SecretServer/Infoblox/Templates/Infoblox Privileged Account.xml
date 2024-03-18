@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-16"?>
 <secrettype xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <name>AWS User Advanced</name>
+  <name>Infoblox Privileged Account</name>
   <active>true</active>
   <fields>
     <field isexpirationfield="false">
-      <displayname>Tenant-url</displayname>
-      <description>This is the base URL of the AWS Tenant.  The URL should not have  a trailing /
-i.e.  </description>
-      <name>Tenant-url</name>
+      <displayname>Tenant-URL</displayname>
+      <description />
+      <name>Tenant-URL</name>
       <mustencrypt>true</mustencrypt>
-      <isurl>true</isurl>
+      <isurl>false</isurl>
       <ispassword>false</ispassword>
       <isnotes>false</isnotes>
       <listtype />
@@ -19,13 +18,13 @@ i.e.  </description>
       <historylength>2147483647</historylength>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
-      <required>true</required>
-      <fieldslugname>Tenant-url</fieldslugname>
+      <required>false</required>
+      <fieldslugname>tenant-url</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>The AWS Username.</description>
+      <description />
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -34,9 +33,9 @@ i.e.  </description>
       <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
-      <passwordlength>10</passwordlength>
+      <passwordlength>-1</passwordlength>
       <historylength>2147483647</historylength>
-      <isindexable>true</isindexable>
+      <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
       <fieldslugname>username</fieldslugname>
@@ -44,7 +43,7 @@ i.e.  </description>
     </field>
     <field isexpirationfield="true">
       <displayname>Password</displayname>
-      <description>The password used to access information.</description>
+      <description />
       <name>Password</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -53,37 +52,18 @@ i.e.  </description>
       <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
-      <passwordlength>10</passwordlength>
+      <passwordlength>-1</passwordlength>
       <historylength>2147483647</historylength>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
-      <required>true</required>
+      <required>false</required>
       <fieldslugname>password</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Admin-Account</displayname>
-      <description>Determines if User is an Administrative user as per the discovery criteria</description>
-      <name>Admin-Account</name>
-      <mustencrypt>true</mustencrypt>
-      <isurl>false</isurl>
-      <ispassword>false</ispassword>
-      <isnotes>false</isnotes>
-      <listtype />
-      <isfile>false</isfile>
-      <passwordcharacterset />
-      <passwordlength>-1</passwordlength>
-      <historylength>2147483647</historylength>
-      <isindexable>false</isindexable>
-      <editablepermission>2</editablepermission>
-      <required>true</required>
-      <fieldslugname>admin-account</fieldslugname>
-      <hideonview>false</hideonview>
-    </field>
-    <field isexpirationfield="false">
-      <displayname>Service-Account</displayname>
-      <description>This indicates if the account is a service account as determined by the discovery criteria</description>
-      <name>Service-Account</name>
+      <displayname>Discovery-Mode</displayname>
+      <description />
+      <name>Discovery-Mode</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -96,13 +76,13 @@ i.e.  </description>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>service-account</fieldslugname>
+      <fieldslugname>discovery-mode</fieldslugname>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Local-Account</displayname>
-      <description>This field indicates if the user is a Local account to the Application</description>
-      <name>Local-Account</name>
+      <displayname>Service-Account-Groups</displayname>
+      <description />
+      <name>Service-Account-Groups</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -115,13 +95,13 @@ i.e.  </description>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>local-account</fieldslugname>
+      <fieldslugname>service-account-groups</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>
-  <expirationdays>30</expirationdays>
+  <expirationdays>90</expirationdays>
   <secretnamehistorylength>0</secretnamehistorylength>
-  <imageclass>icon-ss-password</imageclass>
+  <imageclass>fa-cogs</imageclass>
   <onetimepasswordenabled xsi:nil="true" />
   <onetimepasswordcodelength xsi:nil="true" />
   <onetimepassworddurationseconds xsi:nil="true" />

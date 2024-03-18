@@ -1,4 +1,4 @@
-# ServiceNow Local Account Discovery
+# ServiceNow Account Discovery
 
 ## Create Discovery Source
 
@@ -9,211 +9,204 @@ This scanner will perform discovery of  ServiceNow  Accounts
 ## Create Discovery Source
 
   
-### Create ServiceNow Scan Template
+### Create ServiceNow Tenant Scan Template
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** 
 
-- Click **Create Scan Template**
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
 
-- Fill out the required fields with the information
+- Click the **Scan Template** tab
 
--  **Name:** (Example: ServiceNow Tenant)
+- Click on **Create Scan Template**
 
--  **Active:** (Checked)
+- Fill out the required fields:
 
--  **Scan Type:** Host
+    - **Name:** (Example: ServiceNow Tenant)
 
--  **Parent Scan Template:** Host Range
+    - **Active:** (Checked)
 
--  **Fields**
+    - **Scan Type:** Host
 
-- Change HostRange to **tenant-url**
+    - **Parent Scan Template:** Host Range
 
-- Click Save
-
-- This completes the creation of the ServiceNow Scan Template Creation
-
-  
-
-### Create Account Scan Template
-
-  
-
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
-
-- Click **Create Scan Template**
-
-- Fill out the required fields with the information
-
--  **Name:** (Example: ServiceNow Account)
-
--  **Active:** (Checked)
-
--  **Scan Type:** Account
-
--  **Parent Scan Template:** Account(Basic)
-
--  **Fields**
-
-- Change Resource to **tenant-url**
-
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
-
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
-
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
+    - **Fields:**  Change HostRange to **tenant-url**
 
 - Click Save
 
-- This completes the creation of the Account Scan Template Creation
+### Create ServiceNow Account Scan Template
+
+- Log in to Secret Server Tenant (If you have not already done so)
+
+- Navigate to **Admin** > **Discovery** > **Configuration** 
+
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
+
+- Click the **Scan Template** tab
+
+- Click on **Create Scan Template**
+
+- Fill out the required fields:
+
+    - **Name:** (Example: ServiceNow Account)
+
+    - **Active:** (Checked)
+
+    - **Scan Type:** Account
+
+    - **Parent Scan Template:** Account(Basic)
+
+    - **Fields**
+
+        - Change Resource to **tenant-url**
+
+        - Add field: Admin-Account (Leave Parent and Include in Match Blank)
+
+        - Add field: Service-Account (Leave Parent and Include in Match Blank)
+
+        - Add field: Local-Account (Leave Parent and Include in Match Blank)
+
+- Click Save
 
 ### Create Discovery Script
 
   
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Log in to Secret Server Tenant
-
-- Navigate to**ADMIN** > **Scripts**
+- Navigate to**Admin** > **Scripts**
 
 - Click on **Create Script**
 
-- Fill out the required fields with the information from the application registration
+- Fill out the required fields:
 
-- Name: ( example -ServiceNow Local Account Scanner)
+    - **Name:** ( example -ServiceNow Local Account Scanner)
 
-- Description: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
-- Active: (Checked)
+    - **Active:** (Checked)
 
-- Script Type: Powershell
+    - **Script Type:** Powershell
 
-- Category: Discovery Scanner
+    - **Category:** Discovery Scanner
 
-- Merge Fields: Leave Blank
+    - **Merge Fields:** Leave Blank
 
-- Script: Copy and paste the Script included in the file [ServiceNow Account Loacl Account Discoverey.ps2](./ServiceNow%20Locaal%20Account%20Discovery.ps1)
+    - **Script:** Copy and paste the Script included in the file [ServiceNow Account Account Discovery](./ServiceNow%20Account%20Discovery.ps1)
 
 - Click Save
 
-- This completes the creation of the Local Account Discovery Script
 
-  
 
 ### Create ServiceNow Tenant Scanner
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** 
 
-- Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
 
-- Click **Create Scanner**
+- Click the **Scanners** tab
 
-- Fill out the required fields with the information
+- Click on **Create Scanner**
 
--  **Name:** > ServiceNow Tenant Scanner
+- Fill out the required fields:
 
--  **Description:** (Example - Base scanner used to discover ServiceNow Tenants)
+    - **Name:** > ServiceNow Tenant Scanner
 
--  **Discovery Type:** Host
+    - **Description:** (Example - Base scanner used to discover ServiceNow Tenants)
 
--  **Base Scanner:** Host
+    - **Discovery Type:** Host
 
--  **Input Template**: Manual Input Discovery
+    - **Base Scanner:** Host
 
--  **Output Template:**: ServiceNow Tenant (Use Temaplte that Was Created in the [ServiceNow Scan Template Section](#create-saas-scan-template))
+    - **Input Template:** Manual Input Discovery
+
+    - **Output Template:** ServiceNow Tenant (Use Template that Was Created in the [ServiceNow Tenant Scan Template Section](#create-servicenow-tenant-scan-template))
 
 - Click Save
-
-- This completes the creation of the Saas Tenant Scanner
-
-  
 
 ### Create ServiceNow Account Scanner
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** 
 
-- Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
+- Click on **Discovery Configuration Options** and select **Scanner Definitions** 
 
-- Click **Create Scanner**
+- Click the **Scanners** tab
 
-- Fill out the required fields with the information
+- Click on **Create Scanner**
 
--  **Name:** (Example - ServiceNow Local Account Scanner)
+- Fill out the required fields:
 
--  **Description:** (Example - Discovers ServiceNow local accounts according to configured privileged account template )
+    - **Name:** (Example - ServiceNow  Account Scanner)
 
--  **Discovery Type:** Account
+    - **Description:** (Example - Discovers ServiceNow accounts according to configured privileged account template )
 
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
+    - **Discovery Type:** Account
 
--  **Input Template**: Saas Tenant (Use Template that Was Created in the [ServiceNow Scan Template Section](#create-saas-scan-template))
+    - **Base Scanner:** PowerShell Discovery
 
--  **Output Template:**: ServiceNow Account (Use Temaplte that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
+    - **Input Template:** Select the ServiceNow Tenant Scan Template that Was Created in the [ServiceNow Tenant Scan Template Section](#create-servicenow-tenant-scan-template))
 
--  **Script:** ServiceNow Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
+    - **Output Template::** Select the ServiceNow Account Scan Template (Use Template that Was Created in the [Create Account Scan Template Section](#create-servicenow-account-scan-template))
 
--  **Script Arguments: **Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$sac-groupids $[1]$local-acct-grpids**
+    - **Script:** ServiceNow Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
+    - **Script Arguments:**
+    ``` powershell
+        Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$sac-groupids $[1]$local-acct-grpids**
+    ```
 - Click Save
 
-- This completes the creation of the ServiceNow Account Scanner
-
-  
+ 
 
 ### Create Discovery Source
 
   
 
-- Navigate to **Admin | Discovery | Configuration**
+- Navigate to **Admin | Discovery**
 
 - Click **Create** drop-down
 
-- Click **Empty Discovery Source**
+- Select **Empty Discovery Source**
 
--Enter the Values below
+-Enter the Values below:    
 
-- **Name:** (example: ServiceNow Test Tenant)
+    - **Name:** (example: ServiceNow Test Tenant)
 
-- **Site** (Select Site Where Discovery will run)
+    - **Site:** (Select Site Where Discovery will run)
 
-- **Source Type** Empty
+    - **Source Type:** Empty
 
 - Click Save
 
-- Click Cancel on the Add Flow Screen
+- Click **Cancel** on the Add Flow Screen
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Tenant Scanner or the Scanner Created in the [Create ServiceNow Tenant Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
+- Find the ServiceNow Tenant Scanner or the Scanner Created in the [Create ServiceNow Tenant       Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just Created and Click **Edit Scanner**
 
 - In the **lines Parse Format** Section Enter the Source Name (example: ServiceNow  Tenant)
 
-- Click **Save**
-
-  
+- Click **Save** 
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Local Account Scanner or the Scanner Created in the [Create ServiceNow Account Scanner Section](#create-servicenow-account-scanner) and Click **Add Scanner**
+- Find the ServiceNow Account Scanner or the Scanner Created in the [Create ServiceNow Account Scanner Section](#create-servicenow-account-scanner) and Click **Add Scanner**
 
-- Select the Scanner just Ceated and Click **Edit Scanner**
+- Select the Scanner just Created 
 
 - Click **Edit Scanner**
 
 - Click the **Add Secret** Link
 
-- Search for the Privoleged Account Secret created in the [Instructions.md file](../Overview.md)
+- Search for the Privileged Account Secret created in the [Instructions file](../Instructions.md#create-secret-in-secret-server-for-the-servicenow-privileged-account)
 
 - Check the Use Site Run As Secret Check box to enable it
 
@@ -225,266 +218,81 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
 - Click on the Discovery Source tab and Click the Active check box
 
-- This completes the creation of theDiscovery Source
+- Click Save
 
   
   
 
 ### Next Steps
 
-  
+## Optional Report
 
-The ServiceNow configuration is now complete. The next step is to run a manual discovery scan.
 
-- Navigate to **Admin | Discovery**
-
-- Click the **Run Discovery Noe** (Dropdown) and select **Run Discovery Now**
-
-- Click on the **Network view** Button in the upper right corner
-
-- Click on the newly cretaed discocvery source
-
-- Click the **Domain \ Cloud Accounts** tab to view the discovered accounts.
+In this section, There are instructions on creating an optional report to display user information found in the discovery.
 
   
 
-### Create SaaS Scan Template
+- Login to Secret Server Tenant (If you have not already done so)
 
-If this Script has already been created in another Delinea Integration paxkage pleae skip
+- Navigate to the Reports module
 
-to the [Create Account Scan Template](#create-account-scan-template )
+- click on the New Report Button
+
+- Fill in the following values:
+	
+    - **Name:** The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section (ex. MyDiscoverySource - Discovery )
+	
+    - **Description:** (Enter something meaningful to your organization)
+	
+    - **Category:** Select the Section where you would like the report to appear (ex. Discovery Scan)
+	
+    - Report SQL: Copy and Paste the SQL Query below
+		***Note** " You must replace the WHERE d.DiscoverySourceId =  32 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL 
+   
+
+``` SQL
+
+SELECT
+
+d.[ComputerAccountId]
+
+,d.[CreatedDate]
+
+,d.[AccountName] AS [Username]
+
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
+
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin Account]
+
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Account]
+
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Local Account]
+
+FROM tbComputerAccount AS d
+
+CROSS  APPLY  OPENJSON (d.AdditionalData) AS adata
+
+INNER JOIN tbScanItemTemplate AS s ON s.ScanItemTemplateId = d.ScanItemTemplateId
+
+WHERE d.DiscoverySourceId =  32
+
+GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
 
   
 
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
-
-- Click **Create Scan Template**
-
-- Fill out the required fields with the information
-
--  **Name:** (Example: ServiceNow Tenant)
-
--  **Active:** (Checked)
-
--  **Scan Type:** Host
-
--  **Parent Scan Template:** Host Range
-
--  **Fields**
-
-- Change HostRange to **tenant-url**
-
+```
 - Click Save
 
-- This completes the creation of the Saas Scan Template Creation
-
-  
-
-### Create Account Scan Template
-
-  
-
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
-
-- Click **Create Scan Template**
-
-- Fill out the required fields with the information
-
--  **Name:** (Example: ServiceNow Account)
-
--  **Active:** (Checked)
-
--  **Scan Type:** Account
-
--  **Parent Scan Template:** Account(Basic)
-
--  **Fields**
-
-- Change Resource to **tenant-url**
-
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
-
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
-
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
-
-- Click Save
-
-- This completes the creation of the Account Scan Template Creation
-
-### Create Discovery Script
-
-  
-
-- Log in to Secret Server Tenant
-
-- Navigate to**ADMIN** > **Scripts**
-
-- Click on **Create Script**
-
-- Fill out the required fields with the information from the application registration
-
-- Name: ( example -ServiceNow Local Account Scaner)
-
-- Description: (Enter something meaningful to your Organization)
-
-- Active: (Checked)
-
-- Script Type: Powershell
-
-- Category: Discovery Scanner
-
-- Merge Fields: Leave Blank
-
-- Script: Copy and paste the Script included in the file [Service Account Loacl Account Discoverey.ps2](./ServiceNow%20Locaal%20Account%20Discovery.ps1)
-
-- Click Save
-
-- This completes the creation of the Local Account Discovery Script
-
-  
-
-### Create Saas Tenant Scanner
-
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
-
-- Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
-
-- Click **Create Scanner**
-
-- Fill out the required fields with the information
-
--  **Name:** > ServiceNow Tenant Scanner
-
--  **Description:** (Example - Base scanner used to discover ServiceNow applications)
-
--  **Discovery Type:** Host
-
--  **Base Scanner:** Host
-
--  **Input Template**: Manual Input Discovery
-
--  **Output Template:**: ServiceNow Tenant (Use Temaplte that Was Created in the [SaaS Scan Template Section](#create-saas-scan-template))
-
-- Click Save
-
-- This completes the creation of the Saas Tenant Scanner
-
-  
-
-### Create ServiceNow Account Scanner
-
-  
-
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
-
-- Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
-
-- Click **Create Scanner**
-
-- Fill out the required fields with the information
-
--  **Name:** (Example - ServiceNow Local Account Scanner)
-
--  **Description:** (Example - Discovers ServiceNow local accounts according to configured privileged account template )
-
--  **Discovery Type:** Account
-
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
-
--  **Input Template**: Saas Tenant (Use Template that Was Created in the [ServiceNow Scan Template Section](#create-saas-scan-template))
-
--  **Output Template:**: ServiceNow Account (Use Temaplte that Was Created in the [Create Account Scan Template Section](#create-account-scan-template))
-
--  **Script:** ServiceNow Local Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
-
--  **Script Arguments: **Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$sac-groupids $[1]$local-acct-grpids**
-
-- Click Save
-
-- This completes the creation of the ServiceNow Account Scanner
-
-  
-
-### Create Discovery Source
-
-  
-
-- Navigate to **Admin | Discovery | Configuration**
-
-- Click **Create** drop-down
-
-- Click **Empty Discovery Source**
-
--Enter the Values below
-
-- **Name:** (example: ServiceNow  Tenant)
-
-- **Site** (Select Site Where Discovery will run)
-
-- **Source Type** Empty
-
-- Click Save
-
-- Click Cancel on the Add Flow Screen
-
-- Click **Add Scanner**
-
-- Find the ServiceNow Tenant Scanner or the Scanner Created in the [Create ServiceNow Tenant Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
-
-- Select the Scanner just Ceated and Click **Edit Scanner**
-
-- In the **lines Parse Format** Section Enter the Source Name (example: ServiceNow Tenant)
-
-- Click **Save**
-
-  
-
-- Click **Add Scanner**
-
-- Find the ServiceNow Local Account Scanner or the Scanner Created in the [Create ServiceNow Account Scanner Section](#create-servicenow-account-scanner) and Click **Add Scanner**
-
-- Select the Scanner just Ceated and Click **Edit Scanner**
-
-- Click **Edit Scanner**
-
-- Click the **Add Secret** Link
-
-- Search for the Privoleged Account Secret created in the [Instructions.md file](../Overview.md)
-
-- Check the Use Site Run As Secret Check box to enable it
-
-**Note Default Site run as Secret has to be setup in the Site configuration.
-
-See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
-
-- Click Save
-
-- Click on the Discovery Source yab and Click the Active check box
-
-- This completes the creation of theDiscovery Source
-
-  
-  
+You will now find this report under the section you chose in the Category field.
 
 ### Next Steps
 
-  
+ The ServiceNow configuration is now complete.  The next step is to run a manual discovery scan.
 
-The ServiceNow configuration is now complete. The next step is to run a manual discovery scan.
+- Navigate to  **Admin | Discovery**
 
-- Navigate to **Admin | Discovery**
+- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Now**
 
-- Click the **Run Discovery Noe** (Dropdown) and select **Run Discovery Now**
+- Click on the **Network view** tab 
 
-- Click on the **Network view** tab
-
-- Find on the newly created discovery source and Accounts
+- You should now see the discovered Accounts.  Use the filer option to find the Accounts easier

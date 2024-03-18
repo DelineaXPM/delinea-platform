@@ -13,9 +13,9 @@ This scanner will scan AWS for administrative accounts.
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
 - Click **Create Scan Template**
 
@@ -29,23 +29,15 @@ This scanner will scan AWS for administrative accounts.
 
 -  **Parent Scan Template:** Host Range
 
--  **Fields**
-
-- Change HostRange to **tenant-url**
+-  **Fields** Change HostRange to **tenant-url**
 
 - Click Save
 
-- This completes the creation of the SaaS Scan Template Creation
-
-  
-
 ### Create Account Scan Template
 
-  
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
+- Navigate to **Admin** > **Discovery** > **Configuration** > **Scanner Definition** > **Scan Templates**
 
 - Click **Create Scan Template**
 
@@ -61,23 +53,19 @@ This scanner will scan AWS for administrative accounts.
 
 -  **Fields**
 
-- Change Resource to **tenant-url**
+	- Change Resource to **tenant-url**
 
-- Add field: Admin-Account (Leave Parent and Include in Match Blank)
+	- Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Service-Account (Leave Parent and Include in Match Blank)
+	- Add field: Service-Account (Leave Parent and Include in Match Blank)
 
-- Add field: Local-Account (Leave Parent and Include in Match Blank)
+	- Add field: Local-Account (Leave Parent and Include in Match Blank)
 
 - Click Save
 
-- This completes the creation of the Account Scan Template Creation
-
 ### Create Discovery Script
 
-  
-
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
 - Navigate to**ADMIN** > **Scripts**
 
@@ -85,104 +73,86 @@ This scanner will scan AWS for administrative accounts.
 
 - Fill out the required fields with the information from the application registration
 
-- Name: ( example -AWS IAM User Scanner)
+	- **Name:** (example: -AWS IAM User Scanner)
 
-- Description: (Enter something meaningful to your Organization)
+	- **Description:** (Enter something meaningful to your Organization)
 
-- Active: (Checked)
+	- **Active:** (Checked)
 
-- Script Type: PowerShell
+	- **Script Type:** PowerShell
 
-- Category: Discovery Scanner
+	- **Category:** Discovery Scanner
 
-- Merge Fields: Leave Blank
+	- **Merge Fields:** Leave Blank
 
-- Script: Copy and paste the Script included in the file [AWS IAM User Discovery.ps1](./AWS%20IAM%20User%20Discovery.ps1)
+	- **Script:** Copy and paste the Script included in the file [AWS IAM User Discovery.ps1](./AWS%20IAM%20User%20Discovery.ps1)
 
 - Click Save
 
-- This completes the creation of the Local Account Discovery Script
-
-  
 
 ### Create AWS Tenant Scanner
 
-  
-  
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** >
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
 - Click **Create Scanner**
 
-- Fill out the required fields with the information
+- Fill out the required fields:
 
--  **Name:** > AWS Tenant Scanner
+	- **Name:** > AWS Tenant Scanner
 
--  **Description:** (Example - Base scanner used to discover SaaS applications)
+	- **Description:** (Example - Base scanner used to discover AWS Tenant)
 
--  **Discovery Type:** Host
+	- **Discovery Type:** Host
 
--  **Base Scanner:** Host
+	- **Base Scanner:** Host
 
--  **Input Template**: Manual Input Discovery
+	- **Input Template:** Manual Input Discovery
 
--  **Output Template:**: AWS Tenant (Use the Template that Was created in the [SaaS Scan Template Section](#create-aws-tenant-scan-template
+	- **Output Template:** AWS Tenant (Use the Template that Was created in the [AWS Tenant Scan Template Section](#create-aws-tenant-scan-template)
 
 - Click Save
-
-- This completes the creation of the AWS Tenant Scanner
-
-  
 
 ### Create AWS IAM User Scanner
 
-  
+- Log in to Secret Server Tenant (If you have not already done so) 
 
-- Log in to Secret Server Tenant
-
-- Navigate to **ADMIN** > **Discovery** > **Configuration** >
+- Navigate to **Admin** > **Discovery** > **Configuration** >
 
 - Click **Discovery Configuration Options** > **Scanner Definitions** > **Scanners**
 
 - Click **Create Scanner**
 
-- Fill out the required fields with the information
+- Fill out the required fields:
 
--  **Name:** (Example - AWS IAM User Scanner)
+	- **Name:** (Example: AWS IAM User Scanner)
 
--  **Description:** (Example - Discovers AWS IAM Users according to configured privileged account template )
+	- **Description:** (Example - Discovers AWS IAM Users according to configured privileged account template )
 
--  **Discovery Type:** Account
+	- **Discovery Type:** Account
 
--  **Base Scanner:** PowerShell Discovery Create Discovery Script
+	- **Base Scanner:** PowerShell Discovery
 
--  **Input Template**: AWS Tenant (Use the Template that Was Created in the [AWS Tenant Scan Template Section](#create-aws-tenant-scan-template))
+	- **Input Template:** AWS Tenant (Use the Template that Was Created in the [AWS Tenant Scan Template Section](#create-aws-tenant-scan-template))
 
--  **Output Template:**: AWS IAM User (Use the Template that Was Created in the [AWS IAM User Scan Template Section](#create-account-scan-template))
+	- **Output Template:**: AWS IAM User (Use the Template that Was Created in the [AWS IAM User Scan Template Section](#create-account-scan-template))
 
--  **Script:** AWS Local Account Scanner (Use the Script Created in the [Create Discovery Script Section](#create-discovery-script))
+	- **Script:** AWS Local Account Scanner (Use the Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
--  **Script Arguments:**
+	- **Script Arguments:**
 
-``` PowerShell
+	``` PowerShell
 
-"IAMUser-Advanced" $[1]$AccessKey $[1]$SecretKey $[1]$Admin-Criteria $[1]$SVC-Account-Criteria
+	"IAMUser-Advanced" $[1]$AccessKey $[1]$SecretKey $[1]$Admin-Criteria $[1]$SVC-Account-Criteria
 
-```
+	```
 
 - Click Save
 
-- This completes the creation of the AWS Account Scanner
-
-  
-
 ### Create Discovery Source
-
-  
 
 - Navigate to **Admin | Discovery | Configuration**
 
@@ -234,66 +204,38 @@ See the [Setting the Default PowerShell Credential for a Site](https://docs.deli
 
 - Click Save
 
-- Click on the Discovery Source tab and Click the Active check box
+- Click on the Discovery Source tab and click the Active check box
 
-- This completes the creation of the discovery Source
-
-  
-  
-
-### Next Steps
-
-  
-
-The AWS configuration is now complete. The next step is to run a manual discovery scan.
-
-- Navigate to **Admin | Discovery**
-
-- Click the **Run Discovery Now** (Dropdown) and select **Run Discovery Scan**
-
-- Click on **Network view**
-
-- Find the newly created discovery source and Users
-
+- Click Save  
   
 
 ## Optional Report
 
-  
+In this section, there are instructions on creating an optional report to display user information found in the discovery.
 
-In this section, There are instructions on creating an optional report to display user information found in the discovery.
 
-  
-
-- Login to Secret Server Tenant (If you have not already done so)
-
+- Login to Secret Server Tenant (if you have not already done so)
 - Navigate to the Reports module
-- click on the New Report Button
+- Click on the New Report Button
 - Fill in the following values:
-	- Name: The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
-	- Description: (Enter something meaningful to your organization)
-	- Category: Select the Section where you would like the report to appear (ex. Discovery Scan)
-	- Report SQL: Copy and Paste the SQL Query  below
-		***Note** " You must replace the WHERE d.DiscoverySourceId =  32 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL 
-   
+  - **Name:** The name of the Discovery Source you just Created in the [Create Discovery Source ](#create-discovery-source) Section
+  - **Description:** (Enter something meaningful to your organization)
+  - **Category:** Select the Section where you would like the report to appear (ex. Discovery Scan)
+  - **Report SQL:** Copy and Paste the SQL Query below
+  
+***Note** " You must replace the WHERE d.DiscoverySourceId = 32 value with the Discovery Source ID of the Discovery source you are reporting on. You can find this by opening up the Discovery source and finding the ID in the URL
+
+
 
 ``` SQL
-
 SELECT
-
 d.[ComputerAccountId]
-
 ,d.[CreatedDate]
-
 ,d.[AccountName] AS [Username]
-
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
-
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin]
-
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
-
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Acount]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [tenant-url]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin Account]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Service-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Service Account]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Local-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Local Account]
 
 FROM tbComputerAccount AS d
 
@@ -304,10 +246,15 @@ INNER JOIN tbScanItemTemplate AS s ON s.ScanItemTemplateId = d.ScanItemTemplateI
 WHERE d.DiscoverySourceId =  32
 
 GROUP BY d.ComputerAccountId, d.AccountName, d.CreatedDate
+```
+
+- Click Save
+ 
+You will now find this report under the section you chose in the Category field.
+
+
+### Next Steps
 
   
 
-```
-- Click Save
-
-You will now find this report under the section you chose in the Category field.
+The AWS  configuration is now complete. The next step is to run a manual discovery scan and view your discovered accounts in the **Admin | Discovery | Network View ** Panel
