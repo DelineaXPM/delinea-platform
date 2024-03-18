@@ -2,11 +2,11 @@
 
   
 
-The steps below show how to Set up and configure a ServiceNow Remote Password Changer, in Delinea Secret Server server.
+The steps below show how to Set up and configure a ServiceNow Remote Password Changer, in Delinea Secret Server.
 
   
 
-If you have not already done, so, please follow the steps in the **instructions.md Document** found [Here](..//Instructions.md)
+If you have not already done, so, please follow the steps in the **Instructions Document** found [here](..//Instructions.md)
 
   
 
@@ -18,73 +18,67 @@ If you have not already done, so, please follow the steps in the **instructions.
 
   
 
-- Log in to Secret Server Tenant
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Scripts**
+- Navigate to **Admin** > **Scripts**
 
 - Click on **Create Script**
 
 - Fill out the required fields
 
--  **Name**: ( example ServiceNow Remote Password Changer)
+    - **Name:** ( example: ServiceNow Remote Password Changer)
 
--  **Description**: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
--  **Active** (Checked)
+    - **Active:** (Checked)
 
--  **Script Type**: Powershell
+    - **Script Type:** Powershell
 
--  **Category**: Password Changing
+    - **Category:** Password Changing
 
--  **Merge Fields**: Leave Blank
+    - **Merge Fields:** Leave Blank
 
--  **Script**: Copy and paste the Script included in the file [ServiceNow Remote Password Changer.ps1](./ServiceNow%20Remote%20Password%20Changer.ps1)
+    - **Script**: Copy and paste the Script included in the file [ServiceNow Remote Password Changer](./ServiceNow%20Remote%20Password%20Changer.ps1)
 
 - Click Save
 
-- This completes the creation of the Remote Password Changing Script
-
-  
 
 ### Heartbeat Script
 
-  
 
-- Log in to Secret Server Tenant
 
-- Navigate to **ADMIN** > **Scripts**
+- Log in to Secret Server Tenant (If you have not already done so)
+
+- Navigate to **Admin** > **Scripts**
 
 - Click on **Create Script**
 
-- Fill out the required fields
+- Fill out the required fields:
 
--  **Name**: ( example ServiceNow Heartbeat)
+    - **Name:** ( example: ServiceNow Heartbeat)
 
--  **Description**: (Enter something meaningful to your Organization)
+    - **Description:** (Enter something meaningful to your Organization)
 
--  **Active** (Checked)
+    - **Active:** (Checked)
 
--  **Script Type**: Powershell
+    - **Script Type:** Powershell
 
--  **Category**: Heartbeat
+    - **Category::** Heartbeat
 
--  **Merge Fields**: Leave Blank
+    - **Merge Fields:** Leave Blank
 
--  **Script**: Copy and paste the Script included in the file [ServiceNow Heartbeat.ps1](./ServiceNow%20Heartbeat.ps1)
+    - **Script:** Copy and paste the Script included in the file [ServiceNow Heartbeat](./ServiceNow%20Heartbeat.ps1)
 
 - Click Save
 
-- This completes the creation of the ServiceNow Heartbeat Script
-
-  
 
 ## Create Password Changer
 
   
 
-- Log in to Secret Server Tenant (if not already logged in)
+- Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to **ADMIN** > **Remote Password Changing**
+- Navigate to **Admin** > **Remote Password Changing**
 
 - Click on Options (dropdown List) and select ***Configure Password Changers**
 
@@ -98,23 +92,27 @@ If you have not already done, so, please follow the steps in the **instructions.
 
 - Under the **Verify Password Changed Commands** section, Enter the following information:
 
--  **PowerShell Script** (DropdownList) Select PowerShell Script or the Script that was Creted in the [Heartbeat](#heartbeat-script) Section
+-  **PowerShell Script** (DropdownList) Select ServiceNow Heartbeat or the Script that was Created in the [Heartbeat](#heartbeat-script) Section
 
--  **Script Args**: $tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $username $password
-
+-  **Script Args**:
+    ``` powershell
+    $tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $username $password
+    ```
 - Click **Save**
-
   
-
 - Under the **Password Change Commands** Section, Enter the following information:
 
--  **PowerShell Script** (DropdownList) Select PowerShell Script or the Script that was Creted in the [remote-password-changer-script](#remote-password-changer-script) Section
+-  **PowerShell Script** (DropdownList) Select ServiceNow Remote Password Changer or the Script that was Created in the [remote password changer script](#remote-password-changer-script) Section
 
--  **Script Args**: $tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $username $newpassword
+-  **Script Args**: 
+
+    ``` powershell
+    $tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $username $newpassword
+    ```
 
 - Click **Save**
 
-- This completes the creationof the RemotePassword Changer
+- This completes the creation of the RemotePassword Changer
 
   
 
@@ -154,38 +152,33 @@ If you have not already done, so, please follow the steps in the **instructions.
 
 - Click Save
 
-- This conpletes the Update ServiceNow User template section
-
-  
 
 ## Update Remote Password Changer
-
   
-
 - Log in to Secret Server Tenant (if not already logged in)
 
-- Navigate to **ADMIN** > **Remote Password Changing**
+- Navigate to **Admin** > **Remote Password Changing**
 
 - Click on Options (dropdown List) and select ***Configure Password Changers**
 
-- Select the ServiceNow Remote Password Changer or the Password Changer created in the [create-password-change](#create-password-changer) section
+- Select the ServiceNow Remote Password Changer or the Password Changer created in the [Create Password Changer](#create-password-changer) section
 
 - Click **Configure Scan Template at the bottom of the pasge**
 
 - Click Edit
 
-- Click the **Scan Template to use** (Dropdown List) Select the ServiceNow User template created in the [instructions.md Document](../Instructions.md)
+- Click the **Scan Template to use** (Dropdown List) Select the ServiceNow User template created in the [Instructions Document](../Instructions.md)
 
 - Map the following fields that appear after the selection
 
--  **tenant-url** -> Domain
+    - **tenant-url** -> Domain
 
-- **Username -> username
+    - **Username -> username
 
--  **Password** -> password
+    - **Password** -> password
 
 - Leave all other fields blank
 
 - Click Save
 
-- This conpletes the Update Remote Password Changer section
+This completes the creation of the Remote Password Changer
