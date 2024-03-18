@@ -1,6 +1,6 @@
 # PagerDuty Delinea Secret Server Integration
 
-This package is designed to discover and manage Adobe Acrobat Sign Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the overview.md document which can be found [Here](./Instructions.md)
+This package is designed to discover and manage PagerDuty Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions document which can be found [here](./Instructions.md)
 
 # Disclaimer
 
