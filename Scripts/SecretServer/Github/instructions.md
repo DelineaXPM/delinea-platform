@@ -95,13 +95,11 @@ The following steps are required to create the Secret Template for Github Users:
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Github User Account Template.xml File](./Templates/Github%20User%20Account%20Template.xml).
+- Copy and Paste the XML in the [Github User Account Template File](./Templates/Github%20User%20Account%20Template.xml).
 
 - Click on Save
 
-- This completes the creation of the User Account template
-
-  
+ 
 
 ### Github Integration Key Template
 
@@ -119,14 +117,9 @@ The following steps are required to create the Secret Template for Github Integr
 
 - Click on Import.
 
-- Copy and Paste the XML in the [Github Integration Key Template.xml File](./Templates/Github%20Integration%20Key%20Template.xml).
+- Copy and Paste the XML in the [Github Integration Key Template File](./Templates/Github%20Integration%20Key%20Template.xml).
 
 - Click on Save
-
-- This completes the creation of the Integration Key template
-
-  
-  
 
 ## Create secret in Secret Server for the Github Integration Key
 
@@ -136,33 +129,23 @@ The following steps are required to create the Secret Template for Github Integr
 
 - Click on Create Secret
 
-- Select the template created in the earlier step [Above](#github-integration-key-template).
+- Select the template created in the earlier step [above](#github-integration-key-template).
 
-- Fill out the required fields with the information from the application registration
+- Fill out the required fields with the information from the application registration:
 
-- Secret Name (for example Github Integration Key )
+	- **Secret Name:** (for example Github Integration Key )
 
-- Organization: Name if the Github Organization (i.e. https://github.com/MyOrg would be MyOrg)
+	- **Organization:** Name if the Github Organization (i.e. https://github.com/MyOrg would be MyOrg)
 
-- The following field values are as created in the [Create Personal Access Token](#create-a-personal-access-token) Section
-
-- Access Token
--  Search Mode  
-	- Advanced - Return Admin and Service Accounts flag
-	- Return basic information for Local Accounts
-- Service Account Teams.  - Comma Separated list of Teams that are considered Service Accounts
+	- **Access Token:** (created in the task [above](#create-a-personal-access-token))
+	
+	-  Search Mode  
+		- Advanced - Return Admin and Service Accounts flag
+		- Basic - Return basic information for Local Accounts
+	
+	- **Service Account Teams:**  (Comma Separated list of Teams that are considered Service)Accounts)
 
 - Click Create Secret
 
-- For additional information regarding which admin and service account roles are supported, refer to the table and examples below.
-
-- This completes the creation of a secret in Secret Server for the Github integration Key
-
-  
-  
-
-## Next Steps
-
-  
 
 Once the tasks above are completed you can now proceed to create a [Discovery Scanner](./Discovery/readme.md).
