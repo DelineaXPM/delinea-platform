@@ -19,7 +19,7 @@
 
 #region define variables
 
-##Define Argument Variables
+#Define Argument Variables
 
 [string]$AccessToken = $args[0]
 [string]$Organization = $args[1]
@@ -33,7 +33,7 @@ $global:adminUsers = @()
 
 #Script Constants
 
-[int32]$LogLevel = 3
+[int32]$LogLevel = 2
 [string]$logApplicationHeader = "Github Discovery"
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\GithubDiscovery.log"
 
@@ -237,7 +237,7 @@ function Get-AllGitHubUsersInOrg{
     $result = $UserNodeList | Where-Object {$_.organizationVerifiedDomainEmails -ne $null}
   return $result
 }
-######
+
 #endregion
 
 #region Main Process

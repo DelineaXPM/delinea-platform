@@ -1,11 +1,12 @@
 # AWS Delinea Secret Server Integration
 
-This package is designed to discover and manage AWS User Accounts.  It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [here](./Instructions.md).
+This package is designed to discover and manage AWS IAM User Accounts.  It will provide detailed instructions and the necessary scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the instructions.md document which can be found [here](./Instructions.md).
 
 ## Connector Functions
 
-- IAM User Discovery
-- IAM User Password Changing (Heartbeat is not Available)
+- AWS IAM User Discovery
+- AWS IAM User Password Changing
+- AWS IAM Heartbeat
 
 # Disclaimer
 
