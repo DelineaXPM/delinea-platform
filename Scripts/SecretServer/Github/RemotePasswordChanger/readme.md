@@ -151,13 +151,13 @@ The steps below show how to Set up and configure a Github Remote Password Change
 
 ## Update Remote Password Changer
 
-- Log in to Secret Server Tenant (if not alreday logged in)
+- Log in to Secret Server Tenant (if not already logged in)
 
 - Navigate to **ADMIN** > **Remote Password Changing**
 
 - Click on Options (Dropdown List) and select **Configure Password Changers**
 
-- Select the Slack Remote Password Changer or the Password Changer created in the [create-password-changer](#create-password-changer) section
+- Select the GitHub Remote Password Changer or the Password Changer created in the [create-password-changer](#create-password-changer) section
 
 - Click **Configure Scan Template at the bottom of the page**
 

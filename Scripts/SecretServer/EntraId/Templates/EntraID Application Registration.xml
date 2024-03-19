@@ -43,7 +43,7 @@
     </field>
     <field isexpirationfield="false">
       <displayname>Client-Secret</displayname>
-      <description>Client Secret for The ServiceNow API Application</description>
+      <description>Client Secret for The Azure/EntraID API Application</description>
       <name>Client-Secret</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
