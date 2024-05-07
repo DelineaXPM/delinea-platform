@@ -17,7 +17,9 @@ This document provides the details for configuring a dependency changer to synch
 # Setup SS_Rapid7_Integration
 1.	Extract downloaded SS_Rapid7_Integration package on the machine where Distributed Engine is installed. (Delinea.SS.InsightVM.exe and appsettings.json)
 2.	Open appsetting.json file and change the following flag values if required.
+
     a.	SkipSSLVerification flag – By default, a valid SSL certificate is required on the Rapid7 and Secret Server sides. We can bypass this verification by setting the flag value to True, but it poses a security risk.
+    
     b.	IsLoggingEnabled flag -  By default, logging is enabled and it stores logs into the text file at the location where the Delinea.SS.InsightVM.exe is placed on the DE machine. We can disable logging by setting this flag's value to false.
 
 - **Note**: When executing SS_Rapid7 integration through secret dependency changer, no need to enter secret server details into the appSettings.json file like SS_BaseUrl, SS_Domain, SS_FolderPath, InsightVM_API_User_SecretId.
