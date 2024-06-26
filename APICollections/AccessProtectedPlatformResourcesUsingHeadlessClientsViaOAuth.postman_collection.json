@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "30857874-7bcf-4c0b-9b51-8f94d8f1d719",
+		"name": "Access Protected Platform Resources using Headless Clients via OAuth",
+		"description": "This Postman collection is designed to help you access protected platform resources using headless clients via OAuth 2.0. It demonstrates the process of obtaining an access token and using it to make authorized API requests to a platform.\n\n**Collection Structure**\n\n- Obtain Access Token\n    \n- Refresh Access Token\n    \n- Access Protected Resource\n    \n\n**Collection Variables**\n\nThis collection uses variables, which need to be updated.\n\n- `TenantURL` (text): corresponds to your platform tenant url\n    \n- `client_secret_headless` (text): The client secret associated with the client ID.\n    \n- `client_id_headless` (text): The unique identifier for the client.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30443410"
+	},
+	"item": [
+		{
+			"name": "Retrieve an Access Token using the client_credentials Grant Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Get the Response Body as JSON ",
+							"var jsonData = pm.response.json();",
+							"",
+							"// Set the Collection variables for the access and refresh token ",
+							"pm.collectionVariables.set(\"serviceUserAccessToken\", jsonData.access_token);",
+							"pm.collectionVariables.set(\"serviceUserRefreshToken\", jsonData.refresh_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_secret",
+							"value": "{{client_secret_headless}}",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id_headless}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "xpmheadless",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{TenantURL}}/identity/api/oauth2/token/xpmplatform",
+					"protocol": "https",
+					"host": [
+						"{{TenantURL}}"
+					],
+					"path": [
+						"identity",
+						"api",
+						"oauth2",
+						"token",
+						"xpmplatform"
+					]
+				},
+				"description": "### Endpoint Description\n\nThis HTTP POST request is used to obtain an access token from the XPM platform's identity API using the provided client credentials.\n\n### Request Body\n\nThe request body should be of type x-www-form-urlencoded and include the following parameters:\n\n- `client_secret` (text): The client secret associated with the client ID.\n    \n- `client_id` (text): The unique identifier for the client.\n    \n- `grant_type` (text): The type of grant being requested.\n    \n- `scope` (text): The requested scope of the access request.\n    \n\n### Response\n\nUpon successful execution, the response will have a status code of 200 and a content type of application/json. The response body will include the following fields:\n\n- `access_token`: The obtained access token.\n    \n- `refresh_token`: The token used to obtain a new access token when the current one expires.\n    \n- `token_type`: The type of token obtained.\n    \n- `expires_in`: The duration in seconds for which the token is valid.\n    \n- `session_expires_in`: The duration in seconds for which the session is valid.\n    \n- `scope`: The scope of the access token.\n    \n\n### Constraints\n\nThere are no specific constraints or requirements for this request.\n\n### Headers\n\nNo specific headers are mentioned for this request."
+			},
+			"response": []
+		},
+		{
+			"name": "Exchange a Refresh Token for a new Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Access token is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.access_token).to.exist.and.to.be.a('string').and.to.have.length.above(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Refresh token is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.refresh_token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Refresh token should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Token type is a valid type\", function () {",
+							"  const responseData = pm.response.json();",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.token_type).to.exist.and.to.be.a('string').and.to.match(/bearer|Bearer/);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CENTRIFY-NATIVE-CLIENT",
+						"value": "true",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{serviceUserAccessToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "refresh_token",
+							"value": "{{serviceUserRefreshToken}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{TenantURL}}/identity/api/oauth2/token/xpmplatform",
+					"protocol": "https",
+					"host": [
+						"{{TenantURL}}"
+					],
+					"path": [
+						"identity",
+						"api",
+						"oauth2",
+						"token",
+						"xpmplatform"
+					]
+				},
+				"description": "### OAuth2 Token Endpoint\n\nThis endpoint allows the client to exchange a refresh token for an access token.\n\n#### Request Body Parameters\n\n- `refresh_token` (text) - The refresh token obtained from the initial authentication.\n    \n- `grant_type` (text) - The type of grant being requested.\n    \n\n#### Response\n\nThe response is in JSON format and follows the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"access_token\": {\n            \"type\": \"string\"\n        },\n        \"refresh_token\": {\n            \"type\": \"string\"\n        },\n        \"token_type\": {\n            \"type\": \"string\"\n        },\n        \"expires_in\": {\n            \"type\": \"integer\"\n        },\n        \"session_expires_in\": {\n            \"type\": \"integer\"\n        },\n        \"scope\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Querying Protected Platform Resources using an Access Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response content type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{serviceUserAccessToken}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://{{TenantURL}}/identity/entities/xpmusers?detail=true",
+					"protocol": "https",
+					"host": [
+						"{{TenantURL}}"
+					],
+					"path": [
+						"identity",
+						"entities",
+						"xpmusers"
+					],
+					"query": [
+						{
+							"key": "detail",
+							"value": "true"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "This endpoint makes an HTTP GET request to retrieve information about XPM users from the specified URL. The request includes a query parameter 'detail' set to 'true' to fetch detailed information.\n\n### Response\n\nThe response returns a status code of 200 and a JSON array with the schema for XPM user entities. Below is the JSON schema for the response:\n\n``` json\n{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"ServiceUser\": {\n        \"type\": \"boolean\"\n      },\n      \"Visibility\": {\n        \"type\": \"string\"\n      },\n      \"PlatformUserMembershipType\": {\n        \"type\": \"string\"\n      },\n      \"Type\": {\n        \"type\": \"string\"\n      },\n      \"DistinguishedName\": {\n        \"type\": \"string\"\n      },\n      \"DirectoryServiceUuid\": {\n        \"type\": \"string\"\n      },\n      \"DirectoryServiceName\": {\n        \"type\": \"string\"\n      },\n      \"DirectoryInstanceName\": {\n        \"type\": \"string\"\n      },\n      \"Uuid\": {\n        \"type\": \"string\"\n      },\n      \"Name\": {\n        \"type\": \"string\"\n      },\n      \"DisplayName\": {\n        \"type\": \"string\"\n      },\n      \"State\": {\n        \"type\": \"string\"\n      },\n      \"EffectiveGroups\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        }\n      },\n      \"Email\": {\n        \"type\": \"string\"\n      },\n      \"UpdateType\": {\n        \"type\": \"string\"\n      },\n      \"Stamp\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n\n ```"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TenantURL",
+			"value": "hostname.delinea.app",
+			"type": "string"
+		},
+		{
+			"key": "client_id_headless",
+			"value": "user@hostname",
+			"type": "string"
+		},
+		{
+			"key": "client_secret_headless",
+			"value": "user-secret",
+			"type": "string"
+		},
+		{
+			"key": "serviceUserAccessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "serviceUserRefreshToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
