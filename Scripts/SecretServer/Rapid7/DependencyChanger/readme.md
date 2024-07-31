@@ -5,7 +5,7 @@ This document provides the details for configuring a dependency changer to synch
 ## Prerequisites
 
 - Running Rapid7 InsightVM instance
-- Extracted [SS_Rapid7_Integration](replace_ss_rapid7_integration_package_url) package on the machine where Distributed Engine is installed. (Delinea.SS.InsightVM.exe and appsettings.json).
+- Extracted [SS_Rapid7_Integration](https://downloads.marketplace.delinea.com/integrations/Downloads/Rapid7/1.1.0/Rapid7SecretServer1.1.0.zip) package on the machine where Distributed Engine is installed. (ss_rapid7_integration\Delinea.SS.InsightVM.exe and ss_rapid7_integration\appsettings.json).
 - Install latest .Net Runtime on DE machine [Click Here](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-8.0.0-windows-x64-installer).
 
 # Setup in SecretServer
@@ -15,7 +15,7 @@ This document provides the details for configuring a dependency changer to synch
 4.  Following the creation of the shared credential in InsightVM the corresponding secret needs to be created in Secret Server under the same folder which we have created in 1st step.
 
 # Setup SS_Rapid7_Integration
-1.	Extract downloaded SS_Rapid7_Integration package on the machine where Distributed Engine is installed. (Delinea.SS.InsightVM.exe and appsettings.json)
+1.	Extract downloaded SS_Rapid7_Integration package on the machine where Distributed Engine is installed. (ss_rapid7_integration\Delinea.SS.InsightVM.exe and ss_rapid7_integration\appsettings.json)
 2.	Open appsetting.json file and change the following flag values if required.
 
     a.	SkipSSLVerification flag – By default, a valid SSL certificate is required on the Rapid7 and Secret Server sides. We can bypass this verification by setting the flag value to True, but it poses a security risk.
