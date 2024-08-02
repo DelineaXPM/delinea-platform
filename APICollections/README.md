@@ -17,6 +17,7 @@ This repository provides a comprehensive set of Postman requests demonstrating h
 ## Requirements
 
 - [Postman](https://www.postman.com/downloads/) installed on your computer.
+- A service user account in the Delinea Platform can be created under Access > Users. Assign the user to the appropriate group/role to grant only the necessary permissions for its headless use case. This account will be used for `client_id_headless` and `client_secret_headless`.
 
 ## Installation
 
