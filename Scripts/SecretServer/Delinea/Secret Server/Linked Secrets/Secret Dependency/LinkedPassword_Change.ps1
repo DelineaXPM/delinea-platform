@@ -1,5 +1,5 @@
-#this is a REST based replacement for the SOAP script at the bottom of 
-#https://docs.delinea.com/secrets/current/remote-password-changing/sync-passwords-during-rpc/index.md
+# This is a REST based replacement for the SOAP script at the bottom of 
+# https://docs.delinea.com/online-help/secret-server/rpc-heartbeat/rpc/rpc-shared-secrets/index.htm
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
