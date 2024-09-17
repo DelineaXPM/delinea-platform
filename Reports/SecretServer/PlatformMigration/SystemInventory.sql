@@ -1,7 +1,7 @@
 SELECT 'Secret Server Address' AS [Item], CAST(c.CustomURL AS NVARCHAR(255)) AS [Value], '' AS [Comment]
 FROM tbConfiguration c
 UNION ALL
-SELECT 'Report Version', '1.1.20240709', ''
+SELECT 'Report Version', '1.2.20240917', '' -- Update the minor version to reflect the date of update
 UNION ALL
 SELECT 'Secret Server Version', CAST(v.VersionNumber AS NVARCHAR(50)), '' 
 FROM (
