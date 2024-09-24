@@ -1,6 +1,6 @@
 SELECT 'EasyMove Status' AS [Item], '' AS [Value], '' AS [Comment]
 
-UNION ALL
+UNION ALL 
 
 SELECT 
     '--> EasyMove Ready' AS [Item],
