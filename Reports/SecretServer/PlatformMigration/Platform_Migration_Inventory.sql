@@ -43,12 +43,14 @@ UNION ALL
 SELECT '--> Size' AS [Item], 
     CASE 
 
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 500 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 1000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Small'
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 501 AND 5000 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 1001 AND 14000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 5000 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 140001 AND 50000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 500001
+            AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Custom'
 
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 5000 THEN 'Large'
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 501 AND 5000 THEN 'Medium'
