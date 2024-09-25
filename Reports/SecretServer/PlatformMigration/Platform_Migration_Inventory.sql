@@ -1,3 +1,7 @@
+SELECT 'Report Version' AS [Item], '1.3.20240925' AS [Value], '' AS [Comment]
+
+UNION ALL
+
 SELECT 'EasyMove Status' AS [Item], '' AS [Value], '' AS [Comment]
 
 UNION ALL
@@ -103,6 +107,10 @@ FROM (
 
 UNION ALL
 
+SELECT 'Report Version' AS [Item], '1.2.20240925' AS [Value], '' AS [Comment]
+
+
+UNION ALL
 
 SELECT '--> Number of Web Servers' AS [Item], CAST(COUNT(NodeId) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbNode n
