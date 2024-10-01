@@ -2,12 +2,12 @@ SELECT 'Report Version' AS [Item], '1.3.20240925' AS [Value], '' AS [Comment]
 
 UNION ALL
 
-SELECT 'Platform Integration Status' AS [Item], '' AS [Value], '' AS [Comment]
+SELECT 'Platform Adoption Status' AS [Item], '' AS [Value], '' AS [Comment]
 
 UNION ALL
 
 SELECT 
-    '--> Platform Integration Ready' AS [Item],
+    '--> Platform Adoption Ready' AS [Item],
     CASE 
         WHEN (SELECT COUNT(*) FROM tbTeam WHERE Active = 1) > 0 THEN 'No'
         WHEN (SELECT COUNT(*) FROM tbUser WHERE Enabled = 1 AND IsApplicationAccount = 1 AND DomainId IS NOT NULL) > 0 THEN 'No'
