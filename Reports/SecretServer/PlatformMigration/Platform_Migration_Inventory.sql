@@ -1,9 +1,13 @@
-SELECT 'EasyMove Status' AS [Item], '' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.3.20240925' AS [Value], '' AS [Comment]
+
+UNION ALL
+
+SELECT 'Platform Integration Status' AS [Item], '' AS [Value], '' AS [Comment]
 
 UNION ALL
 
 SELECT 
-    '--> EasyMove Ready' AS [Item],
+    '--> Platform Integration Ready' AS [Item],
     CASE 
         WHEN (SELECT COUNT(*) FROM tbTeam WHERE Active = 1) > 0 THEN 'No'
         WHEN (SELECT COUNT(*) FROM tbUser WHERE Enabled = 1 AND IsApplicationAccount = 1 AND DomainId IS NOT NULL) > 0 THEN 'No'
@@ -39,12 +43,14 @@ UNION ALL
 SELECT '--> Size' AS [Item], 
     CASE 
 
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 500 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 1000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Small'
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 501 AND 5000 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 1001 AND 14000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 5000 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 140001 AND 50000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 500001
+            AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Custom'
 
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 5000 THEN 'Large'
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 501 AND 5000 THEN 'Medium'
@@ -102,7 +108,6 @@ FROM (
 ) v
 
 UNION ALL
-
 
 SELECT '--> Number of Web Servers' AS [Item], CAST(COUNT(NodeId) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbNode n
@@ -230,18 +235,19 @@ UNION ALL
 
 SELECT '--> Total Numbers of Groups' AS [Item], CAST(COUNT(GroupId) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbGroup g
+WHERE g.Active = 1
 
 UNION ALL
 
 SELECT '-->   Active Directory Groups' AS [Item], CAST(COUNT(GroupId) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbGroup g
-WHERE g.DomainId IS NOT NULL
+WHERE g.DomainId IS NOT NULL AND g.Active = 1
 
 UNION ALL
 
 SELECT '-->   Local Groups' AS [Item], CAST(COUNT(GroupId) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbGroup g
-WHERE g.DomainId IS NULL
+WHERE g.DomainId IS NULL AND g.Active = 1
 
 UNION ALL
 
@@ -259,17 +265,14 @@ SELECT U.UserId
 
 UNION ALL
 
-SELECT '-->   Groups with custom ownership', cast(count([group id]) as NVARCHAR(50)), ''
-from (
-	select tg.groupid as [group ID]
-		,tg.groupName as [GroupName]
-		,og.groupid as [managed by group ID]
-		,og.GroupName as [Managed by Group Name] 
-	from tbGroupOwnerPermission gop
-		join tbgroup tg on tg.GroupID = gop.OwnedGroupId
-		join tbgroup og on og.GroupID = gop.GroupId
-	where tg.Active =1 and og.Active =1
-) as result
+SELECT '-->   Groups with custom ownership', 
+       CAST(COUNT(DISTINCT tg.groupid) AS NVARCHAR(50)) AS [Value], 
+       '' AS [Comment]
+FROM tbGroupOwnerPermission gop
+JOIN tbgroup tg ON tg.GroupID = gop.OwnedGroupId
+JOIN tbgroup og ON og.GroupID = gop.GroupId
+WHERE tg.Active = 1 
+AND og.Active = 1
 
 
 UNION ALL
@@ -580,7 +583,7 @@ UNION ALL
 SELECT '--> Secrets With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 JOIN tbFolder f ON s.FolderID = f.FolderID
-WHERE s.SecretName LIKE ' %' OR s.SecretName LIKE '% '
+WHERE s.SecretName LIKE ' %' OR s.SecretName LIKE '% ' AND s.Active = 1
 
 UNION ALL
 
