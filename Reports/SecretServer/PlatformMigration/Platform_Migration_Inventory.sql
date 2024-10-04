@@ -53,9 +53,9 @@ SELECT '--> Size' AS [Item],
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Small'
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 1001 AND 14000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 140001 AND 50000 
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 14001 AND 50000 
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
-        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 500001
+        WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 50001
             AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Custom'
 
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 5000 THEN 'Large'
