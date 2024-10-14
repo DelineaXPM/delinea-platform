@@ -4,6 +4,7 @@
 [string]$AccessToken = $args[1]
 [string]$adminrole = $args[2]
 [string]$svcacctrole = $args[3]
+[bool]$OnlyAdminAccount = $true #if set $true then only admin users will display. if set $false then all users will display
 
 if ($DiscoveryMode -notin "Default", "Advanced") { Throw "Invalid Discovery Mode" }
 
@@ -11,6 +12,9 @@ if ($DiscoveryMode -notin "Default", "Advanced") { Throw "Invalid Discovery Mode
 [string]$logApplicationHeader = "Slack-Discovery"
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\$LogApplicationHeader.log"
 [int32]$LogLevel = 3
+$rateLimit = 20 #as per official slack documentation 20 requests can be processed per min.
+$count = 0
+$usersPerPage = 5  #set value of numner of user per page as per needed. (noramlly 100-200 per users and max value is 1000 as per documentation)
 
 
 #region Error Handling Functions
@@ -40,8 +44,6 @@ function Write-Log {
 }
 #endregion Error Handling Functions
 
-
-
 #region Slack instance details
 #build headers and get user list
 try {
@@ -54,7 +56,7 @@ try {
     # Get All Active Users
     Write-Log -Errorlevel 0 -Message "Obtaining List of Users"    
     # Specify Slack endpoint uri for Users
-    $uri = "$api/users.list"
+    $uri = "$api/admin.users.list?limit=$usersPerPage"
 
     # Specify HTTP method
     $method = "get"
@@ -63,7 +65,28 @@ try {
     $AuthTest = Invoke-RestMethod "$api/auth.test" -Method $method -Headers $headers
 
     # Send HTTP request
-    $users = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri 
+    $users = Invoke-RestMethod -Headers $headers -Method $method -Uri $uri -UseBasicParsing
+
+
+    if (!([string]::IsNullOrEmpty($users.error))) {
+        Write-Log -ErrorLevel 0 -Message "Failed to retrieve User List due to error in response please check token and its validity"
+        throw "Failed to retrieve User List due to error in response"
+    }
+
+    $fin_req = $users
+    while (!([string]::IsNullOrEmpty($fin_req.response_metadata.next_cursor))) {
+        if ($count -ge $rateLimit) {
+            $count = 0
+            start-sleep -Seconds 30
+        }
+        $count++
+        $next_cursor = $fin_req.response_metadata.next_cursor
+        $uri = "$api/admin.users.list?limit=$usersPerPage&cursor=$next_cursor"
+        $fin_req = $(Invoke-RestMethod -Headers $headers -Method Get -Uri $uri -UseBasicParsing)
+        $users.users += $fin_req.users  
+    } 
+    $users.users.count
+    
 }
 
 catch {
@@ -86,7 +109,7 @@ function get-adminusers {
         foreach ($role in $adminrole.split(",")) {
             $filter = $role.split("=")[0]
             $switch = $role.split("=")[1]
-            if ($user.$filter -eq $switch) {
+            if (($user.$filter) -eq $switch) {
                 $isadmin = $true
                 break 
             }
@@ -112,7 +135,8 @@ function get-svcacctusers {
         foreach ($role in $svcacctrole.split(",")) {
             $filter = $role.split("=")[0]
             $switch = $role.split("=")[1]
-            if ($user.$filter -eq $switch) {
+
+            if (($user.$filter) -eq $switch) {
                 $issvcacct = $true
                 break 
             }
@@ -132,23 +156,44 @@ function get-svcacctusers {
 if ($DiscoveryMode -eq "Default") {
 
     $foundAccounts = @()
-    foreach ($user in $users.members) {
-        if ($user.team_id -eq $AuthTest.team_id) { $WorkspaceName = $AuthTest.team; $WorkspaceURL = $AuthTest.url }
-     
-        if ($user) { 
-            $object = New-Object -TypeName PSObject
-            $object | Add-Member -MemberType NoteProperty -Name Workspace-Name -Value $WorkspaceName
-            $object | Add-Member -MemberType NoteProperty -Name Workspace-URL -Value $WorkspaceURL
-            $object | Add-Member -MemberType NoteProperty -Name Username -Value $user.name
-            $object | Add-Member -MemberType NoteProperty -Name Global-UserId -Value $user.id
-            $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $user.is_admin
-            $object | Add-Member -MemberType NoteProperty -Name Workspace-Owner -Value $user.is_owner
-            $object | Add-Member -MemberType NoteProperty -Name Bot-User -Value $user.is_bot
-            $object | Add-Member -MemberType NoteProperty -Name App-User-Account -Value $user.is_app_user
-            $object | Add-Member -MemberType NoteProperty -Name Guest-Account -Value $user.is_restricted
-            $object | Add-Member -MemberType NoteProperty -Name Restricted-Guest-Account -Value $user.is_ultra_restricted
-             
-            $foundAccounts += $object
+    foreach ($user in $users.users) {
+        #if ($user.team_id -eq $AuthTest.team_id) { $WorkspaceName = $AuthTest.team; $WorkspaceURL = $AuthTest.url }
+        
+        if ($OnlyAdminAccount -eq $true) {
+            if (($user.is_admin) -eq $true) { 
+                $object = New-Object -TypeName PSObject
+                # $object | Add-Member -MemberType NoteProperty -Name Workspace-Name -Value $WorkspaceName
+                # $object | Add-Member -MemberType NoteProperty -Name Workspace-URL -Value $WorkspaceURL
+                $object | Add-Member -MemberType NoteProperty -Name Username -Value $user.username
+                $object | Add-Member -MemberType NoteProperty -Name Global-UserId -Value $user.id
+                $object | Add-Member -MemberType NoteProperty -Name Email -Value $user.email
+                $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $user.is_admin
+                $object | Add-Member -MemberType NoteProperty -Name Workspace-Owner -Value $user.is_owner
+                $object | Add-Member -MemberType NoteProperty -Name Primary-Workspace-Owner -Value $user.is_primary_owner
+                $object | Add-Member -MemberType NoteProperty -Name Bot-User -Value $user.is_bot
+                $object | Add-Member -MemberType NoteProperty -Name Guest-Account -Value $user.is_restricted
+                $object | Add-Member -MemberType NoteProperty -Name Restricted-Guest-Account -Value $user.is_ultra_restricted
+                
+                $foundAccounts += $object
+            }
+        }
+        if ($OnlyAdminAccount -eq $false) {
+            if ($user) { 
+                $object = New-Object -TypeName PSObject
+                # $object | Add-Member -MemberType NoteProperty -Name Workspace-Name -Value $WorkspaceName
+                # $object | Add-Member -MemberType NoteProperty -Name Workspace-URL -Value $WorkspaceURL
+                $object | Add-Member -MemberType NoteProperty -Name Username -Value $user.username
+                $object | Add-Member -MemberType NoteProperty -Name Global-UserId -Value $user.id
+                $object | Add-Member -MemberType NoteProperty -Name Email -Value $user.email
+                $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $user.is_admin
+                $object | Add-Member -MemberType NoteProperty -Name Workspace-Owner -Value $user.is_owner
+                $object | Add-Member -MemberType NoteProperty -Name Primary-Workspace-Owner -Value $user.is_primary_owner
+                $object | Add-Member -MemberType NoteProperty -Name Bot-User -Value $user.is_bot
+                $object | Add-Member -MemberType NoteProperty -Name Guest-Account -Value $user.is_restricted
+                $object | Add-Member -MemberType NoteProperty -Name Restricted-Guest-Account -Value $user.is_ultra_restricted
+                
+                $foundAccounts += $object
+            }
         }
     }
 }
@@ -156,21 +201,20 @@ if ($DiscoveryMode -eq "Default") {
 if ($DiscoveryMode -eq "Advanced") {     
 
     $foundAccounts = @()
-    foreach ($user in $users.members) {
+    foreach ($user in $users.users) {
         $isadmin = get-adminusers -user $user
         $issvcacct = get-svcacctusers -user $user
-        if ($user.team_id -eq $AuthTest.team_id) { $WorkspaceName = $AuthTest.team; $WorkspaceURL = $AuthTest.url }
+        #if ($user.team_id -eq $AuthTest.team_id) { $WorkspaceName = $AuthTest.team; $WorkspaceURL = $AuthTest.url }
 
         $object = New-Object -TypeName PSObject
-        $object | Add-Member -MemberType NoteProperty -Name Workspace-Name -Value $WorkspaceName
-        $object | Add-Member -MemberType NoteProperty -Name Workspace-URL -Value $WorkspaceURL
-        $object | Add-Member -MemberType NoteProperty -Name Username -Value $user.name
+        # $object | Add-Member -MemberType NoteProperty -Name Workspace-Name -Value $WorkspaceName
+        # $object | Add-Member -MemberType NoteProperty -Name Workspace-URL -Value $WorkspaceURL
+        $object | Add-Member -MemberType NoteProperty -Name Username -Value $user.username
         $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
         $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $issvcacct
         $object | Add-Member -MemberType NoteProperty -Name Local-Account -Value $true
 
-        $foundAccounts += $object
-    
+        $foundAccounts += $object    
     }
 }
 #endregion Main Process
