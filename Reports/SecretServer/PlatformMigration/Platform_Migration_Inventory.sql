@@ -204,6 +204,12 @@ WHERE u.LastLogin >= DATEADD(MONTH, -6, GETDATE())
 
 UNION ALL
 
+SELECT '--> Number of Automatically Disabled Users', CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], ''
+FROM tbUser
+WHERE DisabledByAutomaticADUserDisabling = 1
+
+UNION ALL
+
 SELECT '--> Total Number of Users', CAST(COUNT(UserId) AS NVARCHAR(50)), ''
 FROM tbUser u
 WHERE u.Enabled = 1
