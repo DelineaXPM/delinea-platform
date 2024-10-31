@@ -221,7 +221,7 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "https://{{TenantURL}}/identity/entities/xpmusers?detail=true",
+					"raw": "https://{{TenantURL}}/identity/api/entities/xpmusers?detail=true",
 					"protocol": "https",
 					"host": [
 						"{{TenantURL}}"
