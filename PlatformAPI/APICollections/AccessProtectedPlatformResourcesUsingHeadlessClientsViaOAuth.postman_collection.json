@@ -228,6 +228,7 @@
 					],
 					"path": [
 						"identity",
+						"api",
 						"entities",
 						"xpmusers"
 					],
