@@ -1,12 +1,17 @@
+
 #region define variables
 #Define Argument Variables
 try {
 
     [string]$DiscoveryMode = $args[0]
     [string]$baseURL = "https://" + $args[1]
-    [string]$accesstoken = $args[2]
-    [boolean]$federationEnabled = [System.Convert]::ToBoolean($args[3])
-    [string]$svcTeams = $args[4]    
+    [boolean]$federationEnabled = [System.Convert]::ToBoolean($args[2])
+    [string]$svcTeams = $args[3] 
+    [string]$client_id = $args[4]
+    [string]$client_secret = $args[5]
+    [string]$region = $args[6]  #if baseurl starts with app or www then region is us. if baseurl starts with eu then region will be eu.
+    [string]$companysubdomain = $args[7] #instance subdomain example "https://sachinju.pagerduty.com/" so subDomain will be sachinju
+    [string]$scope = $args[8] #Make sure these permissions matches as per set in application Example "users.read teams.read"  
 }
 catch {
     $Err = $_   
@@ -24,9 +29,63 @@ catch {
 [System.Collections.ArrayList]$adminAccounts = New-Object System.Collections.ArrayList
 [System.Collections.ArrayList]$global:serviceTeamUserList = New-Object System.Collections.ArrayList
 [System.Collections.ArrayList]$serviceTeamList = New-Object System.Collections.ArrayList
-[string] $tokenHeader = "Token token="
+[string] $tokenHeader = "bearer"
 [string]$pageSize = 100 #Max Size is 100
 #endregion
+
+
+#region get Oauth2 token
+ 
+ #Create Headers
+ function GetToken {
+    param(
+        [string] $cursor
+    )
+    try {
+   
+        $headers = @{
+        "Content-Type" = "application/x-www-form-urlencoded"    
+        }
+
+        #body parameters
+
+        $body = @{
+        "grant_type" = "client_credentials"
+        "client_id" = $client_id
+        "client_secret" = $client_secret
+        "scope" = "as_account-$region.$companysubdomain $scope"  #example = as_account-us.sachinju users.read
+        }
+     
+        # Get full URL from baseUris
+        $uri = "https://identity.pagerduty.com/oauth/token"
+        
+        # Get token
+
+       # Write-Log -Errorlevel 0 -Message "Requesting token form endpoint $uri"    
+    
+        # Specify HTTP method
+        $method = "post"
+    
+        # Send HTTP request
+        $tokenObj = Invoke-RestMethod -Uri $uri -Method $method -Headers $headers -Body $body
+
+        $token = $tokenObj.access_token
+    }
+    
+    catch {
+        $Err = $_    
+        Write-Log -ErrorLevel 0 -Message "Failed to retrieve token"
+        Write-Log -ErrorLevel 2 -Message $Err.Exception
+        throw $Err.Exception
+    }
+    return $token
+ }
+     
+ [string]$accesstoken = GetToken
+
+#endregion
+
+
 
 #region Error Handling Functions
 function Write-Log {
@@ -371,5 +430,3 @@ try {
 
 #endregion Main Process
 return $adminAccounts
-
-
