@@ -115,3 +115,4 @@ flowchart TD
 
 - Changes may take time to propagate in Azure and Delinea Platform.
 - Store the generated client secret securely; it is shown only once.
+- This script is provided as-is without any warranties. Please review and test the code in a controlled environment before deploying it in a production setting. Use it at your own risk.
