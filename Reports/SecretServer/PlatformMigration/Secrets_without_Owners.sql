@@ -22,5 +22,5 @@ ORDER BY s.SecretID ASC
 
 /*
 .PURPOSE
-Returns a list of active secrets with an assigned user or group owner. 
+Returns a list of active secrets without an owner. 
 */
