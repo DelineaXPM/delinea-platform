@@ -1,9 +1,9 @@
 SELECT
 	s.SecretId AS [SecretId]
-	,s.created AS [Created]
+	,st.SecretTypeName AS [Secret Template]
 	,s.secretname AS [Secret Name]
 	,ISNULL(f.FolderPath, 'No folder assigned') AS [Folder Path]
-
+	,s.created AS [Created]
 FROM   tbsecret s 
 
 LEFT JOIN tbfolder f ON s.folderid = f.folderid 
