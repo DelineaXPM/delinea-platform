@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.3.20241030' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.3.20250106' AS [Value], '' AS [Comment]
 
 UNION ALL
 
@@ -98,18 +98,22 @@ SELECT 'Core Configuration' AS [Item], '' AS [Value], '' AS [Comment]
 
 UNION ALL
 
-
 SELECT '--> Secret Server Address' AS [Item], CAST(c.CustomURL AS NVARCHAR(255)) AS [Value], '' AS [Comment]
 FROM tbConfiguration c
 
 UNION ALL
 
-
-SELECT '--> Secret Server Version' AS [Item], CAST(v.VersionNumber AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '--> Secret Server Version' AS [Item], 
+   CAST(v.VersionNumber AS NVARCHAR(50)) AS [Value], 
+   (SELECT CASE 
+       WHEN DATEADD(MONTH, -11, GETDATE()) > v.Upgraded THEN 'Last Upgrade > 11months'
+       WHEN v.VersionNumber < '11.6.000001' THEN 'Upgrade Required'
+       ELSE ''
+   END)  AS [Comment]
 FROM (
-    SELECT TOP 1 v.VersionNumber
-    FROM tbVersion v
-    ORDER BY v.Upgraded DESC, v.VersionNumber DESC
+   SELECT TOP 1 v.VersionNumber, v.Upgraded
+   FROM tbVersion v
+   ORDER BY v.Upgraded DESC, v.VersionNumber DESC
 ) v
 
 UNION ALL
@@ -605,7 +609,7 @@ WHERE f.FolderId NOT IN (
     SELECT gsp.FolderId
     FROM vGroupFolderPermissions gsp
     WHERE gsp.OwnerPermission = 1
-)
+) AND f.FolderName <> 'Personal Folders'
 
 UNION ALL
 
