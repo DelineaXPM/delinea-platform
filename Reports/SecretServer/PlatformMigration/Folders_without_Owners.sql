@@ -16,8 +16,3 @@ INNER JOIN tbuser u2 on ug2.UserID = u2.UserId
 WHERE gfp2.OwnerPermission = 1 AND u2.Enabled = 1))
 
 ORDER BY f.FolderID ASC
-
-/*
-.PURPOSE
-Identify folders without any assigned user or group owner. 
-*/
