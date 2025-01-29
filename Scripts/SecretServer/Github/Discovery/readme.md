@@ -122,7 +122,7 @@ This scanner can help perform an Scan for user accounts within a Github Organiza
 - Select the Scanner just Created and Click **Edit Scanner**
 - Click **Edit Scanner**
 - Click the **Add Secret** Link
-- Search for the Integration Key Secret created in the [Instructions file](../Instructions.md#create-secret-in-secret-server-for-the-github-integration-key)
+- Search for the Integration Key Secret created in the [Instructions file](../instructions.md#create-secret-in-secret-server-for-the-github-integration-key)
 - Check the Use Site Run As Secret Check box to enable it
     **Note Default Site run as Secret had to ne setup in the Site configuration.
     See the [Setting the Default PowerShell Credential for a Site](https://docs.delinea.com/online-help/secret-server/authentication/secret-based-credentials-for-scripts/index.htm?Highlight=site) Section in the Delinea Documentation
