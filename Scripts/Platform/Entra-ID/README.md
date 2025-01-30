@@ -34,15 +34,18 @@ This script automates creating and configuring an Azure/Entra ID App Registratio
 
 2. Before running the script, update the configuration variables in `config.py`
 
+⚠️ **Security Disclaimer**  
+
+We strongly recommend storing and referencing these credentials in a secure vault, such as Delinea Secret Server or Azure Key Vault, rather than hardcoding them in the `config.py` file. Hardcoding sensitive information poses a security risk and should be avoided, especially in production environments. The config.py file is not intended for PRODUCTION use!
+
 - PLATFORM_URL = "https://yourplatform.url"  # Your Platform tenant URL (e.g. https://your-hostname.delinea.app)
+- PLATFORM_CLIENT_ID = "your_client_id"  # Client ID for the Delinea platform (client credentials)
+- PLATFORM_CLIENT_SECRET = "your_client_secret"  # Client secret for the Delinea platform
 - APP_NAME = "YourAppName"  # Sets the name for the app registration and will apply to both Azure and Platform.
 - DOMAIN_NAMES = "yourdomain.com"  # Domain name for the registered app, separated by commas.
 - PLATFORM_SCOPE = "your_scope" # Specifies the scope for the Delinea platform
 - AZURE_TENANT_ID = "azure_tenant_id" # Specifies the tenant id in Azure
 
-**We recommend that you store these credentials in a Vault such as Secret Server or Azure Key Vault**
-- PLATFORM_CLIENT_ID = "your_client_id"  # Client ID for the Delinea platform (client credentials)
-- PLATFORM_CLIENT_SECRET = "your_client_secret"  # Client secret for the Delinea platform
     
 3. (Optional) For easy installation of the necessary third-party modules, you can then install the modules listed in `requirements.txt` using the following command:
 
@@ -117,4 +120,4 @@ flowchart TD
 
 - Changes may take time to propagate in Azure and Delinea Platform.
 - Store the generated client secret securely; it is shown only once.
-- This script is provided as-is without any warranties. Please review and test the code in a controlled environment before deploying it in a production setting. Use it at your own risk.
+- This script is provided as-is without any warranties. Please review and test the code in a controlled environment before deploying it in a production setting. **Use it at your own risk.**
