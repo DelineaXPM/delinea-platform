@@ -1,10 +1,10 @@
 # config.py
 
-# Main Variables - update these values as needed
+# Main Variables - Update these values as needed. We recommend storing and referencing credentials in a vault such as Secret Server or Azure Key Vault instead of referencing them statically in this file
 PLATFORM_URL = "https://yourplatform.url"  # Your Platform tenant URL (e.g. https://your-hostname.delinea.app)
-PLATFORM_CLIENT_ID = "your_client_id"  # Client ID for the Delinea platform (client credentials), We recommend that you store these credentials in a Vault such as Secret Server or Azure Key Vault
-PLATFORM_CLIENT_SECRET = "your_client_secret"  # Client secret for the Delinea platform, We recommend that you store these credentials in a Vault such as Secret Server or Azure Key Vault
-APP_NAME = "YourAppName"  # Sets the name for the app registration, will apply to both Azure and Platform.
+PLATFORM_CLIENT_ID = "your_client_id"  # Client ID for the Delinea platform (client credentials)
+PLATFORM_CLIENT_SECRET = "your_client_secret"  # Client secret for the Delinea platform
+APP_NAME = "YourAppName"  # Sets the name for the app registration and will apply to both Azure and Platform.
 DOMAIN_NAMES = "yourdomain.com"  # Domain name for the registered app, separated by commas.
 PLATFORM_SCOPE = "your_scope"  # Specifies the scope for the Delinea platform
 AZURE_TENANT_ID =  "azure_tenant_id" # Specifies the tenant id in Azure
