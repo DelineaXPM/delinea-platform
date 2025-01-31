@@ -54,6 +54,10 @@ pip install requests colorama
 
 Update the `config.py` file with your specific configuration details:
 
+⚠️ **Security Disclaimer**  
+
+We strongly recommend storing and referencing these credentials in a secure vault, such as Delinea Secret Server or Azure Key Vault, rather than hardcoding them in the `config.py` file. Hardcoding sensitive information poses a security risk and should be avoided, especially in production environments. The `config.py` file is not intended for PRODUCTION use!
+
 ```python
 # Configuration variables
 TOKEN_URL = "https://your-hostname.delinea.app/identity/api/oauth2/token/xpmplatform"
