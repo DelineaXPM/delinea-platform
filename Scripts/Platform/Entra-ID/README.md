@@ -36,7 +36,8 @@ This script automates creating and configuring an Azure/Entra ID App Registratio
 
 ⚠️ **Security Disclaimer**  
 
-We strongly recommend storing and referencing these credentials in a secure vault, such as Delinea Secret Server or Azure Key Vault, rather than hardcoding them in the `config.py` file. Hardcoding sensitive information poses a security risk and should be avoided, especially in production environments. The config.py file is not intended for PRODUCTION use!
+We strongly recommend storing and referencing these credentials in a secure vault, such as Delinea Secret Server or Azure Key Vault (AKV), rather than hardcoding them in the `config.py` file. Hardcoding sensitive information poses a security risk and should be avoided, especially in production environments. The config.py file is not intended for PRODUCTION use! We do provide an example of how you can store such credentials in AKV [here](https://github.com/DelineaXPM/delinea-platform/tree/main/Scripts/Platform/AKV) - which you can leverage and modify this script with to implement a more secure solution.
+
 
 - PLATFORM_URL = "https://yourplatform.url"  # Your Platform tenant URL (e.g. https://your-hostname.delinea.app)
 - PLATFORM_CLIENT_ID = "your_client_id"  # Client ID for the Delinea platform (client credentials)
