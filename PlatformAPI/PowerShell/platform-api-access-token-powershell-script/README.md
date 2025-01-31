@@ -35,6 +35,10 @@ Note: Replace "https://github.com/your-username/your-repo-name.git" with the act
 
 Update the `config.ps1` file with your specific configuration details:
 
+⚠️ **Security Disclaimer**  
+
+We strongly recommend storing and referencing these credentials in a secure vault, such as Delinea Secret Server or Azure Key Vault, rather than hardcoding them in the `config.ps1` file. Hardcoding sensitive information poses a security risk and should be avoided, especially in production environments. The `config.ps1` file is not intended for PRODUCTION use!
+
 ```powershell
 # Configuration variables
 $global:TOKEN_URL = "https://your-hostname.delinea.app/identity/api/oauth2/token/xpmplatform"
