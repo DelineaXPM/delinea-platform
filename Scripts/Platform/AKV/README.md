@@ -2,7 +2,7 @@
 
 This repository contains a sample script to authenticate with Azure and retrieve secrets from **Azure Key Vault (AKV)**. The script uses the Azure CLI for authentication and secret retrieval.
 
-Instead of hardcoding credentials in configuration files, this script demonstrates how you can dynamically fetch secrets at runtime, enhancing security and reducing the risk of credential exposure.  
+Instead of hardcoding credentials in configuration files, this script demonstrates how you can dynamically fetch secrets at runtime, enhancing security and reducing the risk of credential exposure.  For instance, you can store and retrieve the Platform Client ID and Secret used for authenticating to the Platform.  
 
 ## Files
 
