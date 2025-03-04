@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.3.20250212' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.3.20250304' AS [Value], '' AS [Comment]
 
 UNION ALL
 
@@ -399,8 +399,8 @@ UNION ALL
 SELECT '--> Secrets in Personal Subfolders', CAST(COUNT(*) AS NVARCHAR(50)), ''
 FROM tbSecret s
 JOIN tbfolder f ON s.FolderId = f.FolderID
-WHERE s.Active = 1 AND f.FolderPath LIKE '%PERSONAL Folders\%'
-
+WHERE s.Active = 1 
+	AND f.FolderPath LIKE '%'+ (SELECT PersonalFolderName FROM tbConfiguration)+ '\%\%' 
 UNION ALL
 
 SELECT '--> Secrets With Files', CAST(COUNT(*) AS NVARCHAR(50)), ''
@@ -601,7 +601,9 @@ SELECT '--> Secrets in Inactive Personal Folders' AS [Item], CAST(COUNT(*) AS NV
 FROM tbSecret s
 JOIN tbFolder f ON s.FolderId = f.FolderID
 JOIN tbUser u ON f.UserId = u.UserId
-WHERE f.FolderPath LIKE '%PERSONAL Folders%' AND s.Active = 1 AND u.Enabled = 0
+WHERE  f.FolderPath LIKE '%'+ (SELECT PersonalFolderName FROM tbConfiguration)+ '\%' 
+	AND s.Active = 1 
+	AND u.Enabled = 0
 
 UNION ALL
 
@@ -627,8 +629,21 @@ WHERE f.FolderId NOT IN (
     SELECT gsp.FolderId
     FROM vGroupFolderPermissions gsp
     WHERE gsp.OwnerPermission = 1
-) AND f.FolderName <> 'Personal Folders'
+) AND f.FolderName <> (SELECT PersonalFolderName FROM tbConfiguration)
 
+UNION ALL
+
+SELECT '--> Shared Secrets in Personal Folders' as [Item], CAST(count(*) as nvarchar(50)) as [Value], '' as [Comment]
+from (SELECT 
+    s.SecretId
+FROM dbo.tbSecretACL acl WITH (NOLOCK)
+JOIN dbo.tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
+JOIN dbo.tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
+JOIN dbo.tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
+JOIN dbo.tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
+LEFT JOIN tbFolder f WITH (NOLOCK) ON s.[FolderID] = f.[FolderId]
+WHERE f.FolderPath LIKE '\' + (select PersonalFolderName from tbConfiguration) +'%'  
+  AND f.UserId <> ug.UserId) report
 UNION ALL
 
 SELECT 'Reporting' AS [Item], '' AS [Value], '' AS [Comment]
