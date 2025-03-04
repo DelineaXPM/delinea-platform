@@ -5,7 +5,7 @@ import time
 import requests
 from colorama import init, Fore, Style
 from config import (
-    PLATFORM_URL, PLATFORM_CLIENT_ID, PLATFORM_CLIENT_SECRET, APP_NAME, DOMAIN_NAMES,
+    AZURE_TENANT_ID, PLATFORM_URL, PLATFORM_CLIENT_ID, PLATFORM_CLIENT_SECRET, APP_NAME, DOMAIN_NAMES,
     AZURE_SECRET_DURATION_MONTHS, AZURE_SECRET_DISPLAY_NAME, AZURE_GRAPH_API_ID,
     PLATFORM_SCOPE, PLATFORM_GRANT_TYPE, PLATFORM_REG_APP_DESC
 )
@@ -175,7 +175,7 @@ try:
     # Section: Create App Registration
     log("\n=== Creating App Registration ===", Fore.CYAN)
     app_id = run_command(
-        f"az ad app create --display-name {APP_NAME} --query appId -o tsv",
+        f"az ad app create --display-name \"{APP_NAME}\" --query appId -o tsv",
         "Failed to create App Registration."
     )
     log(f"App Registration created. Application (Client) ID: {app_id}", Fore.GREEN)

@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.3.20250106' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.3.20250212' AS [Value], '' AS [Comment]
 
 UNION ALL
 
@@ -418,6 +418,24 @@ JOIN tbFolder f ON s.FolderID = f.FolderID
 JOIN tbSecretType t ON s.SecretTypeID = t.SecretTypeID
 LEFT JOIN tbSecretOneTimePasswordSettings otp ON otp.SecretId = s.SecretID
 WHERE s.Active = 1 AND otp.Enabled = 1
+
+UNION ALL
+
+SELECT 
+    '--> Secrets with Hooks' AS [Item],
+    CAST(COUNT(DISTINCT sh.SecretId) AS VARCHAR(50)) AS [Value],
+    '' AS [Comment]
+FROM tbSecretHook sh
+JOIN tbSecret s
+    ON sh.SecretId = s.SecretId
+WHERE s.Active = 1
+
+UNION ALL
+
+SELECT 
+    '-->  Total Count of Hooks' AS [Item],
+    CAST((SELECT COUNT(*) FROM tbSecretHook) AS VARCHAR(50)) AS [Value],
+    '' AS [Comment]
 
 UNION ALL
 
