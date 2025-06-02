@@ -432,6 +432,19 @@ WHERE s.Active = 1
 
 UNION ALL
 
+SELECT
+    '--> Secrets with One-Time Password' AS [Item],
+    CONVERT(VARCHAR(10),
+        (
+            SELECT COUNT(*)
+            FROM tbSecretOneTimePasswordSettings
+            WHERE Enabled = 1
+        )
+    ) AS [Value],
+    '' AS [Comment]
+
+UNION ALL
+
 SELECT 
     '-->  Total Count of Hooks' AS [Item],
     CAST((SELECT COUNT(*) FROM tbSecretHook) AS VARCHAR(50)) AS [Value],
