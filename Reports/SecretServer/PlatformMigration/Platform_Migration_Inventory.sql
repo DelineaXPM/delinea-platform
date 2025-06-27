@@ -580,7 +580,24 @@ SELECT '--> Advanced Session Recording Enabled',
         WHEN asr.Enabled = 1 THEN 'TRUE' 
     END AS NVARCHAR(5)), ''
 FROM tbAdvancedSessionRecordingConfiguration asr
-
+UNION ALL
+SELECT CONCAT('--> ASR Collection [', lac.Name, '] Agents'), 
+    CAST(COUNT(la.LauncherAgentId) AS NVARCHAR(50)), ''
+FROM tbLauncherAgentCollection lac
+LEFT JOIN tbLauncherAgent la ON lac.LauncherAgentCollectionId = la.LauncherAgentCollectionId AND la.Active = 1
+WHERE lac.Active = 1
+GROUP BY lac.LauncherAgentCollectionId, lac.Name
+union all
+SELECT '--> Recorded Sessions Stored in Database', 
+    CAST(COUNT(*) AS NVARCHAR(50)), 
+    'Oldest: ' + FORMAT(MIN(StartDate), 'yyyy/MM/dd') + ' | Newest: ' + FORMAT(MAX(StartDate), 'yyyy/MM/dd') AS [Comment]
+FROM tbLauncherSession 
+WHERE FileSize > 0 AND IsDeleted = 0
+UNION ALL
+SELECT '--> Total Session Storage Size (MB)', 
+    CAST(CAST(ROUND(SUM(CAST(FileSize AS BIGINT)) / 1024.0 / 1024.0, 0) AS INT) AS NVARCHAR(50)), ''
+FROM tbLauncherSession 
+WHERE FileSize > 0 AND IsDeleted = 0
 
 UNION ALL
 
