@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.3.20250304' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20250627' AS [Value], '' AS [Comment]
 
 UNION ALL
 
@@ -71,31 +71,37 @@ SELECT 'Directory Services Information' AS [Item], '' AS [Value], '' AS [Comment
 UNION ALL 
 
 SELECT '--> Number of Domains', CAST(COUNT(DomainId) AS NVARCHAR(50)) AS [Value], ''
-FROM tbDomain d
-WHERE d.Active = 1
-
+	FROM tbDomain d
+	WHERE d.Active = 1
 UNION ALL
 
 SELECT 
     '--> Entra ID-Directory Services' AS [Item],
     CASE 
-        WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId = 3 AND Active = 1) THEN 'Yes'
+        WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId = 3 AND Active = 1) THEN 
+            'Yes (' + CAST((SELECT COUNT(*) FROM tbDomain WHERE DomainTypeId = 3 AND Active = 1) AS VARCHAR) + ')'
         ELSE 'No' 
     END AS [Value], '' AS [Comment]
-
 UNION ALL
-
+	
+SELECT 
+    '--> Active Directory-Directory Services' AS [Item],
+    CASE 
+        WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId = 1 AND Active = 1) THEN 
+            'Yes (' + CAST((SELECT COUNT(*) FROM tbDomain WHERE DomainTypeId = 1 AND Active = 1) AS VARCHAR) + ')'
+        ELSE 'No' 
+    END AS [Value], '' AS [Comment]
+UNION ALL
 SELECT 
     '--> OpenLDAP-Directory Services' AS [Item],
     CASE 
-        WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId = 2 AND Active = 1) THEN 'Yes'
+        WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId = 2 AND Active = 1) THEN 
+            'Yes (' + CAST((SELECT COUNT(*) FROM tbDomain WHERE DomainTypeId = 2 AND Active = 1) AS VARCHAR) + ')'
         ELSE 'No' 
     END AS [Value], '' AS [Comment]
-
 UNION ALL
 
 SELECT 'Core Configuration' AS [Item], '' AS [Value], '' AS [Comment]
-
 UNION ALL
 
 SELECT '--> Secret Server Address' AS [Item], CAST(c.CustomURL AS NVARCHAR(255)) AS [Value], '' AS [Comment]
@@ -578,13 +584,17 @@ WHERE s.FolderId IS NULL AND s.Active = 1
 UNION ALL
 
 
-SELECT '--> Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '-->  Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
-WHERE s.Active = 1 AND s.SecretId NOT IN (
-    SELECT gsp.SecretId
-    FROM vGroupSecretPermissions gsp
-    WHERE gsp.OwnerPermission = 1
-)
+WHERE s.active = 1 
+   AND s.secretid NOT IN (
+   	SELECT s.[SecretId]
+   	FROM dbo.tbSecretACL acl WITH (NOLOCK)
+   	JOIN dbo.tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
+   	JOIN dbo.tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
+   	JOIN dbo.tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId] AND u.enabled = 1
+   	WHERE acl.permissions = 15
+   )
 
 UNION ALL
 
