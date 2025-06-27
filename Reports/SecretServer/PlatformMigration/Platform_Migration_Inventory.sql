@@ -445,6 +445,34 @@ SELECT
 
 UNION ALL
 
+SELECT 
+    '--> Proxy Features Enabled' AS [Item],
+    CASE WHEN EnableRDPProxy = 1 THEN '(RDP)' ELSE '' END +
+    CASE WHEN EnableSSHProxy = 1 THEN '(SSH)' ELSE '' END  +
+    CASE WHEN EnableSSHProxyRDPTunneling = 1 THEN '(RDP over SSH)' ELSE '' END +
+	CASE WHEN (EnableRDPProxy = 0 and EnableSSHProxy = 0 and EnableSSHProxyRDPTunneling = 0) THEN 'None' ELSE '' END AS [Value],
+    '' AS [Comment]
+FROM tbAdminProxyingConfiguration
+UNION ALL
+	
+SELECT 
+    '--> Proxy New Secret By Default Setting' AS [Item],
+    CASE WHEN ProxyByDefault = 1 THEN 'ENABLED' ELSE 'DISABLED' END AS [Value],
+    '' AS [Comment]
+FROM tbAdminProxyingConfiguration
+UNION ALL
+	
+SELECT 
+    CONCAT('--> Site [', s.SiteName, '] Proxy Status') AS [Item],
+    CASE WHEN s.EnableProxy = 1 THEN 'SSH: On' ELSE 'SSH: Off' END + 
+    CASE WHEN s.EnableRDPProxy = 1 THEN ' | RDP: On' ELSE ' | RDP: Off' END +
+    ' - ' + CAST(COUNT(e.EngineId) AS VARCHAR(10)) + ' Active Engines' AS [Value],
+    '' AS [Comment]
+FROM tbSite s
+LEFT JOIN tbEngine e ON s.SiteId = e.SiteId AND e.ActivationStatus = 1
+WHERE s.EnableProxy = 1 OR s.EnableRDPProxy = 1
+GROUP BY s.SiteId, s.SiteName, s.EnableProxy, s.EnableRDPProxy
+	UNION ALL
 SELECT DISTINCT CONCAT('--> Proxied Secrets - Site [', list.SiteName, '] Type - ', list.Type), 
     CAST(COUNT(secretid) OVER (PARTITION BY [Type], Sitename) AS NVARCHAR(50)), ''
 FROM (
@@ -584,7 +612,7 @@ WHERE s.FolderId IS NULL AND s.Active = 1
 UNION ALL
 
 
-SELECT '-->  Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '--> Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 WHERE s.active = 1 
    AND s.secretid NOT IN (
