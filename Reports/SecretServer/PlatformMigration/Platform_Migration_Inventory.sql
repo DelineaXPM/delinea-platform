@@ -2,7 +2,7 @@ SELECT 'Report Version' AS [Item], '1.4.20250627' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
-	CONVERT(VARCHAR, GETDATE(), 101) AS [Value], -- Format: MM/DD/YYYY
+	CONVERT(VARCHAR, GETDATE(), 101) AS [Value], 
 	'' AS [Comment]
 UNION ALL
 
