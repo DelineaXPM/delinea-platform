@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.4.20250627' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20250707' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
@@ -597,18 +597,41 @@ WHERE f.FolderId NOT IN (
 ) AND f.FolderName <> (SELECT PersonalFolderName FROM tbConfiguration)
 UNION ALL
 
-SELECT '--> Shared Secrets in Personal Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM (
-	SELECT s.SecretId
-	FROM dbo.tbSecretACL acl WITH (NOLOCK)
-	JOIN dbo.tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
-	JOIN dbo.tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
-	JOIN dbo.tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
-	JOIN dbo.tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
-	LEFT JOIN tbFolder f WITH (NOLOCK) ON s.[FolderID] = f.[FolderId]
-	WHERE f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) +'%'  
-	  AND f.UserId <> ug.UserId
-) report
+SELECT '--> Shared Secrets in Personal Folders', cast(COUNT(DISTINCT s.secretid) as NVARCHAR(50)),''
+FROM tbSecretACL acl WITH (NOLOCK)
+JOIN tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
+JOIN tbSecretType t ON t.SecretTypeid = s.SecretTypeID
+JOIN tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
+JOIN tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
+JOIN tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
+LEFT JOIN vUserDisplayName vdn ON vdn.UserId = u.UserId
+LEFT JOIN tbFolder f WITH (NOLOCK) ON s.[FolderID] = f.[FolderId]
+LEFT JOIN tbUser fu WITH (NOLOCK) ON f.[UserId] = fu.[UserId]
+LEFT JOIN (
+    SELECT 
+        sub_f.FolderID,
+        root_owner.UserId,
+        root_owner.DisplayName,
+        root_owner.Enabled
+    FROM tbFolder sub_f WITH (NOLOCK)
+    JOIN tbFolder root_f WITH (NOLOCK) ON (
+        sub_f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\%' AND
+        root_f.FolderPath = '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\' + 
+        SUBSTRING(
+            sub_f.FolderPath, 
+            LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3,
+            CASE 
+                WHEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) > 0
+                THEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 3
+                ELSE LEN(sub_f.FolderPath) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 2
+            END
+        )
+    )
+    LEFT JOIN tbUser root_owner WITH (NOLOCK) ON root_f.UserId = root_owner.UserId
+    WHERE sub_f.UserId IS NULL
+) parent_owner ON f.FolderID = parent_owner.FolderID
+WHERE f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '%'
+AND (parent_owner.userid <> u.UserId OR fu.userid <> u.userid)
 UNION ALL
 
 SELECT 'Reporting' AS [Item], '' AS [Value], '' AS [Comment]
