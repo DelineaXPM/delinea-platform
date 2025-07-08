@@ -5,4 +5,4 @@
 Scripts/SecretServer/* @tylerezimmerman
 
 # Ownership for Platform Migration Reports
-Reports/SecretServer/PlatformMigration @jagger @conagherl
+Reports/SecretServer/PlatformMigration/* @jagger @conagherl
