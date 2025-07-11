@@ -3,3 +3,6 @@
 
 # Ownership for Scripts/SecretServer
 Scripts/SecretServer/* @tylerezimmerman
+
+# Ownership for Platform Migration Reports
+Reports/SecretServer/PlatformMigration/* @jagger @conagherl
