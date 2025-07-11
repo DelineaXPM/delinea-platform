@@ -1,37 +1,55 @@
 SELECT 
-    grouped.[UserDisplayName] [DisplayName],
-    ISNULL(f.FolderPath, 'No Folder assigned') [Folder Path],
-    grouped.[SecretName] [Secret Name],
-    CASE (grouped.[Permissions])
-        WHEN 1 THEN 'List'
-        WHEN 1 | 2 THEN 'List/View'
-        WHEN 1 | 2 | 4 THEN 'List/View/Edit'
-        WHEN 1 | 2 | 4 | 8 THEN 'List/View/Edit/Owner'
-    END [Permissions],
-    IIF(d2.[Domain] IS NULL, grouped.[DisplayName], d2.[Domain] + N'\' + grouped.[DisplayName]) [UserOrGroup],
-    grouped.[SecretId]
-FROM (
-    SELECT 
-        s.[SecretId],
-        acl.[Permissions] [Permissions],
-        s.[SecretName],
-        g.[DomainId],
-        s.[EnableInheritPermissions],
-        u.UserID,
-        IIF(g.[IsPersonal] = 1, u.[DisplayName], g.[GroupName]) [DisplayName],
-        IIF(d.[Domain] IS NULL, u.[DisplayName], d.[Domain] + N'\' + u.[DisplayName]) [UserDisplayName],
-        acl.[GroupID]
-    FROM dbo.tbSecretACL acl WITH (NOLOCK)
-    JOIN dbo.tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
-    JOIN dbo.tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
-    JOIN dbo.tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
-    JOIN dbo.tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
-    LEFT JOIN dbo.tbDomain d WITH (NOLOCK) ON u.[DomainId] = d.[DomainId]
-) grouped
-JOIN tbSecret s WITH (NOLOCK) ON grouped.[SecretID] = s.[SecretId] AND s.[Active] = 1
+    f.FolderPath,
+    COALESCE(fu.DisplayName, parent_owner.DisplayName) as [FolderOwner],
+    COALESCE(fu.Enabled, parent_owner.Enabled) as [FolderEnabled],
+    s.secretid,
+    s.SecretName,
+    t.SecretTypeName as [Template],
+    CASE 
+        WHEN (acl.Permissions = 15) then 'Owner'
+        WHEN (acl.Permissions = 7) then 'Edit'
+        WHEN (acl.Permissions = 3) then 'View'
+        WHEN (acl.Permissions = 1) then 'List'
+        ELSE concat('Permission ID: ',acl.permissions)
+    END as [accessLevel],
+    CASE 
+        when (g.IsPersonal = 1) Then 'Direct Assignment'
+        else g.GroupName 
+    end as [Permissions From],
+    vdn.Username
+FROM tbSecretACL acl WITH (NOLOCK)
+JOIN tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
+JOIN tbSecretType t ON t.SecretTypeid = s.SecretTypeID
+JOIN tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
+JOIN tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
+JOIN tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
+LEFT JOIN vUserDisplayName vdn ON vdn.UserId = u.UserId
 LEFT JOIN tbFolder f WITH (NOLOCK) ON s.[FolderID] = f.[FolderId]
-LEFT JOIN dbo.tbDomain d2 WITH (NOLOCK) ON grouped.[DomainId] = d2.[DomainId]
-WHERE s.EnableInheritPermissions = 0 
-  AND f.FolderPath LIKE '\' + (select PersonalFolderName from tbConfiguration) +'%'  
-  AND f.UserId <> grouped.userid
-ORDER BY s.[SecretId]
+LEFT JOIN tbUser fu WITH (NOLOCK) ON f.[UserId] = fu.[UserId]
+LEFT JOIN (
+    
+    SELECT 
+        sub_f.FolderID,
+		root_owner.UserId,
+        root_owner.DisplayName,
+        root_owner.Enabled
+    FROM tbFolder sub_f WITH (NOLOCK)
+    JOIN tbFolder root_f WITH (NOLOCK) ON (
+    
+        sub_f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\%' AND
+        root_f.FolderPath = '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\' + 
+        SUBSTRING(
+            sub_f.FolderPath, 
+            LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3,
+            CASE 
+                WHEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) > 0
+                THEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 3
+                ELSE LEN(sub_f.FolderPath) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 2
+            END
+        )
+    )
+    LEFT JOIN tbUser root_owner WITH (NOLOCK) ON root_f.UserId = root_owner.UserId
+    WHERE sub_f.UserId IS NULL
+) parent_owner ON f.FolderID = parent_owner.FolderID
+WHERE f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '%'
+and (parent_owner.userid <> u.UserId or fu.userid <>u.userid)
