@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.4.20250710' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20250714' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
@@ -383,6 +383,9 @@ SELECT '-->  Total Count of Hooks' AS [Item],
 	'' AS [Comment]
 UNION ALL
 
+SELECT 'Proxying Config' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
 SELECT '--> Proxy Features Enabled' AS [Item],
 	CASE WHEN EnableRDPProxy = 1 THEN '(RDP)' ELSE '' END +
 	CASE WHEN EnableSSHProxy = 1 THEN '(SSH)' ELSE '' END  +
@@ -470,6 +473,21 @@ UNION ALL
 SELECT '--> Teams', CAST(COUNT(*) AS NVARCHAR(50)), ''
 FROM tbTeam
 WHERE Active = 1
+UNION ALL
+
+SELECT 
+    '---> Members of team [' + t.TeamName + ']' AS [Item],
+    CAST(COUNT(DISTINCT u.UserId) AS VARCHAR) AS [Value],
+    '' AS [Comment]
+FROM tbTeam t
+INNER JOIN tbTeamGroupMembership tgm ON tgm.TeamId = t.TeamId 
+INNER JOIN tbGroup g ON g.GroupId = tgm.GroupId
+INNER JOIN tbUserGroup ug ON g.GroupId = ug.GroupId
+INNER JOIN tbUser u ON u.UserId = ug.UserId	
+WHERE (u.Enabled = 1 OR u.DisabledByAutomaticADUserDisabling = 1) 
+    AND t.Active = 1
+    AND u.enabled = 1
+GROUP BY t.TeamName
 UNION ALL
 
 SELECT '--> QuantumLocks', CAST(COUNT(*) AS NVARCHAR(50)), ''
