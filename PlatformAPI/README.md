@@ -4,11 +4,11 @@ This directory serves as a landing page for developers and administrators who wa
 ## Table of Contents
 
 ### API Collections
-- [Postman / API Collections](./PlatformAPI/APICollections)
+- [Postman / API Collections](./APICollections)
 
 ### Scripts & Examples
-- [PowerShell: Platform API Access Token Script](./PlatformAPI/PowerShell/platform-api-access-token-powershell-script)  
-- [Python: Platform API Access Token Script](./PlatformAPI/Python/platform-api-access-token-python-script)  
+- [PowerShell: Platform API Access Token Script](./PowerShell/platform-api-access-token-powershell-script)  
+- [Python: Platform API Access Token Script](./Python/platform-api-access-token-python-script)  
 
 ## Official Documentation
 
