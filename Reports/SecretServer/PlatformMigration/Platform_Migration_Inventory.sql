@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.4.20250714' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20250909' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
@@ -39,21 +39,48 @@ SELECT 'Migration Package Size' AS [Item], '' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT '--> Size' AS [Item], 
+
 	CASE 
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 
-			AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Small'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 
-			AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 10001 AND 25000 
-			AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25001
-			AND (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Custom'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) > 10 THEN 'Custom'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 5 AND 10 AND 
+			 (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Large'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 5 AND 10 THEN 'Custom'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 3 AND 4 AND 
+			 (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Medium'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 3 AND 4 AND 
+			 (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Large'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 3 AND 4 THEN 'Custom'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Small'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 10001 AND 25000 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25001 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Custom'
 		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 10001 THEN 'Large'
 		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 THEN 'Medium'
 		WHEN (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
 		WHEN (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-		ELSE 'Small' -- Default if both categories are small
-	END AS [Value], '' AS [Comment]
+		ELSE 'Small'
+	END AS [Value], 
+	CASE 
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) > 10 THEN 'site count'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 5 AND 10 AND 
+			 NOT ((SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 AND
+			      (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2) THEN 'site count'
+		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 3 AND 4 AND 
+			 NOT ((SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 AND
+			      (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2) AND
+			 NOT ((SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
+			      (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7) THEN 'site count'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25001 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'secret count, SDK accounts'
+		ELSE ''
+	END AS [Comment]
 UNION ALL
 
 SELECT 'Directory Services Information' AS [Item], '' AS [Value], '' AS [Comment]
@@ -548,7 +575,10 @@ UNION ALL
 SELECT 'Cleanup Items' AS [Item], '' AS [Value], '' AS [Comment]
 UNION ALL
 
-SELECT '--> Duplicate Secret Count' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '--> Secrets' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
+SELECT '----> Duplicate Secret Count' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM (
 	SELECT s.SecretID
 	FROM tbSecret s
@@ -562,12 +592,12 @@ FROM (
 ) AS [Result]
 UNION ALL
 
-SELECT '--> Secrets Without Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Secrets Without Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 WHERE s.FolderId IS NULL AND s.Active = 1
 UNION ALL
 
-SELECT '--> Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 WHERE s.active = 1 
    AND s.secretid NOT IN (
@@ -579,43 +609,13 @@ WHERE s.active = 1
 	WHERE acl.permissions = 15
    )
 UNION ALL
-
-SELECT '--> Secrets Using Inactive Templates' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbSecret s
-JOIN tbSecretType st ON s.SecretTypeID = st.SecretTypeID
-WHERE st.Active = 0 AND s.Active = 1
-UNION ALL
-
-SELECT '--> Secrets in Inactive Personal Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbSecret s
-JOIN tbFolder f ON s.FolderId = f.FolderID
-JOIN tbUser u ON f.UserId = u.UserId
-WHERE  f.FolderPath LIKE '%'+ (SELECT PersonalFolderName FROM tbConfiguration)+ '\%' 
-	AND s.Active = 1 
-	AND u.Enabled = 0
-UNION ALL
-
-SELECT '--> Folders With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbfolder f
-WHERE f.FolderName LIKE ' %' OR f.FolderName LIKE '% '
-UNION ALL
-
-SELECT '--> Secrets With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Secrets With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 JOIN tbFolder f ON s.FolderID = f.FolderID
 WHERE s.SecretName LIKE ' %' OR s.SecretName LIKE '% ' AND s.Active = 1
 UNION ALL
 
-SELECT '--> Folders Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbfolder f
-WHERE f.FolderId NOT IN (
-	SELECT gsp.FolderId
-	FROM vGroupFolderPermissions gsp
-	WHERE gsp.OwnerPermission = 1
-) AND f.FolderName <> (SELECT PersonalFolderName FROM tbConfiguration)
-UNION ALL
-
-SELECT '--> Shared Secrets in Personal Folders', cast(COUNT(DISTINCT s.secretid) as NVARCHAR(50)),''
+SELECT '----> Shared Secrets in Personal Folders', cast(COUNT(DISTINCT s.secretid) as NVARCHAR(50)),''
 FROM tbSecretACL acl WITH (NOLOCK)
 JOIN tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
 JOIN tbSecretType t ON t.SecretTypeid = s.SecretTypeID
@@ -652,6 +652,64 @@ WHERE f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) +
 AND (parent_owner.userid <> u.UserId OR fu.userid <> u.userid)
 UNION ALL
 
+SELECT '--> Templates' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
+SELECT '----> Secrets Using Inactive Templates' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbSecret s
+JOIN tbSecretType st ON s.SecretTypeID = st.SecretTypeID
+WHERE st.Active = 0 AND s.Active = 1
+UNION ALL
+SELECT '--> Templates with Duplicate Fields' AS [Item],
+	CAST((
+		SELECT COUNT(DISTINCT t.SecretTypename)
+		FROM tbSecretType t
+		JOIN tbSecretField sf ON sf.SecretTypeID = t.SecretTypeID
+		LEFT JOIN (
+			SELECT SecretTypeID, FieldSlugName
+			FROM tbSecretField
+			GROUP BY SecretTypeID, FieldSlugName
+			HAVING COUNT(*) > 1
+		) slug_dups ON slug_dups.SecretTypeID = sf.SecretTypeID AND slug_dups.FieldSlugName = sf.FieldSlugName
+		LEFT JOIN (
+			SELECT SecretTypeID, SecretFieldName
+			FROM tbSecretField
+			GROUP BY SecretTypeID, SecretFieldName
+			HAVING COUNT(*) > 1
+		) name_dups ON name_dups.SecretTypeID = sf.SecretTypeID AND name_dups.SecretFieldName = sf.SecretFieldName
+		WHERE slug_dups.FieldSlugName IS NOT NULL OR name_dups.SecretFieldName IS NOT NULL
+	) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+	union all
+SELECT '--> Folders' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
+SELECT '----> Secrets in Inactive Personal Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbSecret s
+JOIN tbFolder f ON s.FolderId = f.FolderID
+JOIN tbUser u ON f.UserId = u.UserId
+WHERE  f.FolderPath LIKE '%'+ (SELECT PersonalFolderName FROM tbConfiguration)+ '\%' 
+	AND s.Active = 1 
+	AND u.Enabled = 0
+UNION ALL
+
+SELECT '----> Folders With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbfolder f
+WHERE f.FolderName LIKE ' %' OR f.FolderName LIKE '% '
+UNION ALL
+
+SELECT '----> Folders Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbfolder f
+WHERE f.FolderId NOT IN (
+	SELECT gsp.FolderId
+	FROM vGroupFolderPermissions gsp
+	WHERE gsp.OwnerPermission = 1
+) AND f.FolderName <> (SELECT PersonalFolderName FROM tbConfiguration)
+UNION ALL
+SELECT '----> Incorrect folderpaths' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbfolder f 
+JOIN tbfolder p ON p.folderid = f.ParentFolderId
+WHERE f.folderpath NOT LIKE p.folderpath + '%'
+UNION ALL
 SELECT 'Reporting' AS [Item], '' AS [Value], '' AS [Comment]
 UNION ALL
 
