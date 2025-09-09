@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.3.2024104-LEGACY' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20250909-LEGACY' AS [Value], '' AS [Comment]
 
 UNION ALL
 
@@ -519,84 +519,142 @@ FROM tbAdvancedSessionRecordingConfiguration asr
 UNION ALL
 
 SELECT 'Cleanup Items' AS [Item], '' AS [Value], '' AS [Comment]
-
 UNION ALL
 
+SELECT '--> Secrets' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
 
-SELECT '--> Duplicate Secret Count' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Duplicate Secret Count' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM (
-    SELECT s.SecretID
-    FROM tbSecret s
-    JOIN (
-        SELECT SecretName, COUNT(SecretName) AS [Total]
-        FROM tbSecret t
-        WHERE t.Active = 1
-        GROUP BY SecretName
-        HAVING COUNT(SecretName) > 1
-    ) t ON s.SecretName = t.SecretName
+	SELECT s.SecretID
+	FROM tbSecret s
+	JOIN (
+		SELECT SecretName, COUNT(SecretName) AS [Total]
+		FROM tbSecret t
+		WHERE t.Active = 1
+		GROUP BY SecretName
+		HAVING COUNT(SecretName) > 1
+	) t ON s.SecretName = t.SecretName
 ) AS [Result]
-
 UNION ALL
 
-
-SELECT '--> Secrets Without Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Secrets Without Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 WHERE s.FolderId IS NULL AND s.Active = 1
-
 UNION ALL
 
-
-SELECT '--> Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Secrets Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
-WHERE s.Active = 1 AND s.SecretId NOT IN (
-    SELECT gsp.SecretId
-    FROM vGroupSecretPermissions gsp
-    WHERE gsp.OwnerPermission = 1
-)
-
+WHERE s.active = 1 
+   AND s.secretid NOT IN (
+	SELECT s.[SecretId]
+	FROM dbo.tbSecretACL acl WITH (NOLOCK)
+	JOIN dbo.tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
+	JOIN dbo.tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
+	JOIN dbo.tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId] AND u.enabled = 1
+	WHERE acl.permissions = 15
+   )
 UNION ALL
-
-
-SELECT '--> Secrets Using Inactive Templates' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbSecret s
-JOIN tbSecretType st ON s.SecretTypeID = st.SecretTypeID
-WHERE st.Active = 0 AND s.Active = 1
-
-UNION ALL
-
-
-SELECT '--> Secrets in Inactive Personal Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbSecret s
-JOIN tbFolder f ON s.FolderId = f.FolderID
-JOIN tbUser u ON f.UserId = u.UserId
-WHERE f.FolderPath LIKE '%PERSONAL Folders%' AND s.Active = 1 AND u.Enabled = 0
-
-UNION ALL
-
-
-SELECT '--> Folders With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
-FROM tbfolder f
-WHERE f.FolderName LIKE ' %' OR f.FolderName LIKE '% '
-
-UNION ALL
-
-
-SELECT '--> Secrets With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '----> Secrets With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 JOIN tbFolder f ON s.FolderID = f.FolderID
 WHERE s.SecretName LIKE ' %' OR s.SecretName LIKE '% ' AND s.Active = 1
-
 UNION ALL
 
+SELECT '----> Shared Secrets in Personal Folders', cast(COUNT(DISTINCT s.secretid) as NVARCHAR(50)),''
+FROM tbSecretACL acl WITH (NOLOCK)
+JOIN tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
+JOIN tbSecretType t ON t.SecretTypeid = s.SecretTypeID
+JOIN tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
+JOIN tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
+JOIN tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
+LEFT JOIN vUserDisplayName vdn ON vdn.UserId = u.UserId
+LEFT JOIN tbFolder f WITH (NOLOCK) ON s.[FolderID] = f.[FolderId]
+LEFT JOIN tbUser fu WITH (NOLOCK) ON f.[UserId] = fu.[UserId]
+LEFT JOIN (
+    SELECT 
+        sub_f.FolderID,
+        root_owner.UserId,
+        root_owner.DisplayName,
+        root_owner.Enabled
+    FROM tbFolder sub_f WITH (NOLOCK)
+    JOIN tbFolder root_f WITH (NOLOCK) ON (
+        sub_f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\%' AND
+        root_f.FolderPath = '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\' + 
+        SUBSTRING(
+            sub_f.FolderPath, 
+            LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3,
+            CASE 
+                WHEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) > 0
+                THEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 3
+                ELSE LEN(sub_f.FolderPath) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 2
+            END
+        )
+    )
+    LEFT JOIN tbUser root_owner WITH (NOLOCK) ON root_f.UserId = root_owner.UserId
+    WHERE sub_f.UserId IS NULL
+) parent_owner ON f.FolderID = parent_owner.FolderID
+WHERE f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '%'
+AND (parent_owner.userid <> u.UserId OR fu.userid <> u.userid)
+UNION ALL
 
-SELECT '--> Folders Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+SELECT '--> Templates' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
+SELECT '----> Secrets Using Inactive Templates' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbSecret s
+JOIN tbSecretType st ON s.SecretTypeID = st.SecretTypeID
+WHERE st.Active = 0 AND s.Active = 1
+UNION ALL
+SELECT '--> Templates with Duplicate Fields' AS [Item],
+	CAST((
+		SELECT COUNT(DISTINCT t.SecretTypename)
+		FROM tbSecretType t
+		JOIN tbSecretField sf ON sf.SecretTypeID = t.SecretTypeID
+		LEFT JOIN (
+			SELECT SecretTypeID, FieldSlugName
+			FROM tbSecretField
+			GROUP BY SecretTypeID, FieldSlugName
+			HAVING COUNT(*) > 1
+		) slug_dups ON slug_dups.SecretTypeID = sf.SecretTypeID AND slug_dups.FieldSlugName = sf.FieldSlugName
+		LEFT JOIN (
+			SELECT SecretTypeID, SecretFieldName
+			FROM tbSecretField
+			GROUP BY SecretTypeID, SecretFieldName
+			HAVING COUNT(*) > 1
+		) name_dups ON name_dups.SecretTypeID = sf.SecretTypeID AND name_dups.SecretFieldName = sf.SecretFieldName
+		WHERE slug_dups.FieldSlugName IS NOT NULL OR name_dups.SecretFieldName IS NOT NULL
+	) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+	union all
+SELECT '--> Folders' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
+SELECT '----> Secrets in Inactive Personal Folders' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbSecret s
+JOIN tbFolder f ON s.FolderId = f.FolderID
+JOIN tbUser u ON f.UserId = u.UserId
+WHERE  f.FolderPath LIKE '%'+ (SELECT PersonalFolderName FROM tbConfiguration)+ '\%' 
+	AND s.Active = 1 
+	AND u.Enabled = 0
+UNION ALL
+
+SELECT '----> Folders With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbfolder f
+WHERE f.FolderName LIKE ' %' OR f.FolderName LIKE '% '
+UNION ALL
+
+SELECT '----> Folders Without Owners' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbfolder f
 WHERE f.FolderId NOT IN (
-    SELECT gsp.FolderId
-    FROM vGroupFolderPermissions gsp
-    WHERE gsp.OwnerPermission = 1
-)
-
+	SELECT gsp.FolderId
+	FROM vGroupFolderPermissions gsp
+	WHERE gsp.OwnerPermission = 1
+) AND f.FolderName <> (SELECT PersonalFolderName FROM tbConfiguration)
+UNION ALL
+SELECT '----> Incorrect folderpaths' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbfolder f 
+JOIN tbfolder p ON p.folderid = f.ParentFolderId
+WHERE f.folderpath NOT LIKE p.folderpath + '%'
 UNION ALL
 
 SELECT 'Reporting' AS [Item], '' AS [Value], '' AS [Comment]
