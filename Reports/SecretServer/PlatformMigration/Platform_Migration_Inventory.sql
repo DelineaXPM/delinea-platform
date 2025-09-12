@@ -261,6 +261,13 @@ FROM tbGroup g
 WHERE g.DomainId IS NULL AND g.Active = 1
 UNION ALL
 
+SELECT '--> Roles', 
+       CAST(COUNT(RoleId) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+FROM tbRole r
+WHERE r.Active = 1
+  AND r.IsSystem <> 1
+UNION ALL
+
 SELECT '-->   Users with custom ownership', CAST(COUNT([userid]) AS NVARCHAR(50)), ''
 FROM (
 	SELECT DISTINCT userid 
