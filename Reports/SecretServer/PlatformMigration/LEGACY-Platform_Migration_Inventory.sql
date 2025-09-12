@@ -3,7 +3,7 @@ SELECT 'Report Version' AS [Item], '1.4.20250909-LEGACY' AS [Value], '' AS [Comm
 UNION ALL
 
 SELECT  'Report Date' AS [Item], 
-    CONVERT(VARCHAR, GETDATE(), 101) AS [Value], -- Format: MM/DD/YYYY
+    CONVERT(VARCHAR, GETDATE(), 101) AS [Value], 
     '' AS [Comment]
 
 UNION ALL
@@ -51,7 +51,7 @@ SELECT '--> Size' AS [Item],
         WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 THEN 'Medium'
         WHEN (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
         WHEN (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-        ELSE 'Small' -- Default if both categories are small
+        ELSE 'Small' 
     END AS [Value], '' AS [Comment]
 
 UNION ALL
