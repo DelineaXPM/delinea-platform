@@ -27,14 +27,20 @@ This will push the password to an encrypted registry location for configuring Au
 
 ## Notes
 
-The [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) has been required a few times now to be implemented as well as a secondary dependency. Windows has some requirement that after the autologon key is updated on the machine that it will fail to auto login. It requires the new password to be "provided" first before taking effect. The second dependency does just that. Research into further seeing why this is happening has not been available. you will also need to disable the automatic restart option in the primary dependency and also add the [windows-restart-dependency](../../Server%20Restart/Dependency) dependency after updating and validating this credential.
+**Conditional Dependency Requirement:** The [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) script is not required in most cases. Certain Windows configurations may prevent autologon settings from taking effect unless this additional dependency is implemented.
 
-## Autologin Validate Configuration
+**Windows Configuration Behavior:** Some Windows systems enforce a security requirement where updating the autologon registry key alone is insufficient. These configurations require the new password to be validated through an initial login attempt before the autologon settings become active. The validation script addresses this requirement by performing the necessary password validation step. The underlying cause of this configuration-specific behavior has not been fully investigated.
+
+**Implementation Considerations:** If autologon configuration changes are not taking effect after updating the registry keys, implement the following steps:
+
+### Autologin Validate Configuration (Optional, only implement if required by OS)
+
+1. Disable the automatic restart option in the primary dependency
 
 1. Add [autologon-validate.ps1](autologon-validate.ps1) script to Secret Server:
    - **ADMIN** > **Scripts**
 
-2. Configure Dependency Changer:
+1. Configure Dependency Changer:
    - **ADMIN** > **Remote Password Changing** > **Configure Dependency Changers** >
    - Click on Create New Dependency Changer
    - Type "PowerShell Script"
@@ -46,3 +52,5 @@ The [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) has b
       - Select the Script from the previous steps
       - Arguments `$[1]$USERNAME $[1]$DOMAIN $[1]$PASSWORD $MACHINE $USERNAME $PASSWORD $DOMAIN`
       - Save
+
+1. Add the [windows-restart-dependency](../../Server%20Restart/Dependency) after the validation dependency to complete the configuration process
