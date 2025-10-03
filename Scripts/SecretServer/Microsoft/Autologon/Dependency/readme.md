@@ -37,7 +37,7 @@ This will push the password to an encrypted registry location for configuring Au
 
 1. Disable the automatic restart option in the primary dependency
 
-1. Add [autologon-validate.ps1](autologon-validate.ps1) script to Secret Server:
+1. Add [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) script to Secret Server:
    - **ADMIN** > **Scripts**
 
 1. Configure Dependency Changer:
