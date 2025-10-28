@@ -44,8 +44,7 @@ try {
         }
         
         try {
-            $response = Invoke-RestMethod -Uri "$DelineaPlatformURL/identity/api/oauth2/token/xpmplatform" `
-                -Method Post -Body $AuthBody -ContentType "application/x-www-form-urlencoded"
+            $response = Invoke-RestMethod -Uri "$DelineaPlatformURL/identity/api/oauth2/token/xpmplatform"  -Method Post -Body $AuthBody -ContentType "application/x-www-form-urlencoded"
             $token = $response.access_token
         }
         catch {
@@ -54,8 +53,7 @@ try {
         }
         
         if ($null -eq $SecretServerURL) {
-            $vaults = Invoke-RestMethod -Uri "$DelineaPlatformURL/vaultbroker/api/vaults?includeInactive=true&api-version=1.0" `
-                -Method Get -Headers @{ Authorization = "Bearer $token" }
+            $vaults = Invoke-RestMethod -Uri "$DelineaPlatformURL/vaultbroker/api/vaults?includeInactive=true&api-version=1.0"  -Method Get -Headers @{ Authorization = "Bearer $token" }
             $SecretServerURL = ($vaults.vaults | Where-Object { $_.type -eq "Secretservercloud" }).connection.url
         }
     }
@@ -100,17 +98,15 @@ if ($UpdateMode -eq "BulkAction") {
         throw "Invalid SecretAction: $SecretAction"
     }
     
-    $operation = Invoke-RestMethod -Uri $uri -Body ($body | ConvertTo-Json -Depth 10) `
-        -Method Post -Headers @{ Authorization = "Bearer $token" } -ContentType "application/json"
+    $operation = Invoke-RestMethod -Uri $uri -Body ($body | ConvertTo-Json -Depth 10)  -Method Post -Headers @{ Authorization = "Bearer $token" } -ContentType "application/json"
     
     $starttime = Get-Date
     $running = $true
-    $maxWait = $linked.Count * 5
+    $maxWait = 15 + ($linked.Count * 5)
     
     while ($running -and ((Get-Date) - $starttime).TotalSeconds -lt $maxWait) {
         Start-Sleep -Milliseconds 500
-        $progress = Invoke-RestMethod -Uri "$SecretServerURL/api/v1/bulk-operations/$($operation.bulkOperationId)/progress" `
-            -Method Get -Headers @{ Authorization = "Bearer $token" }
+        $progress = Invoke-RestMethod -Uri "$SecretServerURL/api/v1/bulk-operations/$($operation.bulkOperationId)/progress"  -Method Get -Headers @{ Authorization = "Bearer $token" }
         
         if ($progress.iscomplete) { $running = $false }
         
@@ -132,16 +128,10 @@ elseif ($UpdateMode -eq "Legacy") {
         
         try {
             if ($SecretAction -eq "UpdatePassword") {
-                Invoke-RestMethod "$uri/fields/password" -Method PUT `
-                    -Headers @{ Authorization = "Bearer $token" } `
-                    -Body (@{ value = $newpassword } | ConvertTo-Json -Depth 10) `
-                    -ContentType 'application/json' | Out-Null
+                Invoke-RestMethod "$uri/fields/password" -Method PUT  -Headers @{ Authorization = "Bearer $token" }  -Body (@{ value = $newpassword } | ConvertTo-Json -Depth 10)  -ContentType 'application/json' | Out-Null
             }
             elseif ($SecretAction -eq "RotatePassword") {
-                Invoke-RestMethod "$uri/change-password" -Method POST `
-                    -Headers @{ Authorization = "Bearer $token" } `
-                    -Body (@{ newPassword = $newpassword } | ConvertTo-Json -Depth 10) `
-                    -ContentType "application/json" | Out-Null
+                Invoke-RestMethod "$uri/change-password" -Method POST  -Headers @{ Authorization = "Bearer $token" }  -Body (@{ newPassword = $newpassword } | ConvertTo-Json -Depth 10)  -ContentType "application/json" | Out-Null
             }
             else {
                 throw "Invalid SecretAction: $SecretAction"
