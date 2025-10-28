@@ -53,7 +53,7 @@ The script accepts the following arguments in order:
 | 0 | $PASSWORD | The new password to set on the linked secrets | MyNewP@ss123 |
 | 1 | $USERNAME | API username/client ID for authentication | api-user |
 | 2 | $PASSWORD | API password/client secret for authentication | api-password |
-| 3 | $<FIELD> | Template field that contains a comma-separated list of secret IDs to update | 123,456,789 |
+| 3 | $\<FIELD\> | Template field that contains a comma-separated list of secret IDs to update | 123,456,789 |
 | 4 | SecretAction | (Optional) `UpdatePassword` or `RotatePassword` (default: UpdatePassword) | UpdatePassword |
 | 5 | UpdateMode | (Optional) `BulkAction` or `Legacy` (default: BulkAction) | BulkAction |
 
