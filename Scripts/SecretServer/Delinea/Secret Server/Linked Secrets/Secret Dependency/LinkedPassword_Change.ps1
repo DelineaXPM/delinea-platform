@@ -69,7 +69,6 @@ try {
     }
 }
 catch { throw $_.Exception.Message }
-$token
 
 Write-Debug-Log "Authenticated" @{
     DelineaPlatformURL = $DelineaPlatformURL
