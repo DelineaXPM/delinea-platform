@@ -3,7 +3,7 @@
 
 # Configuration
 $DelineaPlatformURL = "https:// <tenant> .delinea.app/"  # URL for delinea platform ex "https://privotter-services.delinea.app/" use $null to authenticate directly to Secret Server
-$SecretServerURL = $null # IRL for secret server ex "https://privotter-services.secretservercloud.com/" use $null to retrieve from Delinea Platform
+$SecretServerURL = $null # URL for secret server ex "https://privotter-services.secretservercloud.com/" or "https://vault.company.local/SecretServer/" use $null to retrieve from Delinea Platform
 $debug = $false
 
 # Parameters
