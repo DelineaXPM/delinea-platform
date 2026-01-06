@@ -27,7 +27,7 @@ Example: https://MyInstance.Servicenow.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>Username</displayname>
-      <description>The name assocated with the password.</description>
+      <description>The name associated with the password.</description>
       <name>Username</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>

@@ -1,10 +1,35 @@
 # ServiceNow Account Discovery
 
-## Create Discovery Source
+This scanner will perform discovery of ServiceNow Accounts.
 
-  
+## Log Files
 
-This scanner will perform discovery of  ServiceNow  Accounts 
+The discovery script writes to the following log files in the Distributed Engine log folder:
+
+| File | Description |
+|------|-------------|
+| `ServiceNow-Discovery.log` | Main application log with INFO, WARN, ERROR, and DEBUG messages |
+| `ServiceNow-Discovery-Results.json` | JSON file containing discovered accounts |
+
+**Default Location:** `%ProgramFiles%\Thycotic Software Ltd\Distributed Engine\log\`
+
+The log level can be adjusted by modifying the `$LogLevel` variable at the top of the script:
+- `0` = INFO only
+- `1` = INFO + WARN
+- `2` = INFO + WARN + ERROR
+- `3` = All messages including DEBUG (default)
+
+## Input Validation
+
+The script validates all input parameters before execution:
+
+| Parameter | Validation |
+|-----------|------------|
+| DiscoveryMode | Must be "Advanced" or "Default" |
+| tenant-url | Must start with "https://" |
+| All credentials | Checked for unsubstituted placeholder values (e.g., `$username`) |
+
+If validation fails, the script logs an error and terminates before making any API calls.
 
 ## Create Discovery Source
 
@@ -74,7 +99,7 @@ This scanner will perform discovery of  ServiceNow  Accounts
   
 - Log in to Secret Server Tenant (If you have not already done so)
 
-- Navigate to**Admin** > **Scripts**
+- Navigate to **Admin** > **Scripts**
 
 - Click on **Create Script**
 
@@ -92,7 +117,7 @@ This scanner will perform discovery of  ServiceNow  Accounts
 
     - **Merge Fields:** Leave Blank
 
-    - **Script:** Copy and paste the Script included in the file [ServiceNow Account Account Discovery](./ServiceNow%20Account%20Discovery.ps1)
+    - **Script:** Copy and paste the Script included in the file [ServiceNow Account Discovery](./ServiceNow%20Account%20Discovery.ps1)
 
 - Click Save
 
@@ -112,7 +137,7 @@ This scanner will perform discovery of  ServiceNow  Accounts
 
 - Fill out the required fields:
 
-    - **Name:** > ServiceNow Tenant Scanner
+    - **Name:** ServiceNow Tenant Scanner
 
     - **Description:** (Example - Base scanner used to discover ServiceNow Tenants)
 
@@ -150,17 +175,24 @@ This scanner will perform discovery of  ServiceNow  Accounts
 
     - **Base Scanner:** PowerShell Discovery
 
-    - **Input Template:** Select the ServiceNow Tenant Scan Template that Was Created in the [ServiceNow Tenant Scan Template Section](#create-servicenow-tenant-scan-template))
+    - **Input Template:** Select the ServiceNow Tenant Scan Template that Was Created in the [ServiceNow Tenant Scan Template Section](#create-servicenow-tenant-scan-template)
 
-    - **Output Template::** Select the ServiceNow Account Scan Template (Use Template that Was Created in the [Create Account Scan Template Section](#create-servicenow-account-scan-template))
+    - **Output Template:** Select the ServiceNow Account Scan Template (Use Template that Was Created in the [Create Account Scan Template Section](#create-servicenow-account-scan-template))
 
     - **Script:** ServiceNow Account Scanner (Use Script Created in the [Create Discovery Script Section](#create-discovery-script))
 
-    - **Script Arguments:**
+    - **Script Arguments:** (Use `Advanced` or `Default` for the first argument)
     ``` powershell
-        Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$sac-groupids $[1]$local-acct-grpids**
+        Advanced $[1]$tenant-url $[1]$username $[1]$password $[1]$client-id $[1]$client-secret $[1]$admin-roles $[1]$svc-groupids $[1]$local-acct-grpids
     ```
 - Click Save
+
+#### Discovery Mode Options
+
+| Mode | Description |
+|------|-------------|
+| **Advanced** | Discovers admin accounts, service accounts, and local accounts. Requires admin-roles, svc-groupids, and local-acct-grpids parameters. |
+| **Default** | Discovers local accounts only. Uses federated_id field to determine if account is local. |
 
  
 
@@ -174,7 +206,7 @@ This scanner will perform discovery of  ServiceNow  Accounts
 
 - Select **Empty Discovery Source**
 
--Enter the Values below:    
+- Enter the Values below:    
 
     - **Name:** (example: ServiceNow Test Tenant)
 
@@ -188,11 +220,11 @@ This scanner will perform discovery of  ServiceNow  Accounts
 
 - Click **Add Scanner**
 
-- Find the ServiceNow Tenant Scanner or the Scanner Created in the [Create ServiceNow Tenant       Scanner Section](#create-saas-tenant-scanner) and Click **Add Scanner**
+- Find the ServiceNow Tenant Scanner or the Scanner Created in the [Create ServiceNow Tenant Scanner Section](#create-servicenow-tenant-scanner) and Click **Add Scanner**
 
 - Select the Scanner just Created and Click **Edit Scanner**
 
-- In the **lines Parse Format** Section Enter the Source Name (example: ServiceNow  Tenant)
+- In the **Lines Parse Format** Section Enter the Source Name (example: ServiceNow Tenant)
 
 - Click **Save** 
 
@@ -295,4 +327,4 @@ You will now find this report under the section you chose in the Category field.
 
 - Click on the **Network view** tab 
 
-- You should now see the discovered Accounts.  Use the filer option to find the Accounts easier
+- You should now see the discovered Accounts. Use the filter option to find the Accounts easier
