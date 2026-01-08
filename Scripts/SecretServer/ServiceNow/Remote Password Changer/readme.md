@@ -1,8 +1,17 @@
 # ServiceNow Remote Password Changer
 
-  
+## Native Support Notice
 
-The steps below show how to Set up and configure a ServiceNow Remote Password Changer, in Delinea Secret Server.
+Secret Server now includes native out-of-the-box support for ServiceNow password changing and heartbeat functionality. For the built-in implementation, see the [official ServiceNow RPC Integration documentation](https://docs.delinea.com/online-help/integrations/servicenow/rpc-config/servicenow-rpc-integration.htm).
+
+This custom implementation can be used when:
+- You need additional customization not available in the native implementation
+- You require specific configurations for your organization
+- You are using an older version of Secret Server without native ServiceNow support
+
+## Overview
+
+The steps below show how to set up and configure a ServiceNow Remote Password Changer in Delinea Secret Server.
 
   
 
