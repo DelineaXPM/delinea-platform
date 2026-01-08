@@ -153,7 +153,7 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - In the **Password Type Fields** Section, fill out the following
 
--  **Domain** tenant-url
+-  **Domain** host
 
 -  **Password** Password
 
@@ -180,7 +180,7 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - Map the following fields that appear after the selection
 
-    - **tenant-url** -> Domain
+    - **host** -> Domain
 
     - **Username** -> username
 

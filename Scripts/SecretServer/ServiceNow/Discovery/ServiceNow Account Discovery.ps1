@@ -40,9 +40,9 @@ function Write-Log {
     # Evaluate Log Level based on global configuration
     if ($ErrorLevel -le $LogLevel) {
         # Format message
-        [string]$Timestamp = Get-Date -Format "yyyy-MM-ddThh:mm:sszzz"
+        [string]$Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
         switch ($ErrorLevel) {
-            "0" { [string]$MessageLevel = "INF0 " }
+            "0" { [string]$MessageLevel = "INFO " }
             "1" { [string]$MessageLevel = "WARN " }
             "2" { [string]$MessageLevel = "ERROR" }
             "3" { [string]$MessageLevel = "DEBUG" }
@@ -50,8 +50,6 @@ function Write-Log {
         # Write Log data
         $MessageString = "{0}`t| {1}`t| {2}`t| {3}" -f $Timestamp, $MessageLevel,$logApplicationHeader, $Message
         $MessageString | Out-File -FilePath $LogFile -Encoding utf8 -Append -ErrorAction SilentlyContinue
-        # $Color = @{ 0 = 'Green'; 1 = 'Cyan'; 2 = 'Yellow'; 3 = 'Red'}
-        # Write-Host -ForegroundColor $Color[$ErrorLevel] -Object ( $DateTime + $Message)
     }
 }
 #endregion Error Handling Functions
@@ -431,7 +429,7 @@ function Get-ServiceAccounts {
     }
     catch {
         $Err = $_    
-        Write-Log -ErrorLevel 0 -Message "Failed to retrieve Service Accountsr List"
+        Write-Log -ErrorLevel 0 -Message "Failed to retrieve Service Accounts List"
         Write-Log -ErrorLevel 2 -Message $Err.Exception
         throw $Err.Exception  
     }
@@ -532,7 +530,7 @@ Try {
                     $Username = $user.user_name
 
                     $object = New-Object -TypeName PSObject
-                    $object | Add-Member -MemberType NoteProperty -Name tenanturl -Value $baseURL
+                    $object | Add-Member -MemberType NoteProperty -Name host -Value $baseURL
                     $object | Add-Member -MemberType NoteProperty -Name username -Value $username
                     
                     $foundAccounts += $object
@@ -597,7 +595,7 @@ Try {
                 
                     $Username = $user.user_name
                     $object = New-Object -TypeName PSObject
-                    $object | Add-Member -MemberType NoteProperty -Name tenant-url -Value $baseURL
+                    $object | Add-Member -MemberType NoteProperty -Name host -Value $baseURL
                     $object | Add-Member -MemberType NoteProperty -Name username -Value $username
                     $object | Add-Member -MemberType NoteProperty -Name Admin-Account -Value $isadmin
                     $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isServiceAccount

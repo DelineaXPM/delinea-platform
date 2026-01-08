@@ -26,7 +26,7 @@ The script validates all input parameters before execution:
 | Parameter | Validation |
 |-----------|------------|
 | DiscoveryMode | Must be "Advanced" or "Default" |
-| tenant-url | Must start with "https://" |
+| host | Must start with "https://" |
 | All credentials | Checked for unsubstituted placeholder values (e.g., `$username`) |
 
 If validation fails, the script logs an error and terminates before making any API calls.
@@ -56,7 +56,7 @@ If validation fails, the script logs an error and terminates before making any A
 
     - **Parent Scan Template:** Host Range
 
-    - **Fields:**  Change HostRange to **tenant-url**
+    - **Fields:**  Change HostRange to **host**
 
 - Click Save
 
@@ -84,7 +84,7 @@ If validation fails, the script logs an error and terminates before making any A
 
     - **Fields**
 
-        - Change Resource to **tenant-url**
+        - Change Resource to **host**
 
         - Add field: Admin-Account (Leave Parent and Include in Match Blank)
 
@@ -292,7 +292,7 @@ d.[ComputerAccountId]
 
 ,d.[AccountName] AS [Username]
 
-,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Tenant-url'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
+,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'host'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Domain]
 
 ,MIN(CASE  JSON_VALUE([adata].[value],'$.Name') WHEN  'Admin-Account'  THEN  JSON_VALUE([adata].[value],'$.Value') END) AS [Is Admin Account]
 

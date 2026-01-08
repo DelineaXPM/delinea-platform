@@ -35,7 +35,7 @@ Used for storing discovered ServiceNow user account credentials.
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| Tenant-URL | Yes | Base URL for the ServiceNow instance |
+| host | Yes | Base URL for the ServiceNow instance |
 | Username | No | The account username |
 | Password | Yes | The account password (masked field) |
 | Notes | No | Additional comments or information |
