@@ -17,7 +17,6 @@ SELECT
     CASE
         WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId IN (2, 3) AND Active = 1) THEN 'No'
         WHEN (SELECT COUNT(*) FROM tbTeam WHERE Active = 1) > 0 THEN 'No'
-        WHEN (SELECT COUNT(*) FROM tbUser WHERE Enabled = 1 AND IsApplicationAccount = 1 AND DomainId IS NOT NULL) > 0 THEN 'No'
         WHEN (SELECT COUNT(*) FROM tbEventSubscription) > 0 THEN 'Possible'
         WHEN (SELECT COUNT(*) FROM tbEventPipelinePolicy) > 0 THEN 'Possible'
         WHEN (SELECT COUNT(*) FROM tbEventSubscription) = 0 AND (SELECT COUNT(*) FROM tbEventPipelinePolicy) = 0 THEN 'Yes'
