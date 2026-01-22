@@ -1,6 +1,15 @@
 # ServiceNow Delinea Secret Server Integration
 
-  
+## Native Support Notice
+
+Secret Server now includes native out-of-the-box support for ServiceNow password changing and heartbeat functionality. For the built-in implementation, see the [official ServiceNow RPC Integration documentation](https://docs.delinea.com/online-help/integrations/servicenow/rpc-config/servicenow-rpc-integration.htm).
+
+This repository provides an alternate RPC and Heartbeat implementation that offers:
+- Customization options for specific organizational requirements
+- Account Discovery features not available in the native Secret Server implementation
+- Flexibility for older Secret Server versions without native ServiceNow support
+
+## Overview
 
 This package is designed to discover and Manage ServiceNow User Accounts. It will provide detailed instructions and the necessary Scripts to perform these functions. Before beginning to implement any of the specific processes it is a requirement to perform the tasks contained in the Instructions document which can be found [here](./Instructions.md)
 
