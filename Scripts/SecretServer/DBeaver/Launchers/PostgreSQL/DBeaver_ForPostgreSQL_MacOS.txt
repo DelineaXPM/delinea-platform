@@ -1,0 +1,12 @@
+DBeaver For PostgreSQL MacOS
+
+ProcessName:		 /applications/dbeaver.app
+
+Process Arguments:  	 -con "name=$Server|driver=postgresql|host=$Server|port=5432|database=$Database|user=$Username|password=$Password|save=false|openConsole=true"
+
+PS: DBeaver application must be installed in the above directory. 
+    Port can be defined and mapped from the secrets of course as a variable
+    Set the following to no in the general settings in launcher 'Wrap custom parameters with quotation marks: NO'
+
+
+Sabri Arabacioglu - Delinea
