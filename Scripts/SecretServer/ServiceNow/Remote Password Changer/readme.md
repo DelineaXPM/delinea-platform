@@ -1,12 +1,21 @@
 # ServiceNow Remote Password Changer
 
+## Native Support Notice
+
+Secret Server now includes native out-of-the-box support for ServiceNow password changing and heartbeat functionality. For the built-in implementation, see the [official ServiceNow RPC Integration documentation](https://docs.delinea.com/online-help/integrations/servicenow/rpc-config/servicenow-rpc-integration.htm).
+
+This custom implementation can be used when:
+- You need additional customization not available in the native implementation
+- You require specific configurations for your organization
+- You are using an older version of Secret Server without native ServiceNow support
+
+## Overview
+
+The steps below show how to set up and configure a ServiceNow Remote Password Changer in Delinea Secret Server.
+
   
 
-The steps below show how to Set up and configure a ServiceNow Remote Password Changer, in Delinea Secret Server.
-
-  
-
-If you have not already done, so, please follow the steps in the **Instructions Document** found [here](..//Instructions.md)
+If you have not already done, so, please follow the steps in the **Instructions Document** found [here](../Instructions.md)
 
   
 
@@ -63,7 +72,7 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
     - **Script Type:** Powershell
 
-    - **Category::** Heartbeat
+    - **Category:** Heartbeat
 
     - **Merge Fields:** Leave Blank
 
@@ -80,11 +89,11 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - Navigate to **Admin** > **Remote Password Changing**
 
-- Click on Options (dropdown List) and select ***Configure Password Changers**
+- Click on Options (dropdown List) and select **Configure Password Changers**
 
 - Click on Create Password Changer
 
-- Click on ***Base Password Changer* (Dropdown List) and Select PowerShell Script
+- Click on **Base Password Changer** (Dropdown List) and Select PowerShell Script
 
 - Enter a Name (Example - ServiceNow Remote Password Changer )
 
@@ -128,7 +137,7 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - Select the **Mapping** Tab
 
-- In the **Password Changing** section, click edit and fill outhe following
+- In the **Password Changing** section, click edit and fill out the following
 
 -  **Enable RPC** Checked
 
@@ -144,7 +153,7 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - In the **Password Type Fields** Section, fill out the following
 
--  **Domain** tenant-url
+-  **Domain** host
 
 -  **Password** Password
 
@@ -159,11 +168,11 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - Navigate to **Admin** > **Remote Password Changing**
 
-- Click on Options (dropdown List) and select ***Configure Password Changers**
+- Click on Options (dropdown List) and select **Configure Password Changers**
 
 - Select the ServiceNow Remote Password Changer or the Password Changer created in the [Create Password Changer](#create-password-changer) section
 
-- Click **Configure Scan Template at the bottom of the pasge**
+- Click **Configure Scan Template at the bottom of the page**
 
 - Click Edit
 
@@ -171,9 +180,9 @@ If you have not already done, so, please follow the steps in the **Instructions 
 
 - Map the following fields that appear after the selection
 
-    - **tenant-url** -> Domain
+    - **host** -> Domain
 
-    - **Username -> username
+    - **Username** -> username
 
     - **Password** -> password
 
