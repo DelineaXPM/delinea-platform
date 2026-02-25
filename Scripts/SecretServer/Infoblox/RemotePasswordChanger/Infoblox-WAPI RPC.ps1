@@ -19,7 +19,6 @@ catch {
 
 #region Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Infoblox-RPC.log"
-[string]$LogFile = "c:\temp\Infoblox-RPC.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Infoblox RPC"
 [string]$authTokenType = "Basic"
@@ -98,25 +97,23 @@ function Set-AdminUser {
         $headers = @{
             "Authorization" = "$authTokenType $privUserToken" 
             "Content-Type" = "application/json"
-            "Host" = $baseUrl.Substring(8)
-            "Content-Length" = $body.length
         }
 
         # Specify endpoint uri for Users
         $uri = $apiUrl + "/" + $refUrl
 
-        Write-Log -Errorlevel 0 -Message "Updating Password form endpoint $uri"    
+        Write-Log -Errorlevel 0 -Message "Updating Password from endpoint $uri"    
 
         # Specify HTTP method
         $method = "put"
 
         # Send HTTP request
-        $pwdObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers -Body $body
+        $pwdObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers -Body $body  -ErrorAction Stop
         return $pwdObj
         } 
         catch {
             $Err = $_    
-            Write-Log -ErrorLevel 0 -Message "Failed to update Password"
+            Write-Log -ErrorLevel 2 -Message "Failed to update Password"
             Write-Log -ErrorLevel 2 -Message $Err.Exception
             throw $Err.Exception
         }
@@ -141,18 +138,18 @@ function Get-AdminUser {
         # Specify endpoint uri for Users
         $uri = $apiUrl +"/adminuser?_return_fields=$returnFields&name:=$username"
 
-        Write-Log -Errorlevel 0 -Message "Requesting UserProfile form endpoint $uri"    
+        Write-Log -Errorlevel 0 -Message "Requesting UserProfile from endpoint $uri"    
 
         # Specify HTTP method
         $method = "get"
 
         # Send HTTP request
-        $usersObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers
+        $usersObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers -erroraction stop
         
         return $usersObj
         } catch {
             $Err = $_    
-            Write-Log -ErrorLevel 0 -Message "Failed to request adminUser"
+            Write-Log -ErrorLevel 2 -Message "Failed to request adminUser"
             Write-Log -ErrorLevel 2 -Message $Err.Exception
             throw $Err.Exception
         }
@@ -185,7 +182,12 @@ try {
     Write-Log -Errorlevel 0 -Message "Attempting to RPC"    
 
     $user = Get-AdminUser -userToken $B64encodePrivUserToken
+    if ($user -is [array]) { 
+        Write-Log -ErrorLevel 1 -Message "Multiple users returned [Count: $($user.count)]"
+        $user = $user[0] 
+    }
     $resultObj = Set-AdminUser -privUserToken $B64encodePrivUserToken -refUrl ($user._ref)
+    
     if ($null -ne $resultObj) {
         return "Password Update Successful"
     }
