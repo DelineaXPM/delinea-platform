@@ -3,7 +3,7 @@
 #Define Argument Variables
 try {
 
-    [string]$baseURL = $args[0]
+    [uri]$baseURL = $args[0]
     [string]$privUsername = $args[1]
     [string]$privPassword = $args[2]
     [string]$Username = $args[3]
@@ -22,10 +22,10 @@ catch {
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Infoblox RPC"
 [string]$authTokenType = "Basic"
-[string]$apiUrl = $baseURL + "/wapi/v2.7"
+[string]$apiUrl = $baseURL.AbsoluteUri + "wapi/v2.7"
 #endregion
 
-# This section allows the Invoke-RESTMethod to ignore Self-Signe Certficates in PowerShell V5
+# This section allows the Invoke-RESTMethod to ignore Self-Signed Certficates in PowerShell V5
 #region Ignore Self-Signed Certificates
 if (-not("dummy" -as [type])) {
     add-type -TypeDefinition @"
