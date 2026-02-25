@@ -5,31 +5,31 @@
 try {
 
     [string]$DiscoveryMode = $args[0]
-    [string]$baseURL = $args[1] + "/wapi/v2.7"
+    [URI]$tenantUrl = $args[1]
+    [URI]$baseURL = $tenantUrl.AbsoluteUri + 'wapi/v2.7/'
     [string]$privUsername = $args[2]
     [string]$privPassword = $args[3]
     [string]$svcGroups = $args[4]
 }
 catch {
     $Err = $_   
-    throw "$Err.Exception args: $args" 
+    throw "$($Err.Exception) args: $args"
 
 }
-#endregion define variables
 
+#endregion define variables
 
 #region Script Constants
 [string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Infoblox-Discovery.log"
-[string]$LogFile = "c:\temp\Infoblox-Discovery.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "Infoblox Discovery"
 [System.Collections.ArrayList]$adminAccounts = New-Object System.Collections.ArrayList
-[System.Collections.ArrayList]$global:serviceGroupList = New-Object System.Collections.ArrayList
-[System.Collections.ArrayList]$global:AdminGroupList = New-Object System.Collections.ArrayList
+[System.Collections.ArrayList]$serviceGroupList = New-Object System.Collections.ArrayList
+[System.Collections.ArrayList]$AdminGroupList = New-Object System.Collections.ArrayList
 [string]$authTokenType = "Basic"
 #endregion
 
-# This section allows the Invoke-WebRequests to ignore Self-Signe Certficates in PowerShell V5
+# This section allows the Invoke-WebRequests to ignore Self-Signed Certificates in PowerShell V5
 #region Ignore Self-Signed Certificates
 if (-not("dummy" -as [type])) {
     add-type -TypeDefinition @"
@@ -66,9 +66,9 @@ function Write-Log {
     # Evaluate Log Level based on global configuration
     if ($ErrorLevel -le $LogLevel) {
         # Format message
-        [string]$Timestamp = Get-Date -Format "yyyy-MM-ddThh:mm:sszzz"
+        [string]$Timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:sszzz"
         switch ($ErrorLevel) {
-            "0" { [string]$MessageLevel = "INF0 " }
+            "0" { [string]$MessageLevel = "INFO " }
             "1" { [string]$MessageLevel = "WARN " }
             "2" { [string]$MessageLevel = "ERROR" }
             "3" { [string]$MessageLevel = "DEBUG" }
@@ -81,29 +81,29 @@ function Write-Log {
 }
 #endregion Error Handling Functions
 
-#REST Request to Retreive Groups (AdminGroups)
+#REST Request to Retrieve Groups (AdminGroups)
 function Get-AdminGroups {
     try {
         $returnFields = "name,superuser,disable"
 
         $headers = @{
-            "Authorization" = "$authTokenType $global:B64encodeToken"    
+            "Authorization" = "$authTokenType $B64encodeToken"    
         }
 
         # Specify endpoint uri for AdminGroups
-        $uri = $baseURL +"/admingroup?_return_fields=$returnFields"
-
-        Write-Log -Errorlevel 0 -Message "Requesting List of Groups form endpoint $uri"    
+        $uri = $baseURL +"admingroup?_return_fields=$returnFields"
 
         # Specify HTTP method
         $method = "get"
 
         # Send HTTP request
-        $groupObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers
+        Write-Log -ErrorLevel 3 -Message "API Request: Method=$method, URI=$uri"
+        $groupObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers -ErrorAction Stop
+        Write-Log -ErrorLevel 3 -Message "API Response: $($groupObj | ConvertTo-Json -Depth 5 -Compress)"
         return $groupObj
         } catch {
             $Err = $_    
-            Write-Log -ErrorLevel 0 -Message "Failed to List AdminGroups"
+            Write-Log -ErrorLevel 2 -Message "Failed to List AdminGroups"
             Write-Log -ErrorLevel 2 -Message $Err.Exception
             throw $Err.Exception
         }
@@ -115,23 +115,23 @@ function Get-AdminGroups {
         $returnFields = "name,admin_groups,auth_type,disable"
 
         $headers = @{
-            "Authorization" = "$authTokenType $global:B64encodeToken"    
+            "Authorization" = "$authTokenType $B64encodeToken"    
         }
 
         # Specify endpoint uri for Users
-        $uri = $baseURL +"/adminuser?_return_fields=$returnFields"
-
-        Write-Log -Errorlevel 0 -Message "Requesting List of Users form endpoint $uri"    
+        $uri = $baseURL +"adminuser?_return_fields=$returnFields"
 
         # Specify HTTP method
         $method = "get"
 
         # Send HTTP request
-        $usersObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers
+        Write-Log -ErrorLevel 3 -Message "API Request: Method=$method, URI=$uri"
+        $usersObj = Invoke-RestMethod -Method $method -Uri $uri -Headers $headers -ErrorAction Stop
+        Write-Log -ErrorLevel 3 -Message "API Response: $($usersObj | ConvertTo-Json -Depth 5 -Compress)"
         return $usersObj
         } catch {
             $Err = $_    
-            Write-Log -ErrorLevel 0 -Message "Failed to List Users"
+            Write-Log -ErrorLevel 2 -Message "Failed to List Users"
             Write-Log -ErrorLevel 2 -Message $Err.Exception
             throw $Err.Exception
         }
@@ -147,14 +147,17 @@ function Get-AdminGroups {
     $groups = Get-AdminGroups
     foreach ($group in $groups) {
         #Check to see if Group is disabled
+        $disableVal = $group.disable
+        $disableType = if ($null -ne $disableVal) { $disableVal.GetType().Name } else { 'null' }
+        Write-Log -ErrorLevel 3 -Message "Group '$($group.name)' disable field: Value='$disableVal', Type='$disableType', Expression (disable -ne 'false')='$($group.disable -ne "false")'"
         if ($group.disable -ne "false") {
             #Check to see if Group is SuperUser/Admin
             if ($group.superuser -eq "true") {
-                [void] $global:AdminGroupList.Add($group)
+                [void] $AdminGroupList.Add($group)
             }
             #Check to see if Group is in User-Defined Service Group List
             if (($group.name) -in $svcGroupsArray) {
-                [void] $global:serviceGroupList.Add($group)
+                [void] $serviceGroupList.Add($group)
             }
         }
     }
@@ -162,7 +165,7 @@ function Get-AdminGroups {
  }
 
 
- #Function to see if the User is an Admin based on thier Groups
+ #Function to see if the User is an Admin based on their Groups
 function isAdmin {
 param(
     [Parameter(Mandatory,ValueFromPipeline)]
@@ -170,7 +173,7 @@ param(
 )   
 
     #Loop through each Admin Group
-    foreach ($group in $global:AdminGroupList) {
+    foreach ($group in $AdminGroupList) {
         #Loop through each of the User's groups
         foreach ($userGroup in $userGroups) {
             #Check to see if the AdminGroup and User Group name is the same
@@ -183,14 +186,14 @@ param(
     return $false
 }
 
-#Fuction to see if the User is a Service Account based on their Groups
+#Function to see if the User is a Service Account based on their Groups
 function isSvcAccount {
 param(
     [Parameter(Mandatory,ValueFromPipeline)]
     [string]$groupName   
 )
     #Loop through each User-Defined Service Account Group
-    foreach ($group in $global:serviceGroupList) {
+    foreach ($group in $serviceGroupList) {
         #Validate the Service Account Group with the User Group name passed into function
         if ($groupName -eq $group.name) {
             return $true
@@ -204,10 +207,10 @@ param(
 try {
 
     #Create Authorization Token
-    #Auth requires a Base64 encoded string using Privleged Account Username & Password
+    #Auth requires a Base64 encoded string using Privileged Account Username & Password
     $nonEncodeStr = $privUsername + ":" + $privPassword
     $bytes =  [System.Text.Encoding]::UTF8.GetBytes($nonEncodeStr)
-    $global:B64encodeToken = [Convert]::ToBase64String($bytes)   
+    $B64encodeToken = [Convert]::ToBase64String($bytes)   
 }
 catch {
     $Err = $_   
@@ -225,19 +228,20 @@ if ($DiscoveryMode -eq "Advanced") {
 #region Fetch Users
 try {
 
-    $tenantUrl = $args[1]
-
-    Write-Log -Errorlevel 0 -Message "Obtaining List of Users"    
+    Write-Log -Errorlevel 0 -Message "Obtaining List of Users"
  
     #Traverse though the list of Users in the system and determine if they are Privileged Accounts
-    #Retrieve XML Document of Users
+    #Retrieve Users from WAPI
     #These Users are in the Administrators Section under Devices
     $usersList = Get-AdminUsers
     foreach ($user in $usersList) {
         $isFound = $false
+        $disableVal = $user.disable
+        $disableType = if ($null -ne $disableVal) { $disableVal.GetType().Name } else { 'null' }
+        Write-Log -ErrorLevel 3 -Message "User '$($user.name)' disable field: Value='$disableVal', Type='$disableType', Expression (disable -ne 'false')='$($user.disable -ne "false")'"
         if ($user.disable -ne "false") {
             $object = New-Object -TypeName PSObject
-            $object | Add-Member -MemberType NoteProperty -Name tenant-url -Value $tenantUrl
+            $object | Add-Member -MemberType NoteProperty -Name tenant-url -Value $tenantUrl.AbsoluteUri
             $object | Add-Member -MemberType NoteProperty -Name username -Value $user.name
             #Check to see if this is a Local Account
             #Auth Types LOCAL or SAML_LOCAL are considered "Local" accounts
@@ -262,14 +266,15 @@ try {
                 }
 
                 #Check for Service Account
+                $isSvc = $false
                 foreach ($group in $user.admin_groups) {
-                    if (isSvcAccount -groupname $group) {
-                        $isFound = $true
-                        $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value "True"
-                    } else {
-                        $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value "False"
+                    if (isSvcAccount -groupName $group) {
+                        $isSvc = $true
+                        break
                     }
                 }
+                if ($isSvc) { $isFound = $true }
+                $object | Add-Member -MemberType NoteProperty -Name Service-Account -Value $isSvc.ToString()
             }
             
 
@@ -282,7 +287,7 @@ try {
     }
 } catch {
     $Err = $_    
-    Write-Log -ErrorLevel 0 -Message "Failed to Analyze the Users"
+    Write-Log -ErrorLevel 2 -Message "Failed to Analyze the Users"
     Write-Log -ErrorLevel 2 -Message $Err.Exception
     throw $Err.Exception
 }
