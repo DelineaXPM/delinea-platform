@@ -1,0 +1,274 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+
+  "parameters": {
+    "workspaceName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the existing Log Analytics workspace where Microsoft Sentinel is enabled."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Azure region for all resources. Must match the Log Analytics workspace region."
+      }
+    },
+    "dceName": {
+      "type": "string",
+      "defaultValue": "delinea-sentinel-dce",
+      "metadata": {
+        "description": "Name for the Data Collection Endpoint."
+      }
+    },
+    "dcrName": {
+      "type": "string",
+      "defaultValue": "delinea-sentinel-dcr",
+      "metadata": {
+        "description": "Name for the Data Collection Rule."
+      }
+    },
+    "logicAppName": {
+      "type": "string",
+      "defaultValue": "la-delinea-sentinel",
+      "metadata": {
+        "description": "Name for the Logic App."
+      }
+    },
+    "tableName": {
+      "type": "string",
+      "defaultValue": "DelineaPlatformEvents_CL",
+      "metadata": {
+        "description": "Custom log table name. Must end in _CL."
+      }
+    }
+  },
+
+  "variables": {
+    "streamName": "[concat('Custom-', parameters('tableName'))]",
+    "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]",
+    "dceResourceId": "[resourceId('Microsoft.Insights/dataCollectionEndpoints', parameters('dceName'))]",
+    "dcrResourceId": "[resourceId('Microsoft.Insights/dataCollectionRules', parameters('dcrName'))]",
+    "monitoringMetricsPublisherRoleId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '3913510d-42f4-4e42-8a64-420c390055eb')]"
+  },
+
+  "resources": [
+
+    // ─────────────────────────────────────────────────────────────
+    // 1. CUSTOM LOG TABLE
+    //    Must be created before the DCR references it.
+    // ─────────────────────────────────────────────────────────────
+    {
+      "type": "Microsoft.OperationalInsights/workspaces/tables",
+      "apiVersion": "2022-10-01",
+      "name": "[concat(parameters('workspaceName'), '/', parameters('tableName'))]",
+      "properties": {
+        "plan": "Analytics",
+        "schema": {
+          "name": "[parameters('tableName')]",
+          "columns": [
+            { "name": "TimeGenerated", "type": "datetime" },
+            { "name": "RawData",       "type": "string"   },
+            { "name": "EventType",     "type": "string"   },
+            { "name": "Service",       "type": "string"   },
+            { "name": "Level",         "type": "string"   },
+            { "name": "User",          "type": "string"   },
+            { "name": "SecretId",      "type": "string"   }
+          ]
+        }
+      }
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // 2. DATA COLLECTION ENDPOINT (DCE)
+    // ─────────────────────────────────────────────────────────────
+    {
+      "type": "Microsoft.Insights/dataCollectionEndpoints",
+      "apiVersion": "2022-06-01",
+      "name": "[parameters('dceName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "networkAcls": {
+          "publicNetworkAccess": "Enabled"
+        }
+      }
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // 3. DATA COLLECTION RULE (DCR)
+    //    Depends on: table and DCE
+    // ─────────────────────────────────────────────────────────────
+    {
+      "type": "Microsoft.Insights/dataCollectionRules",
+      "apiVersion": "2022-06-01",
+      "name": "[parameters('dcrName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[variables('dceResourceId')]",
+        "[resourceId('Microsoft.OperationalInsights/workspaces/tables', parameters('workspaceName'), parameters('tableName'))]"
+      ],
+      "properties": {
+        "dataCollectionEndpointId": "[variables('dceResourceId')]",
+        "streamDeclarations": {
+          "[variables('streamName')]": {
+            "columns": [
+              { "name": "TimeGenerated", "type": "datetime" },
+              { "name": "RawData",       "type": "string"   },
+              { "name": "EventType",     "type": "string"   },
+              { "name": "Service",       "type": "string"   },
+              { "name": "Level",         "type": "string"   },
+              { "name": "User",          "type": "string"   },
+              { "name": "SecretId",      "type": "string"   }
+            ]
+          }
+        },
+        "dataSources": {},
+        "destinations": {
+          "logAnalytics": [
+            {
+              "workspaceResourceId": "[variables('workspaceResourceId')]",
+              "name": "sentinelWorkspace"
+            }
+          ]
+        },
+        "dataFlows": [
+          {
+            "streams": [ "[variables('streamName')]" ],
+            "destinations": [ "sentinelWorkspace" ],
+            "transformKql": "source",
+            "outputStream": "[variables('streamName')]"
+          }
+        ]
+      }
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // 4. LOGIC APP
+    //    Depends on: DCR (needs DCR immutableId at runtime)
+    // ─────────────────────────────────────────────────────────────
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2019-05-01",
+      "name": "[parameters('logicAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[variables('dcrResourceId')]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "triggers": {
+            "When_an_HTTP_request_is_received": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "event_type": { "type": "string" },
+                    "service":    { "type": "string" },
+                    "level":      { "type": "string" },
+                    "details": {
+                      "type": "object",
+                      "properties": {
+                        "user":      { "type": "string" },
+                        "secret_id": { "type": "string" },
+                        "timestamp": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "actions": {
+            "Compose_DCR_Payload": {
+              "type": "Compose",
+              "runAfter": {},
+              "inputs": [
+                {
+                  "TimeGenerated": "@{coalesce(triggerBody()?['details']?['timestamp'], utcNow())}",
+                  "RawData":       "@{string(triggerBody())}",
+                  "EventType":     "@{triggerBody()?['event_type']}",
+                  "Service":       "@{triggerBody()?['service']}",
+                  "Level":         "@{triggerBody()?['level']}",
+                  "User":          "@{triggerBody()?['details']?['user']}",
+                  "SecretId":      "@{triggerBody()?['details']?['secret_id']}"
+                }
+              ]
+            },
+            "POST_to_DCR": {
+              "type": "Http",
+              "runAfter": {
+                "Compose_DCR_Payload": [ "Succeeded" ]
+              },
+              "inputs": {
+                "method": "POST",
+                "uri": "[concat(reference(variables('dceResourceId'), '2022-06-01').logsIngestion.endpoint, '/dataCollectionRules/', reference(variables('dcrResourceId'), '2022-06-01').immutableId, '/streams/', variables('streamName'), '?api-version=2023-01-01')]",
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": "@outputs('Compose_DCR_Payload')",
+                "authentication": {
+                  "type": "ManagedServiceIdentity",
+                  "audience": "https://monitor.azure.com"
+                }
+              }
+            }
+          },
+          "outputs": {}
+        }
+      }
+    },
+
+    // ─────────────────────────────────────────────────────────────
+    // 5. ROLE ASSIGNMENT
+    //    Grants Logic App Managed Identity the
+    //    "Monitoring Metrics Publisher" role on the DCR.
+    //    Depends on: Logic App (needs its principalId)
+    // ─────────────────────────────────────────────────────────────
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(variables('dcrResourceId'), parameters('logicAppName'), variables('monitoringMetricsPublisherRoleId'))]",
+      "scope": "[variables('dcrResourceId')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Logic/workflows', parameters('logicAppName'))]",
+        "[variables('dcrResourceId')]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[variables('monitoringMetricsPublisherRoleId')]",
+        "principalId": "[reference(resourceId('Microsoft.Logic/workflows', parameters('logicAppName')), '2019-05-01', 'Full').identity.principalId]",
+        "principalType": "ServicePrincipal"
+      }
+    }
+
+  ],
+
+  "outputs": {
+    "logicAppTriggerUrl": {
+      "type": "string",
+      "value": "[listCallbackUrl(resourceId('Microsoft.Logic/workflows/triggers', parameters('logicAppName'), 'When_an_HTTP_request_is_received'), '2019-05-01').value]"
+    },
+    "dceLogsIngestionUri": {
+      "type": "string",
+      "value": "[reference(variables('dceResourceId'), '2022-06-01').logsIngestion.endpoint]"
+    },
+    "dcrImmutableId": {
+      "type": "string",
+      "value": "[reference(variables('dcrResourceId'), '2022-06-01').immutableId]"
+    },
+    "tableName": {
+      "type": "string",
+      "value": "[parameters('tableName')]"
+    }
+  }
+}
