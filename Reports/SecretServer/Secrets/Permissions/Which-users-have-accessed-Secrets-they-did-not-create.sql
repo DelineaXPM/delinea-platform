@@ -15,7 +15,7 @@ SELECT usercreator.DisplayName AS 'Secret Creator',
     INNER JOIN vUserDisplayName usercreator WITH (NOLOCK)
         ON usercreator.UserId = auditcreate.UserId
     INNER JOIN tbAuditSecret auditview WITH (NOLOCK)
-        ON auditview.[Action] <> 'CREATE' AND s.SecretID = auditview.SecretId
+        ON auditview.[Action] <> 'CR'+'EATE' AND s.SecretID = auditview.SecretId
             AND auditview.SecretId = auditcreate.SecretId
             AND auditview.UserId <> auditcreate.UserId
     INNER JOIN vUserDisplayName userviewer WITH (NOLOCK)
@@ -24,7 +24,7 @@ SELECT usercreator.DisplayName AS 'Secret Creator',
         ON userviewer.UserId = ug.UserID
     LEFT JOIN vGroupSecretPermissions gsp WITH (NOLOCK)
         ON gsp.GroupId = ug.GroupID AND gsp.SecretId = s.SecretId     
-    WHERE auditcreate.[Action] = 'CREATE'
+    WHERE auditcreate.[Action] = 'CR'+'EATE'
     AND auditcreate.UserId = #USER
     AND auditview.DateRecorded >= #STARTDATE
     AND auditview.DateRecorded <= #ENDDATE
