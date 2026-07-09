@@ -40,6 +40,10 @@ Secret Server records SSH two independent ways:
 1. Add `/T` to the front of the Process Arguments, e.g. `/T /SSH2 /AUTH password /L $USERNAME /PASSWORD $PASSWORD $MACHINE`
 1. **Audit tabbed sessions through Session Replay (keystroke/terminal text), not video.**
 
+A launcher configured this way — note **Launcher type: Proxied SSH process** and **Track multiple windows: Yes** (set **Preserve SSH Client Process** to Yes as well):
+
+![SecureCRT launcher configured as a Proxied SSH Process with Track multiple windows enabled](SecureCRT_Launcher.png)
+
 Why **Preserve SSH Client Process** is required: with `/T`, SecureCRT hands the
 new connection to an already-running instance and the originally launched
 process exits. Without Preserve, the Protocol Handler watchdog sees that exit

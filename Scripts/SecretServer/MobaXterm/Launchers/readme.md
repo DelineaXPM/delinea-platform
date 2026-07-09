@@ -53,7 +53,7 @@ This launcher requires a connection back to the Secret Server API via [Integrate
 ```powershell
 START PowerShell.exe -noprofile -executionpolicy bypass -windowstyle hidden -command "new-item -path c:\ -name "Key" -itemtype "directory";$SSURL='https://yourthycoticinstanceurl/secretserver/winauthwebservices/api/v1/secrets/';$URI=$SSURL+'%1';$API=$URI+'/fields/private-key';Invoke-RestMethod -Uri $API -UseDefaultCredentials -Method Get -ContentType "Application/json" -OutFile "c:\key\id_rsa" -force"
 cd "c:\Program Files (x86)\Mobatek\MobaXterm\"
-START MobaXterm.exe -newtab "ssh -i c:/tempss/id_rsa %2@%3"
+START MobaXterm.exe -newtab "ssh -i c:/key/id_rsa %2@%3"
 ```
 
 Please note, these are three lines of code in total.
@@ -98,6 +98,10 @@ Secret Server records SSH two independent ways:
 1. **SSH Proxy** and session recording enabled (globally and on the secret).
 1. Use the `-newtab` Process Arguments from the launcher recipe above.
 1. **Audit tabbed sessions through Session Replay (keystroke/terminal text), not video.**
+
+A launcher configured this way — note **Launcher type: Proxied SSH process** and **Track multiple windows: Yes** (set **Preserve SSH Client Process** to Yes as well):
+
+![MobaXterm launcher configured as a Proxied SSH Process with Track multiple windows enabled](MobaXterm_Launcher.png)
 
 With `-newtab`, MobaXterm hands the connection to an already-running instance
 and the launched process exits; without **Preserve SSH Client Process** the
