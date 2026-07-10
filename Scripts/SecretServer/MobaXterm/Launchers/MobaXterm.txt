@@ -1,9 +1,0 @@
-MobaXterm
-
-ProcessName:		 C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe
-
-Process Arguments:  	 -newtab "sshpass -p '$PASSWORD' ssh $USERNAME@$MACHINE" 
-
-
-
-Cagdas BARAK - Delinea
