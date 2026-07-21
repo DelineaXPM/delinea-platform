@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.4.20250909' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20260720' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
@@ -11,18 +11,49 @@ UNION ALL
 
 SELECT '--> Platform Adoption Ready' AS [Item],
 	CASE
-		WHEN EXISTS (SELECT * FROM tbDomain WHERE DomainTypeId = 2 AND Active = 1) THEN 'No' /*OpenLDAP Domains */
-		WHEN (SELECT COUNT(*) FROM tbTeam WHERE Active = 1) > 0 THEN 'No' /* Teams usage*/
-	    WHEN (SELECT COUNT(*) FROM tbUser WHERE Enabled = 1 AND IsApplicationAccount = 1 AND DomainId IS NOT NULL) > 0 THEN 'No'  /*AD Domain Accounts*/
-		WHEN (SELECT COUNT(*) FROM tbEventSubscription) > 0 THEN 'Possible'
-		WHEN (SELECT COUNT(*) FROM tbEventPipelinePolicy) > 0 THEN 'Possible'
-		WHEN (SELECT COUNT(*) FROM tbEventSubscription) = 0 AND (SELECT COUNT(*) FROM tbEventPipelinePolicy) = 0 THEN 'Yes'
-		ELSE 'Possible'
+		WHEN MAX(CASE WHEN Checks.Severity = 'No' THEN 1 ELSE 0 END) = 1 THEN 'No'
+		WHEN MAX(CASE WHEN Checks.Severity = 'Possible' THEN 1 ELSE 0 END) = 1 THEN 'Possible'
+		ELSE 'Yes'
 	END AS [Value],
-	CASE
-		WHEN (SELECT COUNT(*) FROM tbEventSubscription) > 0 OR (SELECT COUNT(*) FROM tbEventPipelinePolicy) > 0 THEN 'To be Reviewed'
-		ELSE ''
-	END AS [Comment]
+	ISNULL(STRING_AGG(Checks.ReviewItem, '; '), '') AS [Comment]
+FROM (
+	SELECT 'No' AS Severity, 'OpenLDAP Domains' AS ReviewItem
+	WHERE EXISTS (SELECT * FROM tbDomain WITH (NOLOCK) WHERE DomainTypeId = 2 AND Active = 1)
+	UNION ALL
+	SELECT 'No', 'Teams Usage'
+	WHERE (SELECT COUNT(*) FROM tbTeam WITH (NOLOCK) WHERE Active = 1) > 0
+	UNION ALL
+	SELECT 'No', 'Integrated Windows Authentication'
+	WHERE (SELECT c.IntegratedWindowsAuthentication FROM tbConfiguration c WITH (NOLOCK)) = 1
+	UNION ALL
+	SELECT 'Possible', 'Event Subscriptions'
+	WHERE (SELECT COUNT(*) FROM tbEventSubscription WITH (NOLOCK)) > 0
+	UNION ALL
+	SELECT 'Possible', 'Event Pipelines'
+	WHERE (SELECT COUNT(*) FROM tbEventPipelinePolicy WITH (NOLOCK)) > 0
+	UNION ALL
+	SELECT 'No', 'Custom User Ownership (' + CAST(UserOwnership.Cnt AS NVARCHAR(20)) + ' users)'
+	FROM (
+		SELECT COUNT(DISTINCT u.UserId) AS Cnt
+		FROM tbEntityOwnerPermission EOP WITH (NOLOCK)
+		JOIN tbUser u WITH (NOLOCK) ON u.UserId = EOP.OwnedEntityId
+		JOIN tbGroup g WITH (NOLOCK) ON EOP.GroupId = g.GroupId
+		WHERE EOP.RoleId = 14
+		AND u.Enabled = 1
+	) AS UserOwnership
+	WHERE UserOwnership.Cnt > 0
+	UNION ALL
+	SELECT 'No', 'Custom Group Ownership (' + CAST(GroupOwnership.Cnt AS NVARCHAR(20)) + ' groups)'
+	FROM (
+		SELECT COUNT(DISTINCT tg.GroupId) AS Cnt
+		FROM tbGroupOwnerPermission gop WITH (NOLOCK)
+		JOIN tbGroup tg WITH (NOLOCK) ON tg.GroupId = gop.OwnedGroupId
+		JOIN tbGroup og WITH (NOLOCK) ON og.GroupId = gop.GroupId
+		WHERE tg.Active = 1
+		AND og.Active = 1
+	) AS GroupOwnership
+	WHERE GroupOwnership.Cnt > 0
+) AS Checks
 UNION ALL
 
 SELECT '--> UsePlatformSettings' AS [Item],
@@ -53,16 +84,15 @@ SELECT '--> Size' AS [Item],
 			 (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
 			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Large'
 		WHEN (SELECT COUNT(*) FROM tbsite WHERE Active = 1) BETWEEN 3 AND 4 THEN 'Custom'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25000 THEN 'Custom'
 		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) < 2500 AND
 			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2 THEN 'Small'
 		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
-			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 10001 AND 25000 AND
-			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25001 AND
 			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Custom'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 10001 THEN 'Large'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Large'
 		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 THEN 'Medium'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 10001 AND 25000 THEN 'Large'
 		WHEN (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'Large'
 		WHEN (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7 THEN 'Medium'
 		ELSE 'Small'
@@ -77,8 +107,9 @@ SELECT '--> Size' AS [Item],
 			      (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) < 2) AND
 			 NOT ((SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
 			      (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) BETWEEN 3 AND 7) THEN 'site count'
-		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25001 AND
-			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'secret count, SDK accounts'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) > 25000 THEN 'secret count exceeds X3 ceiling'
+		WHEN (SELECT COUNT(SecretID) FROM tbSecret WHERE Active = 1) BETWEEN 2501 AND 10000 AND
+			 (SELECT COUNT(*) FROM tbSdkClientAccount WHERE Revoked <> 1) > 7 THEN 'SDK account count escalation'
 		ELSE ''
 	END AS [Comment]
 UNION ALL
@@ -122,13 +153,18 @@ SELECT '--> Secret Server Address' AS [Item], CAST(c.CustomURL AS NVARCHAR(255))
 FROM tbConfiguration c
 UNION ALL
 
-SELECT '--> Secret Server Version' AS [Item], 
-   CAST(v.VersionNumber AS NVARCHAR(50)) AS [Value], 
-   (SELECT CASE 
-	   WHEN DATEADD(MONTH, -11, GETDATE()) > v.Upgraded THEN 'Last Upgrade > 11months'
-	   WHEN v.VersionNumber < '11.6.000001' THEN 'Upgrade Required'
-	   ELSE ''
-   END)  AS [Comment]
+SELECT '--> Secret Server Version' AS [Item],
+   CAST(v.VersionNumber AS NVARCHAR(50)) AS [Value],
+   (SELECT CASE
+       WHEN DATEADD(MONTH, -11, GETDATE()) > v.Upgraded THEN 'Last Upgrade > 11months'
+       WHEN (
+            SELECT CAST(
+                RIGHT('00' + PARSENAME(v.VersionNumber, 3), 2) +
+                RIGHT('00' + PARSENAME(v.VersionNumber, 2), 2)
+            AS INT)
+       ) < 1109 THEN 'Upgrade Required < v11.10'
+       ELSE ''
+   END) AS [Comment]
 FROM (
    SELECT TOP 1 v.VersionNumber, v.Upgraded
    FROM tbVersion v
@@ -152,7 +188,22 @@ SELECT '--> SAML Enabled' AS [Item],
 	CAST(CASE 
 		WHEN sc.Enabled = 0 THEN 'FALSE' 
 		WHEN sc.Enabled = 1 THEN 'TRUE' 
-	END AS NVARCHAR(5)) AS [Value], '' AS [Comment]
+	END AS NVARCHAR(5)) AS [Value], 
+	CASE 
+		WHEN STUFF((
+			SELECT ', ' + spi.DisplayName
+			FROM tbSamlIdpConfiguration spi 
+			WHERE spi.Active = 1
+			FOR XML PATH('')
+		), 1, 2, '') IS NOT NULL 
+		THEN 'Name(s): ' + STUFF((
+			SELECT ', ' + spi.DisplayName
+			FROM tbSamlIdpConfiguration spi 
+			WHERE spi.Active = 1
+			FOR XML PATH('')
+		), 1, 2, '')
+		ELSE ''
+	END AS [Comment]
 FROM tbSamlConfiguration sc
 UNION ALL
 
@@ -363,8 +414,23 @@ SELECT '--> Discovery Enabled',
 FROM tbDiscoveryConfiguration dc
 UNION ALL
 
-SELECT '--> Discovery Sources', CAST(COUNT(DiscoverySourceId) AS NVARCHAR(50)), ''
+SELECT '--> Discovery Sources', 
+	CAST(COUNT(ds.DiscoverySourceId) AS NVARCHAR(50)), 
+	MAX(CASE 
+		WHEN x.Sources IS NOT NULL THEN x.Sources 
+		ELSE '' 
+	END) AS Comment
 FROM tbDiscoverySource ds
+JOIN tbDiscoveryScanner sc ON sc.DiscoveryScannerId = ds.DiscoveryScannerId
+CROSS APPLY (
+	SELECT STUFF((
+		SELECT ' ' + '(' + ds2.Name + ' - ' + sc2.ScannerTypeName + ')'
+		FROM tbDiscoverySource ds2
+		JOIN tbDiscoveryScanner sc2 ON sc2.DiscoveryScannerId = ds2.DiscoveryScannerId
+		WHERE ds2.Active = 1
+		FOR XML PATH('')
+	), 1, 1, '') AS Sources
+) x
 WHERE ds.Active = 1
 UNION ALL
 
@@ -384,8 +450,9 @@ UNION ALL
 SELECT '--> Secrets in Personal Subfolders', CAST(COUNT(*) AS NVARCHAR(50)), ''
 FROM tbSecret s
 JOIN tbfolder f ON s.FolderId = f.FolderID
+CROSS JOIN (SELECT PersonalFolderName FROM tbConfiguration) cfg
 WHERE s.Active = 1 
-	AND f.FolderPath LIKE '%'+ (SELECT PersonalFolderName FROM tbConfiguration)+ '\%\%' 
+    AND f.FolderPath LIKE '%' + cfg.PersonalFolderName + '\%\%'
 UNION ALL
 
 SELECT '--> Secrets With Files', CAST(COUNT(*) AS NVARCHAR(50)), ''
@@ -582,6 +649,13 @@ UNION ALL
 SELECT 'Cleanup Items' AS [Item], '' AS [Value], '' AS [Comment]
 UNION ALL
 
+SELECT '--> Users' AS [Item], '' AS [Value], '' AS [Comment]
+UNION ALL
+
+SELECT '----> Users missing email address' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
+from tbuser u where (u.emailaddress like '' or u.emailaddress is null) and u.Enabled =  1
+UNION ALL 
+
 SELECT '--> Secrets' AS [Item], '' AS [Value], '' AS [Comment]
 UNION ALL
 
@@ -616,22 +690,22 @@ WHERE s.active = 1
 	WHERE acl.permissions = 15
    )
 UNION ALL
+
 SELECT '----> Secrets With Leading or Trailing Spaces' AS [Item], CAST(COUNT(*) AS NVARCHAR(50)) AS [Value], '' AS [Comment]
 FROM tbSecret s
 JOIN tbFolder f ON s.FolderID = f.FolderID
-WHERE s.SecretName LIKE ' %' OR s.SecretName LIKE '% ' AND s.Active = 1
+WHERE (s.SecretName LIKE ' %' OR s.SecretName LIKE '% ') AND s.Active = 1  
 UNION ALL
 
-SELECT '----> Shared Secrets in Personal Folders', cast(COUNT(DISTINCT s.secretid) as NVARCHAR(50)),''
+SELECT '----> Shared Secrets in Personal Folders', CAST(COUNT(DISTINCT s.secretid) AS NVARCHAR(50)), ''
 FROM tbSecretACL acl WITH (NOLOCK)
 JOIN tbSecret s WITH (NOLOCK) ON s.SecretID = acl.SecretID AND s.Active = 1
-JOIN tbSecretType t ON t.SecretTypeid = s.SecretTypeID
 JOIN tbGroup g WITH (NOLOCK) ON acl.[GroupID] = g.[GroupID] AND (g.[Active] = 1 OR g.[IsPersonal] = 1)
 JOIN tbUserGroup ug WITH (NOLOCK) ON acl.[GroupID] = ug.[GroupID]
 JOIN tbUser u WITH (NOLOCK) ON ug.[UserID] = u.[UserId]
-LEFT JOIN vUserDisplayName vdn ON vdn.UserId = u.UserId
 LEFT JOIN tbFolder f WITH (NOLOCK) ON s.[FolderID] = f.[FolderId]
 LEFT JOIN tbUser fu WITH (NOLOCK) ON f.[UserId] = fu.[UserId]
+CROSS JOIN (SELECT PersonalFolderName FROM tbConfiguration) cfg
 LEFT JOIN (
     SELECT 
         sub_f.FolderID,
@@ -639,24 +713,25 @@ LEFT JOIN (
         root_owner.DisplayName,
         root_owner.Enabled
     FROM tbFolder sub_f WITH (NOLOCK)
+    CROSS JOIN (SELECT PersonalFolderName FROM tbConfiguration) cfg2
     JOIN tbFolder root_f WITH (NOLOCK) ON (
-        sub_f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\%' AND
-        root_f.FolderPath = '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '\' + 
+        sub_f.FolderPath LIKE '\' + cfg2.PersonalFolderName + '\%' AND
+        root_f.FolderPath = '\' + cfg2.PersonalFolderName + '\' + 
         SUBSTRING(
             sub_f.FolderPath, 
-            LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3,
+            LEN(cfg2.PersonalFolderName) + 3,
             CASE 
-                WHEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) > 0
-                THEN CHARINDEX('\', sub_f.FolderPath, LEN((SELECT PersonalFolderName FROM tbConfiguration)) + 3) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 3
-                ELSE LEN(sub_f.FolderPath) - LEN((SELECT PersonalFolderName FROM tbConfiguration)) - 2
+                WHEN CHARINDEX('\', sub_f.FolderPath, LEN(cfg2.PersonalFolderName) + 3) > 0
+                THEN CHARINDEX('\', sub_f.FolderPath, LEN(cfg2.PersonalFolderName) + 3) - LEN(cfg2.PersonalFolderName) - 3
+                ELSE LEN(sub_f.FolderPath) - LEN(cfg2.PersonalFolderName) - 2
             END
         )
     )
     LEFT JOIN tbUser root_owner WITH (NOLOCK) ON root_f.UserId = root_owner.UserId
     WHERE sub_f.UserId IS NULL
 ) parent_owner ON f.FolderID = parent_owner.FolderID
-WHERE f.FolderPath LIKE '\' + (SELECT PersonalFolderName FROM tbConfiguration) + '%'
-AND (parent_owner.userid <> u.UserId OR fu.userid <> u.userid)
+WHERE f.FolderPath LIKE '\' + cfg.PersonalFolderName + '%'
+  AND (parent_owner.userid <> u.UserId OR fu.userid <> u.userid)
 UNION ALL
 
 SELECT '--> Templates' AS [Item], '' AS [Value], '' AS [Comment]
