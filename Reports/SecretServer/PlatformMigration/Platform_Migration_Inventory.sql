@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.4.20260720' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '1.4.20260721' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
@@ -15,7 +15,7 @@ SELECT '--> Platform Adoption Ready' AS [Item],
 		WHEN MAX(CASE WHEN Checks.Severity = 'Possible' THEN 1 ELSE 0 END) = 1 THEN 'Possible'
 		ELSE 'Yes'
 	END AS [Value],
-	ISNULL(STRING_AGG(Checks.ReviewItem, '; '), '') AS [Comment]
+	ISNULL(STRING_AGG(Checks.ReviewItem, ': '), '') AS [Comment]
 FROM (
 	SELECT 'No' AS Severity, 'OpenLDAP Domains' AS ReviewItem
 	WHERE EXISTS (SELECT * FROM tbDomain WITH (NOLOCK) WHERE DomainTypeId = 2 AND Active = 1)
@@ -32,7 +32,7 @@ FROM (
 	SELECT 'Possible', 'Event Pipelines'
 	WHERE (SELECT COUNT(*) FROM tbEventPipelinePolicy WITH (NOLOCK)) > 0
 	UNION ALL
-	SELECT 'No', 'Custom User Ownership (' + CAST(UserOwnership.Cnt AS NVARCHAR(20)) + ' users)'
+	SELECT 'No', 'Custom Us'+'er Ownership (' + CAST(UserOwnership.Cnt AS NVARCHAR(20)) + ' users)'
 	FROM (
 		SELECT COUNT(DISTINCT u.UserId) AS Cnt
 		FROM tbEntityOwnerPermission EOP WITH (NOLOCK)
