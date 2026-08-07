@@ -1,4 +1,4 @@
-SELECT 'Report Version' AS [Item], '1.4.20260721' AS [Value], '' AS [Comment]
+SELECT 'Report Version' AS [Item], '2.0.20260807' AS [Value], '' AS [Comment]
 UNION ALL
 
 SELECT 'Report Date' AS [Item], 
