@@ -828,32 +828,3 @@ UNION ALL
 
 SELECT '--> Metadata Items', CAST(COUNT(*) AS NVARCHAR(50)), ''
 FROM tbMetadataItemData mid
-
-/*
-LEGACY variant of Platform_Migration_Inventory.sql - compatibility notes.
-
-Supported floor
-  Secret Server 11.0 or later.
-  SQL Server 2016 (compatibility level 130) or later.
-
-Deliberate differences from Platform_Migration_Inventory.sql
-  1. Nothing reads tbPlatformConfiguration, so '--> UsePlatformSettings' is omitted. That table
-     arrives in Secret Server 11.1 (SqlServer/11.1/000005.sql) and its UsePlatformSettings column
-     only in 11.5 (SqlServer/11.5/000012.sql). A missing table or column is a compile-time error
-     and cannot be guarded inside a single statement, so neither can be made conditional. The row
-     also carries no information for this audience: UsePlatformSettings is the unified-mode flag,
-     and an instance below 11.5 cannot be in unified mode, so the answer is always 'Disabled'.
-  2. No STRING_AGG anywhere. STRING_AGG is SQL Server 2017+. The Platform Adoption Ready comment is
-     built with STUFF over fixed CASE fragments, which reproduces the same ': '-joined output.
-  3. No XML-PATH string concatenation anywhere. The two name lists that the main report folds into a
-     Comment with that pattern are emitted as their own rows instead:
-       '----> IdP [name]'                  one row per active SAML IdP
-       '----> [source - scannertype]'      one row per active discovery source
-     '--> Discovery Sources' therefore keeps the simple COUNT over tbDiscoverySource rather than
-     counting across the join to tbDiscoveryScanner.
-
-Secret Server report engine rules observed here
-  No CTEs (derived tables only). No XML-PATH concatenation. No trailing semicolon. No SET statements.
-  No inline '--' comments. No 'user' token in an output column name - note the deliberate
-  'Custom Us'+'er Ownership' string split in the Platform Adoption Ready checks.
-*/
