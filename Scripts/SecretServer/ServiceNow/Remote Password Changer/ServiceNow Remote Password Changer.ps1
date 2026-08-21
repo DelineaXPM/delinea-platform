@@ -1,9 +1,9 @@
 
-#Expected Argumnts @("username", "password", "clientId", "clientSecret", "kid", "tenant", "privuseremail", "privateKeyPEM")
+#Expected Arguments @("baseURL", "privUsername", "privPassword", "clientId", "clientSecret", "username", "newPassword")
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 
-#region Set Paramaters and Vaeiables
+#region Set Parameters and Variables
 [string]$baseURL = $args[0]
 [string]$tokenUrl = "$baseURL/oauth_token.do"
 [string]$api = "$baseURL/api/now"
@@ -17,10 +17,10 @@
 
 #Script Constants
 [string]$scope = "useraccount"
-[string]$LogFile = "$env:Program Files\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Password_Rotate.log"
+[string]$LogFile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\ServiceNow-Password_Rotate.log"
 [int32]$LogLevel = 3
 [string]$logApplicationHeader = "ServiceNow Password Change"
-#endregikon
+#endregion
 
 #region Error Handling Functions
 function Write-Log {
@@ -57,7 +57,7 @@ function Get-BearerToken {
         [Parameter(Mandatory=$true, HelpMessage="Privileged User Name")]
         [System.String]$privUsername,
         [Parameter(Mandatory=$true, HelpMessage="Privileged User Password")]
-        [System.String]$privassword,
+        [System.String]$privPassword,
         [Parameter(Mandatory=$false, HelpMessage="scope needed")]
         [System.String]$Scope,
         [Parameter(Mandatory=$true, HelpMessage="Root Url to hit to get bearer token")]
@@ -91,9 +91,9 @@ function Get-BearerToken {
 }
 #endregion
 
-#region RPC Funtions
+#region RPC Functions
 
-function get-ServiceNowUserInfo{
+function Get-ServiceNowUserInfo {
     param (
         [Parameter(Mandatory=$true, HelpMessage="Username to check PW")]
         [System.String]$Username
@@ -143,14 +143,14 @@ function Reset-SNowPassword{
 #Region Main Process
 try {
     
-    $token = (Get-BearerToken -Url $tokenUrl -privUsername $privUsername -privassword $privPassword -Scope $scope -clientId $clientId -clientSecret $clientSecret )
+    $token = (Get-BearerToken -Url $tokenUrl -privUsername $privUsername -privPassword $privPassword -Scope $scope -clientId $clientId -clientSecret $clientSecret )
     $headers = @{
         "Authorization" = "Bearer $token"
         "Accept" = "application/json"
         "Content-Type" = "application/json"
     }
     
-    $userid = get-ServiceNowUserInfo -Username $username  
+    $userid = Get-ServiceNowUserInfo -Username $username  
     $result = Reset-SNowPassword -Userid $userid -newPassword $password
     Write-Log -ErrorLevel 0 -Message "Password Successfully Changed"
 }
