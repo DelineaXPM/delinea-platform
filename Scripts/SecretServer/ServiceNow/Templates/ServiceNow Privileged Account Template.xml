@@ -49,7 +49,7 @@ Example: https://MyInstance.Servicenow.com </description>
       <name>Password</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
-      <ispassword>false</ispassword>
+      <ispassword>true</ispassword>
       <isnotes>false</isnotes>
       <listtype />
       <isfile>false</isfile>
@@ -64,7 +64,7 @@ Example: https://MyInstance.Servicenow.com </description>
     </field>
     <field isexpirationfield="false">
       <displayname>client-id</displayname>
-      <description>ServiceNow API Application ClientUD</description>
+      <description>ServiceNow API Application ClientID</description>
       <name>client-id</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
@@ -87,7 +87,7 @@ Example: https://MyInstance.Servicenow.com </description>
       <name>Client-Secret</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
-      <ispassword>false</ispassword>
+      <ispassword>true</ispassword>
       <isnotes>false</isnotes>
       <listtype />
       <isfile>false</isfile>
@@ -139,9 +139,9 @@ Example: https://MyInstance.Servicenow.com </description>
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
-      <displayname>Local-Account-Groud-Ids</displayname>
-      <description />
-      <name>Local-Account-Groud-Ids</name>
+      <displayname>Local-Account-Group-Ids</displayname>
+      <description>Accounts that are part of these groups will be identified as local accounts</description>
+      <name>Local-Account-Group-Ids</name>
       <mustencrypt>true</mustencrypt>
       <isurl>false</isurl>
       <ispassword>false</ispassword>
@@ -154,7 +154,7 @@ Example: https://MyInstance.Servicenow.com </description>
       <isindexable>false</isindexable>
       <editablepermission>2</editablepermission>
       <required>false</required>
-      <fieldslugname>Local-Account-Groud-Ids</fieldslugname>
+      <fieldslugname>Local-Account-Group-Ids</fieldslugname>
       <hideonview>false</hideonview>
     </field>
   </fields>

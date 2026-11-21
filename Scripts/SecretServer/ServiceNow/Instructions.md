@@ -1,4 +1,4 @@
- ServiceNow Connector Overview
+# ServiceNow Connector Overview
 
 This connector provides the following functions:  
 
@@ -17,7 +17,7 @@ This connector utilizes an OAuth 2.0 application in ServiceNow using the client 
 ### Prerequisites
 
 - Access to a ServiceNow instance with administrative privileges.
-Basic understanding of OAuth 2.0 and ServiceNow administration.
+- Basic understanding of OAuth 2.0 and ServiceNow administration.
 
 ## Create an OAuth Application Registry
 
@@ -28,7 +28,7 @@ For more information click [here](https://docs.servicenow.com/bundle/vancouver-p
 
 - Document the following values as they will be needed in the upcoming sections:
   - clientId, clientSecret, username, and password
-  . The username and password should be the credential that has the permissions to Discover Users and Change their Passwords
+  - The username and password should be the credential that has the permissions to Discover Users and Change their Passwords
 
 ## Creating Secret Template for ServiceNow Accounts 
 
@@ -62,12 +62,12 @@ The following steps are required to create the Secret Template for ServiceNow Pr
 - Select the template created in the earlier step [above](#servicenow-privileged-account-template).
 - Fill out the required fields with the information from the application registration
     - **Secret Name:** (for example ServiceNow API Account )
-    - **tenant-url:** (ServiceNow base url with no training slash)
+    - **tenant-url:** (ServiceNow base url with no trailing slash)
     - **Username:** (Created in the create App Registration [above](#create-an-oauth-application-registry))
     - **Password:** (Created in the create App Registration [above](#create-an-oauth-application-registry))
     - **Client-id:** (Created in the create App Registration [above](#create-an-oauth-application-registry))
     - **client-secret:** (Created in the create App Registration [above](#create-an-oauth-application-registry))
-    - **Admin-Roles:** add a comma separated list of all roles that are considered to be an ministrative user in the format of - role Name=role_sys_id (Example: admin=2831a114c611228501d4ea6c309d626d)
+    - **Admin-Roles:** add a comma separated list of all roles that are considered to be an administrative user in the format of - role Name=role_sys_id (Example: admin=2831a114c611228501d4ea6c309d626d)
     - **Service-Account-Group-Ids:** add a comma separated list of all groups that are considered to be a Service Account in the Service-Account (Example: Engine Admins=c38f00f4530360100999ddeeff7b1298)
   - Click Create Secret
   
